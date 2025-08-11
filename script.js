@@ -220,17 +220,98 @@ class IndustryStandardChatBot {
                 timestampInfo.textContent = `Video: ${videoPath.split('/').pop()} at ${this.formatTimestamp(timestamp)}`;
             }
             
+            // Get section and step indices from visual element
+            const step = this.activeVisual.closest('.process-step');
+            const section = step.closest('.document-section');
+            const sections = Array.from(document.querySelectorAll('.document-section'));
+            const sectionIndex = sections.indexOf(section);
+            const stepIndex = Array.from(section.querySelectorAll('.process-step')).indexOf(step);
+            
+            // Get document ID from export button
+            const exportBtn = document.querySelector('.document-action-btn');
+            const documentId = exportBtn.getAttribute('data-document-id');
+            if (!documentId) {
+                throw new Error('Document ID not found');
+            }
+            
+            // Update selected frame in document cache with retry
+            let retryCount = 0;
+            const maxRetries = 3;
+            let updateSuccess = false;
+            
+            while (retryCount < maxRetries && !updateSuccess) {
+                try {
+                    const updateResponse = await fetch('/api/update-selected-frame', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            documentId,
+                            sectionIndex,
+                            stepIndex,
+                            frameData: {
+                                base64Image: data.base64Image,
+                                videoPath,
+                                timestamp,
+                                caption: this.activeVisual.querySelector('.visual-caption')?.textContent || '',
+                                success: true
+                            }
+                        })
+                    });
+                    
+                    if (!updateResponse.ok) {
+                        throw new Error(`Failed to update document cache: ${updateResponse.status}`);
+                    }
+                    
+                    const updateData = await updateResponse.json();
+                    
+                    // Update export button state and style
+                    if (updateData.isReadyForPDF) {
+                        exportBtn.style.opacity = '1';
+                        exportBtn.style.cursor = 'pointer';
+                        exportBtn.style.backgroundColor = '#4CAF50';
+                        exportBtn.title = 'All frames selected - Ready to export PDF';
+                    } else {
+                        exportBtn.style.opacity = '0.5';
+                        exportBtn.style.cursor = 'not-allowed';
+                        exportBtn.style.backgroundColor = '#ccc';
+                        exportBtn.title = 'Please select all required frames before exporting';
+                    }
+                    
+                    updateSuccess = true;
+                    
+                } catch (error) {
+                    retryCount++;
+                    if (retryCount === maxRetries) {
+                        throw error;
+                    }
+                    await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
+                }
+            }
+            
             // Close modal
             const modal = document.getElementById('frameSelectionModal');
             if (modal) {
                 modal.style.display = 'none';
+                // Reset preview image
+                const preview = document.getElementById('framePreview');
+                if (preview) {
+                    preview.src = '';
+                }
             }
             
             this.activeVisual = null;
             
         } catch (error) {
             console.error('Failed to select frame:', error);
-            this.addErrorMessage('Failed to update frame. Please try again.');
+            this.addErrorMessage(`Failed to update frame: ${error.message}`);
+            
+            // Keep modal open on error
+            const preview = document.getElementById('framePreview');
+            if (preview) {
+                preview.src = '';
+            }
         }
     }
 
@@ -712,11 +793,16 @@ class IndustryStandardChatBot {
         headerDiv.innerHTML = `
             <h3>${data.title || 'Process Document'}</h3>
             <div class="document-actions">
-                <button class="document-action-btn" onclick="window.open('/api/export-pdf?id=${data.documentId}', '_blank')">
+                <button class="document-action-btn" data-document-id="${data.documentId}" onclick="exportPDF('${data.documentId}')" style="opacity: 0.5; cursor: not-allowed;">
                     📥 Export PDF
                 </button>
             </div>
         `;
+
+        // Add exportPDF function to window
+        window.exportPDF = function(documentId) {
+            window.open(`/api/export-pdf?id=${documentId}`, '_blank');
+        };
         documentWrapper.appendChild(headerDiv);
         
         const contentDiv = document.createElement('div');
@@ -740,7 +826,12 @@ class IndustryStandardChatBot {
         // Add main content with proper spacing
         const mainContent = document.createElement('div');
         mainContent.className = 'document-main-content';
-        mainContent.innerHTML = data.htmlContent;
+        // Remove any existing export buttons from the content
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data.htmlContent;
+        const exportButtons = tempDiv.querySelectorAll('.document-actions');
+        exportButtons.forEach(btn => btn.remove());
+        mainContent.innerHTML = tempDiv.innerHTML;
         contentDiv.appendChild(mainContent);
         
         documentWrapper.appendChild(contentDiv);

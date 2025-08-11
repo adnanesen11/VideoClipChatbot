@@ -51,7 +51,7 @@ const CLIP_CONFIG = {
     CONTEXT_BUFFER: 3,           // Seconds before/after
     // Use AWS Bedrock Claude instead of external APIs
     CLAUDE_MODEL_ID: 'arn:aws:bedrock:us-east-1:225989333617:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0',
-    EMBEDDING_MODEL_ID: 'amazon.titan-embed-text-v2:0' // AWS native embedding model
+    EMBEDDING_MODEL_ID: 'cohere.embed-multilingual-v3' // AWS native embedding model
 };
 
 require('dotenv').config();
@@ -1145,18 +1145,24 @@ Respond with JSON only:
             const files = await this.findAllVideoFiles();
             if (files.length === 0) return null;
             
-            // Extract timestamp from S3 URI
-            const timestampMatch = s3Uri.match(/(\d{8}_\d{6})/);
-            const timestamp = timestampMatch ? timestampMatch[1] : null;
+            // Extract filename from S3 URI and remove _sentences.json suffix
+            const uriParts = s3Uri.split('/');
+            const s3Filename = uriParts[uriParts.length - 1].replace('_sentences.json', '');
             
-            if (timestamp) {
-                const exactMatch = files.find(file => file.includes(timestamp));
-                if (exactMatch) return exactMatch;
+            // Try to find matching video file
+            const match = files.find(file => {
+                // Remove video extension for comparison
+                const videoName = file.replace(/\.(mp4|avi|mov|mkv|webm)$/i, '');
+                return videoName === s3Filename;
+            });
+            
+            if (match) {
+                logger.log(`Found exact match for ${s3Filename}`);
+                return match;
             }
             
-            // Fallback distribution
-            const hash = this.simpleHash(s3Uri);
-            return files[hash % files.length];
+            logger.log(`No match found for ${s3Filename}`);
+            return null;
             
         } catch (error) {
             logger.error('Error finding video file:', error);
@@ -1277,7 +1283,7 @@ app.post('/api/chat-direct', async (req, res) => {
             retrieveAndGenerateConfiguration: {
                 type: "KNOWLEDGE_BASE",
                 knowledgeBaseConfiguration: {
-                    knowledgeBaseId: "Z2PB8IJPPU", // Your Knowledge Base ID
+                knowledgeBaseId: "0STV2BEIMA", // Your Knowledge Base ID
                     modelArn: CLIP_CONFIG.CLAUDE_MODEL_ID,
                     retrievalConfiguration: {
                         vectorSearchConfiguration: {
@@ -1813,20 +1819,40 @@ app.post('/api/generate-document', async (req, res) => {
         // Step 4: Generate HTML
         const htmlContent = generateDocumentHTML(documentWithFrames);
         
-        // Step 5: Store for PDF export
+// Step 5: Store for PDF export with selected frames tracking
+        // Initialize document with proper structure
         const documentId = uuidv4();
-        documentCache.set(documentId, {
-            structure: documentWithFrames,
-            html: htmlContent,
-            created: new Date()
-        });
+        const cached = initializeDocument(documentId, documentWithFrames);
+        cached.html = htmlContent;
+        
+        // Validate structure
+        if (!validateDocumentStructure(documentWithFrames)) {
+            throw new Error('Invalid document structure');
+        }
+        
+        logger.log(`Document cache initialized with ID: ${documentId}`);
         
         const processingTime = ((Date.now() - startTime) / 1000).toFixed(1);
         logger.log(`✅ Document generated in ${processingTime}s`);
         
+        // Add export button with proper document ID
+        const exportButton = `
+            <div class="document-actions">
+                <button class="document-action-btn" data-document-id="${documentId}" onclick="exportPDF('${documentId}')" style="opacity: 0.5; cursor: not-allowed;">
+                    📥 Export PDF
+                </button>
+            </div>
+        `;
+        
+        // Insert export button into HTML content
+        const htmlWithExport = htmlContent.replace(
+            '<div class="document-intro">',
+            `<div class="document-actions">${exportButton}</div><div class="document-intro">`
+        );
+        
         res.json({
             title: documentWithFrames.title,
-            htmlContent: htmlContent,
+            htmlContent: htmlWithExport,
             documentId: documentId,
             metadata: {
                 processingTime: processingTime,
@@ -1840,10 +1866,185 @@ app.post('/api/generate-document', async (req, res) => {
     }
 });
 
-// PDF export endpoint
+// Document cache and endpoints
+const documentCache = new Map();
+
+// Initialize document cache with proper structure
+function initializeDocument(documentId, structure = null) {
+    try {
+        if (!documentCache.has(documentId)) {
+            const newDoc = {
+                structure: structure ? JSON.parse(JSON.stringify(structure)) : {},
+                selectedFrames: new Map(),
+                isReadyForPDF: false,
+                created: new Date(),
+                lastUpdated: new Date()
+            };
+            documentCache.set(documentId, newDoc);
+            logger.log(`Initialized document cache for ${documentId}`);
+            return newDoc;
+        }
+        
+        const cached = documentCache.get(documentId);
+        if (structure) {
+            cached.structure = JSON.parse(JSON.stringify(structure));
+            cached.lastUpdated = new Date();
+            documentCache.set(documentId, cached);
+            logger.log(`Updated document structure for ${documentId}`);
+        }
+        return cached;
+    } catch (error) {
+        logger.error(`Failed to initialize document cache: ${error.message}`);
+        throw new Error('Document cache initialization failed');
+    }
+}
+
+// Validate document structure
+function validateDocumentStructure(structure) {
+    if (!structure || typeof structure !== 'object') {
+        return false;
+    }
+    if (!Array.isArray(structure.sections)) {
+        return false;
+    }
+
+    // Count total visual steps across all sections
+    let visualStepCount = 0;
+    for (const section of structure.sections) {
+        if (!section || !Array.isArray(section.steps)) {
+            return false;
+        }
+        for (const step of section.steps) {
+            if (!step || typeof step !== 'object' || typeof step.number !== 'number') {
+                return false;
+            }
+            // Ensure needsVisual is explicitly set
+            if (step.needsVisual === undefined) {
+                return false;
+            }
+            // Count visual steps
+            if (step.needsVisual === true) {
+                visualStepCount++;
+            }
+            // Validate visualDescription
+            if (step.needsVisual === true && !step.visualDescription) {
+                return false;
+            }
+            if (step.needsVisual === false && step.visualDescription !== null) {
+                return false;
+            }
+        }
+    }
+
+    // Must have exactly 4 visual steps
+    if (visualStepCount !== 4) {
+        logger.error(`Invalid visual step count: ${visualStepCount} (must be exactly 4)`);
+        return false;
+    }
+
+    return true;
+}
+
+// Update selected frame endpoint
+app.post('/api/update-selected-frame', async (req, res) => {
+    try {
+        const { documentId, stepIndex, sectionIndex, frameData } = req.body;
+        
+        if (!documentId || stepIndex === undefined || sectionIndex === undefined || !frameData) {
+            return res.status(400).json({ error: 'Missing required parameters' });
+        }
+        
+        // Get document from cache
+        const cached = documentCache.get(documentId);
+        if (!cached || !cached.structure || !cached.structure.sections) {
+            logger.error(`Invalid document structure for ID: ${documentId}`);
+            return res.status(400).json({ error: 'Invalid document structure' });
+        }
+
+        // Validate section and step indices
+        if (sectionIndex >= cached.structure.sections.length) {
+            return res.status(400).json({ error: 'Invalid section index' });
+        }
+
+        const section = cached.structure.sections[sectionIndex];
+        if (!section.steps || stepIndex >= section.steps.length) {
+            return res.status(400).json({ error: 'Invalid step index' });
+        }
+
+        // Update selected frame for this step
+        const key = `${sectionIndex}-${stepIndex}`;
+        cached.selectedFrames.set(key, {
+            ...frameData,
+            timestamp: Date.now()
+        });
+
+        // Check if all required frames are selected
+        let totalSteps = 0;
+        let selectedSteps = 0;
+
+        // First pass: Count total required frames
+        for (const section of cached.structure.sections) {
+            if (!section.steps) continue;
+            for (const step of section.steps) {
+                // Only count steps that are explicitly marked as needing visuals
+                if (step.needsVisual === true) {
+                    totalSteps++;
+                    logger.log(`Found step needing visual: Section ${sectionIndex}, Step ${step.number}`);
+                }
+            }
+        }
+
+        // Second pass: Count selected frames that match required steps
+        for (const [key, frame] of cached.selectedFrames.entries()) {
+            if (frame && frame.success) {
+                // Parse section and step index from key
+                const [frameSection, frameStep] = key.split('-').map(Number);
+                
+                // Verify this frame corresponds to a step that needs a visual
+                if (frameSection < cached.structure.sections.length) {
+                    const section = cached.structure.sections[frameSection];
+                    if (section.steps && frameStep < section.steps.length) {
+                        const step = section.steps[frameStep];
+                        if (step.needsVisual === true) {
+                            selectedSteps++;
+                            logger.log(`Found selected frame for required step: Section ${frameSection}, Step ${step.number}`);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Update ready state
+        const allFramesSelected = totalSteps > 0 && selectedSteps >= totalSteps;
+
+        cached.isReadyForPDF = allFramesSelected;
+        cached.lastUpdated = new Date();
+        documentCache.set(documentId, cached);
+
+        logger.log(`Frame selection updated: ${selectedSteps}/${totalSteps} frames selected`);
+
+        res.json({ 
+            success: true, 
+            isReadyForPDF: allFramesSelected,
+            progress: {
+                total: totalSteps,
+                selected: selectedSteps,
+                remaining: totalSteps - selectedSteps
+            }
+        });
+    } catch (error) {
+        logger.error('Error updating selected frame:', error);
+        res.status(500).json({ 
+            error: 'Failed to update selected frame',
+            details: error.message
+        });
+    }
+});
+
+// PDF export endpoint with enhanced error handling and optimization
 app.get('/api/export-pdf', async (req, res) => {
     let browser = null;
-    const maxRetries = 2; // Reduced retries for demo
+    const maxRetries = 3;
     let attempt = 0;
     
     try {
@@ -1853,15 +2054,45 @@ app.get('/api/export-pdf', async (req, res) => {
         if (!cached) {
             return res.status(404).json({ error: 'Document not found' });
         }
+
+        if (!cached.isReadyForPDF) {
+            return res.status(400).json({ error: 'Please select all required frames before generating PDF' });
+        }
         
         logger.log(`📄 Starting PDF export for document: ${cached.structure.title}`);
+
+        // Update structure with selected frames
+        const updatedStructure = JSON.parse(JSON.stringify(cached.structure));
+        updatedStructure.sections.forEach((section, secIdx) => {
+            section.steps.forEach((step, stepIdx) => {
+                if (step.needsVisual) {
+                    const selectedFrame = cached.selectedFrames.get(`${secIdx}-${stepIdx}`);
+                    if (selectedFrame) {
+                        step.visual = selectedFrame;
+                    }
+                }
+            });
+        });
+        
+        // Step 1: Optimize images with better error handling
+        let optimizedStructure;
+        try {
+            optimizedStructure = await optimizeImagesForPDF(updatedStructure);
+            logger.log('✅ Images optimized successfully');
+        } catch (optimizeError) {
+            logger.error('Image optimization failed:', optimizeError);
+            // Fallback to original structure if optimization fails
+            optimizedStructure = cached.structure;
+        }
+        
+        // Step 2: Generate HTML with enhanced print styles
+        const optimizedHTML = generateDocumentHTML(optimizedStructure, true);
         
         while (attempt < maxRetries) {
             try {
                 attempt++;
                 logger.log(`🚀 PDF export attempt ${attempt}/${maxRetries}`);
                 
-                // FIXED: More reliable browser launch
                 browser = await puppeteer.launch({ 
                     headless: 'new',
                     executablePath: process.env.CHROME_PATH || undefined,
@@ -1871,144 +2102,187 @@ app.get('/api/export-pdf', async (req, res) => {
                         '--disable-gpu',
                         '--disable-dev-shm-usage',
                         '--disable-extensions',
+                        '--font-render-hinting=none',
                         '--disable-background-timer-throttling',
                         '--disable-backgrounding-occluded-windows',
                         '--disable-renderer-backgrounding',
-                        '--font-render-hinting=none'
+                        '--disable-software-rasterizer',
+                        '--disable-features=IsolateOrigins,site-per-process',
+                        '--enable-font-antialiasing',
+                        '--hide-scrollbars',
+                        '--font-render-hinting=medium',
+                        '--force-color-profile=srgb',
+                        '--force-device-scale-factor=2'
                     ],
-                    timeout: 30000
+                    timeout: 90000, // Increased timeout
+                    ignoreHTTPSErrors: true,
+                    defaultViewport: {
+                        width: 1200,
+                        height: 1600,
+                        deviceScaleFactor: 2,
+                        isLandscape: false
+                    }
                 });
                 
                 const page = await browser.newPage();
                 
-                // FIXED: Set longer timeouts for content loading
-                page.setDefaultTimeout(45000);
-                page.setDefaultNavigationTimeout(45000);
+                // Increase timeouts for better reliability
+                page.setDefaultTimeout(60000);
+                page.setDefaultNavigationTimeout(60000);
                 
-                await page.setViewport({
-                    width: 1200,
-                    height: 1600,
-                    deviceScaleFactor: 1 // Reduced for stability
+                // Enhanced page configuration for better rendering
+                await page.evaluateOnNewDocument(() => {
+                    document.body.style.webkitFontSmoothing = 'antialiased';
+                    document.body.style.textRendering = 'optimizeLegibility';
+                    document.body.style.printColorAdjust = 'exact';
+                    document.body.style.WebkitPrintColorAdjust = 'exact';
+                    
+                    // Force JPEG image format for better compression
+                    const images = document.getElementsByTagName('img');
+                    for (const img of images) {
+                        img.style.imageRendering = 'auto';
+                        if (!img.complete || !img.naturalWidth) {
+                            img.onerror = () => {
+                                img.src = 'data:image/svg+xml,' + encodeURIComponent(`
+                                    <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="100%" height="100%" fill="#f8f9fa"/>
+                                        <text x="50%" y="50%" font-family="Arial" font-size="24" fill="#666" text-anchor="middle">
+                                            Image failed to load
+                                        </text>
+                                    </svg>
+                                `);
+                            };
+                        }
+                    }
                 });
                 
-                // FIXED: Enhanced HTML with embedded styles for reliability
-                const enhancedHTML = wrapHTMLForPDF(cached.html);
+                // Wait for network to be idle
+                await page.setRequestInterception(true);
+                page.on('request', request => {
+                    if (request.resourceType() === 'image') {
+                        request.continue();
+                    } else {
+                        request.continue();
+                    }
+                });
+                
+                // Enhanced HTML with embedded styles and fonts
+// Create clean HTML without embedded styles
+const enhancedHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${optimizedStructure.title}</title>
+    <style>
+        @page { margin: 20mm; size: A4; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: white; }
+        .document-title { font-size: 24pt; font-weight: bold; margin-bottom: 15px; text-align: center; }
+        .document-introduction { font-size: 12pt; margin-bottom: 20px; text-align: center; }
+        .section-title { font-size: 18pt; font-weight: bold; margin: 30px 0 15px 0; border-bottom: 2px solid #000; page-break-after: avoid; }
+        .process-step { margin: 20px 0; padding: 15px; border-left: 2px solid #000; page-break-inside: avoid; }
+        .step-number { font-weight: bold; margin-bottom: 10px; }
+        .step-content { margin-bottom: 15px; }
+        .step-visual { text-align: center; margin: 15px 0; page-break-inside: avoid; }
+        .step-visual img { max-width: 100%; height: auto; margin: 10px 0; }
+        .visual-caption { font-style: italic; color: #666; font-size: 10pt; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="document-title">${optimizedStructure.title}</div>
+    <div class="document-introduction">${optimizedStructure.introduction}</div>
+    ${optimizedStructure.sections.map(section => `
+        <div class="document-section">
+            <div class="section-title">${section.title}</div>
+            ${section.steps.map(step => `
+                <div class="process-step">
+                    <div class="step-number">Step ${step.number}</div>
+                    <div class="step-content">${step.text}</div>
+                    ${step.visual ? `
+                        <div class="step-visual">
+                            <img src="${step.visual.base64Image}" alt="Visual aid" style="max-width: 100%; height: auto;">
+                            <div class="visual-caption">${step.visual.caption}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('')}
+        </div>
+    `).join('')}
+    ${optimizedStructure.conclusion ? `
+        <div class="document-section">
+            <div class="section-title">Conclusion</div>
+            <div class="step-content">${optimizedStructure.conclusion}</div>
+        </div>
+    ` : ''}
+</body>
+</html>`;
                 
                 logger.log(`📝 Setting page content...`);
                 
-                // Simple content loading
-                await page.setContent(enhancedHTML, { 
-                    waitUntil: 'networkidle0',
-                    timeout: 30000
-                });
+                // Enhanced content loading with better error handling
+                await Promise.race([
+                    page.setContent(enhancedHTML, { 
+                        waitUntil: ['load', 'networkidle0', 'domcontentloaded'],
+                        timeout: 60000
+                    }),
+                    new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('Content loading timeout')), 60000)
+                    )
+                ]);
                 
-                // Basic style check
-                await page.waitForFunction(() => {
-                    return document.fonts.ready;
-                }, { timeout: 5000 });
-                
-                // Enhanced image validation and loading
-                const imageValidation = await page.evaluate(() => {
-                    const results = {
-                        valid: [],
-                        invalid: [],
-                        errors: []
-                    };
-                    
-                    const images = Array.from(document.images);
-                    images.forEach(img => {
-                        try {
-                            if (!img.complete) {
-                                results.invalid.push({
-                                    src: img.src.substring(0, 50),
-                                    error: 'Image not loaded'
-                                });
-                            } else if (!img.naturalWidth) {
-                                results.invalid.push({
-                                    src: img.src.substring(0, 50),
-                                    error: 'Invalid dimensions'
-                                });
-                            } else if (img.src.startsWith('data:image')) {
-                                // Validate base64 images
-                                const base64Match = img.src.match(/^data:image\/([a-zA-Z]+);base64,/);
-                                if (!base64Match) {
-                                    results.invalid.push({
-                                        src: img.src.substring(0, 50),
-                                        error: 'Invalid base64 format'
-                                    });
+                // Ensure all content is loaded
+                await page.evaluate(() => {
+                    return new Promise((resolve, reject) => {
+                        const timeout = setTimeout(() => reject(new Error('Content loading timed out')), 30000);
+                        
+                        Promise.all([
+                            document.fonts.ready,
+                            new Promise(resolve => {
+                                if (document.readyState === 'complete') {
+                                    resolve();
                                 } else {
-                                    results.valid.push({
-                                        src: img.src.substring(0, 50),
-                                        type: base64Match[1],
-                                        width: img.naturalWidth,
-                                        height: img.naturalHeight
-                                    });
+                                    window.addEventListener('load', resolve);
                                 }
-                            } else {
-                                results.valid.push({
-                                    src: img.src.substring(0, 50),
-                                    width: img.naturalWidth,
-                                    height: img.naturalHeight
+                            }),
+                            new Promise(resolve => {
+                                const images = Array.from(document.images);
+                                const loadedImages = images.map(img => {
+                                    if (img.complete) {
+                                        return Promise.resolve();
+                                    }
+                                    return new Promise(resolve => {
+                                        img.onload = img.onerror = resolve;
+                                    });
                                 });
-                            }
-                        } catch (error) {
-                            results.errors.push({
-                                src: img.src.substring(0, 50),
-                                error: error.message
-                            });
-                        }
+                                Promise.all(loadedImages).then(resolve);
+                            })
+                        ]).then(() => {
+                            clearTimeout(timeout);
+                            resolve();
+                        });
                     });
-                    
-                    return results;
                 });
                 
-                // Log validation results
-                if (imageValidation.valid.length > 0) {
-                    logger.log(`✅ ${imageValidation.valid.length} valid images found`);
+                // Wait for fonts and images
+                await Promise.all([
+                    page.waitForFunction(() => document.fonts.ready, { timeout: 10000 }),
+                    page.waitForFunction(() => {
+                        const images = Array.from(document.images);
+                        return images.every(img => img.complete);
+                    }, { timeout: 10000 })
+                ]);
+                
+                // Validate and optimize page content
+                const validationResult = await validatePageContent(page);
+                if (validationResult.issues.length > 0) {
+                    logger.log(`⚠️ Found ${validationResult.issues.length} content issues to fix`);
+                    await fixContentIssues(page, validationResult.issues);
                 }
                 
-                if (imageValidation.invalid.length > 0) {
-                    logger.error('❌ Invalid images found:', imageValidation.invalid);
-                    
-                    // Replace invalid images with placeholders
-                    await page.evaluate((invalidImages) => {
-                        invalidImages.forEach(img => {
-                            const element = Array.from(document.images)
-                                .find(el => el.src.startsWith(img.src));
-                            
-                            if (element) {
-                                // Create placeholder div
-                                const placeholder = document.createElement('div');
-                                placeholder.className = 'visual-placeholder';
-                                placeholder.style.cssText = `
-                                    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-                                    padding: 40px 20px;
-                                    border-radius: 8px;
-                                    text-align: center;
-                                    border: 2px dashed #cbd5e0;
-                                    margin: 15px 0;
-                                    color: #4a5568;
-                                `;
-                                
-                                placeholder.innerHTML = `
-                                    <div style="font-size: 3rem; margin-bottom: 15px; opacity: 0.7;">🎬</div>
-                                    <div style="font-weight: 600; margin-bottom: 8px;">Image Load Error</div>
-                                    <div style="font-size: 0.9rem; opacity: 0.8;">${img.error}</div>
-                                `;
-                                
-                                element.parentNode.replaceChild(placeholder, element);
-                            }
-                        });
-                    }, imageValidation.invalid);
-                }
+                logger.log(`🎨 Generating PDF with enhanced settings...`);
                 
-                if (imageValidation.errors.length > 0) {
-                    logger.error('⚠️ Image processing errors:', imageValidation.errors);
-                }
-                
-                logger.log(`🎨 Generating PDF...`);
-                
-                // Basic PDF generation with minimal options
+                // Enhanced PDF generation with optimized settings
                 const pdf = await page.pdf({
                     format: 'A4',
                     printBackground: true,
@@ -2017,22 +2291,48 @@ app.get('/api/export-pdf', async (req, res) => {
                         right: '20mm',
                         bottom: '20mm',
                         left: '20mm'
-                    }
+                    },
+                    preferCSSPageSize: true,
+                    displayHeaderFooter: false,
+                    scale: 1,
+                    landscape: false,
+                    pageRanges: '',
+                    headerTemplate: '',
+                    footerTemplate: '',
+                    omitBackground: false,
+                    timeout: 60000,
                 });
+
+                // Validate PDF buffer
+                if (!pdf || pdf.length === 0) {
+                    throw new Error('Generated PDF buffer is empty');
+                }
+
+                // Create a copy of the buffer to ensure it's properly closed
+                const pdfBuffer = Buffer.from(pdf);
                 
                 await browser.close();
                 browser = null;
                 
-                logger.log(`✅ PDF generated successfully (${pdf.length} bytes)`);
+                const pdfSize = pdf.length / (1024 * 1024);
+                logger.log(`✅ PDF generated successfully (${pdfSize.toFixed(2)} MB)`);
                 
-                // FIXED: Better filename generation
                 const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
-                const filename = `document-${timestamp}.pdf`;
+                const filename = `${cached.structure.title.replace(/[^a-z0-9]/gi, '_')}-${timestamp}.pdf`;
                 
+                // Send PDF in chunks
                 res.setHeader('Content-Type', 'application/pdf');
                 res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-                res.setHeader('Content-Length', pdf.length);
-                res.send(pdf);
+                res.setHeader('Content-Length', pdfBuffer.length);
+                
+                const chunkSize = 16384; // 16KB chunks
+                for (let i = 0; i < pdfBuffer.length; i += chunkSize) {
+                    const chunk = pdfBuffer.slice(i, i + chunkSize);
+                    res.write(chunk);
+                }
+                res.end();
+                
+                logger.log(`✅ PDF sent successfully (${(pdfBuffer.length / (1024 * 1024)).toFixed(2)} MB)`);
                 return;
                 
             } catch (error) {
@@ -2072,8 +2372,117 @@ app.get('/api/export-pdf', async (req, res) => {
     }
 });
 
-// Helper functions
-const documentCache = new Map();
+// Helper functions for PDF generation
+const sharp = require('sharp');
+
+async function optimizeImagesForPDF(structure) {
+    const optimizedStructure = JSON.parse(JSON.stringify(structure)); // Deep clone
+    
+    for (const section of optimizedStructure.sections) {
+        for (const step of section.steps) {
+            if (step.visual && step.visual.base64Image) {
+                try {
+                    // Extract base64 data
+                    const base64Data = step.visual.base64Image.replace(/^data:image\/\w+;base64,/, '');
+                    const imageBuffer = Buffer.from(base64Data, 'base64');
+                    
+                    // Optimize image
+                    const optimizedBuffer = await sharp(imageBuffer)
+                        .resize(800, 600, { // Reduced size
+                            fit: 'inside',
+                            withoutEnlargement: true
+                        })
+                        .jpeg({ // Convert to JPEG
+                            quality: 80,
+                            progressive: true
+                        })
+                        .toBuffer();
+                    
+                    // Update base64 image
+                    step.visual.base64Image = `data:image/jpeg;base64,${optimizedBuffer.toString('base64')}`;
+                    
+                    const savings = ((imageBuffer.length - optimizedBuffer.length) / imageBuffer.length * 100).toFixed(1);
+                    logger.log(`Optimized image: ${savings}% size reduction`);
+                    
+                } catch (error) {
+                    logger.error(`Image optimization failed: ${error.message}`);
+                }
+            }
+        }
+    }
+    
+    return optimizedStructure;
+}
+
+async function validatePageContent(page) {
+    const issues = [];
+    
+    // Check images
+    const imageIssues = await page.evaluate(() => {
+        return Array.from(document.images).map(img => {
+            if (!img.complete) return { type: 'image_incomplete', element: img.outerHTML };
+            if (!img.naturalWidth) return { type: 'image_invalid', element: img.outerHTML };
+            if (img.naturalWidth < 50) return { type: 'image_too_small', element: img.outerHTML };
+            return null;
+        }).filter(Boolean);
+    });
+    issues.push(...imageIssues);
+    
+    // Check text content
+    const textIssues = await page.evaluate(() => {
+        const issues = [];
+        const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6');
+        
+        textElements.forEach(el => {
+            const style = window.getComputedStyle(el);
+            if (parseFloat(style.fontSize) < 8) {
+                issues.push({ type: 'text_too_small', element: el.outerHTML });
+            }
+        });
+        
+        return issues;
+    });
+    issues.push(...textIssues);
+    
+    return { issues };
+}
+
+async function fixContentIssues(page, issues) {
+    for (const issue of issues) {
+        switch (issue.type) {
+            case 'image_incomplete':
+            case 'image_invalid':
+                await page.evaluate((html) => {
+                    const temp = document.createElement('div');
+                    temp.innerHTML = html;
+                    const img = temp.querySelector('img');
+                    if (img) {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'visual-placeholder';
+                        placeholder.innerHTML = `
+                            <div style="padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px;">
+                                <div style="font-size: 24px; margin-bottom: 10px;">🖼️</div>
+                                <div>Image could not be loaded</div>
+                            </div>
+                        `;
+                        img.parentNode.replaceChild(placeholder, img);
+                    }
+                }, issue.element);
+                break;
+                
+            case 'text_too_small':
+                await page.evaluate((html) => {
+                    const temp = document.createElement('div');
+                    temp.innerHTML = html;
+                    const el = temp.firstElementChild;
+                    if (el) {
+                        el.style.fontSize = '12px';
+                    }
+                }, issue.element);
+                break;
+        }
+    }
+}
 
 async function generateDocumentStructure(query, kbData, bedrockRuntimeClient) {
     const prompt = `Create a structured process document based on this query and content.
@@ -2081,7 +2490,19 @@ async function generateDocumentStructure(query, kbData, bedrockRuntimeClient) {
 QUERY: "${query}"
 CONTENT: "${kbData.response}"
 
-Generate a clear, step-by-step process document. For each step that would benefit from a visual, mark it.
+CRITICAL RULES FOR VISUAL STEPS:
+1. Create EXACTLY 4 visual steps total across all sections
+2. Mark these 4 key steps with needsVisual=true
+3. All other steps must have needsVisual=false
+4. Each visual step must have a clear visualDescription
+5. Choose only the most critical steps that absolutely require visual demonstration
+
+FORMAT RULES:
+1. Each step must have these exact properties:
+   - number: (integer)
+   - text: (string) step description
+   - needsVisual: (boolean) exactly true for 4 steps, false for all others
+   - visualDescription: (string) required if needsVisual=true, null if false
 
 Respond with JSON only:
 {
@@ -2094,14 +2515,25 @@ Respond with JSON only:
         {
           "number": 1,
           "text": "Step description",
-          "needsVisual": true/false,
-          "visualDescription": "what to show if needsVisual is true"
+          "needsVisual": false,
+          "visualDescription": null
         }
       ]
     }
   ],
-  "conclusion": "Brief conclusion"
-}`;
+  "conclusion": "Brief conclusion",
+  "metadata": {
+    "visualStepCount": 4,
+    "totalSteps": 0
+  }
+}
+
+STRICT VALIDATION:
+1. Count total needsVisual=true steps across ALL sections
+2. Must be EXACTLY 4 visual steps
+3. Each visual step must have non-null visualDescription
+4. All non-visual steps must have visualDescription=null
+5. All steps must have needsVisual explicitly set to true or false`;
 
     try {
         const command = new InvokeModelCommand({
@@ -2308,8 +2740,9 @@ function createFallbackVisual(clip, timestamp, description) {
 }
 
 // FIXED: Much more robust HTML generation for PDF
-function generateDocumentHTML(doc) {
+function generateDocumentHTML(doc, forPDF = false) {
     const sanitizeText = (text) => {
+        if (!text) return '';
         return text
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
@@ -2466,7 +2899,7 @@ function generateDocumentHTML(doc) {
             `;
             
             if (step.visual) {
-                if (step.visual.success && step.visual.base64Image) {
+                if ((step.visual.success || forPDF) && step.visual.base64Image) {
                     // Working image
                     html += `
                     <div class="step-visual" data-video-path="${step.visual.videoPath}" data-timestamp="${step.visual.timestamp}">
@@ -2649,25 +3082,100 @@ function generateDocumentHTML(doc) {
                         timestampInfo.textContent = \`Video: \${videoPath.split('/').pop()} at \${formatTimestamp(timestamp)}\`;
                     }
                     
+                    // Get section and step indices
+                    const step = activeVisual.closest('.process-step');
+                    const section = step.closest('.document-section');
+                    const sections = Array.from(document.querySelectorAll('.document-section'));
+                    const sectionIndex = sections.indexOf(section);
+                    const stepIndex = Array.from(section.querySelectorAll('.process-step')).indexOf(step);
+                    
+                    // Get document ID from export button
+                    const exportBtn = document.querySelector('.document-action-btn');
+                    const documentId = exportBtn.getAttribute('data-document-id');
+                    
+                    if (!documentId) {
+                        throw new Error('Document ID not found');
+                    }
+                    
+                    // Update selected frame in document cache
+                    const updateResponse = await fetch('/api/update-selected-frame', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            documentId,
+                            sectionIndex,
+                            stepIndex,
+                            frameData: {
+                                base64Image: data.base64Image,
+                                videoPath,
+                                timestamp,
+                                caption: activeVisual.querySelector('.visual-caption')?.textContent || '',
+                                success: true
+                            }
+                        })
+                    });
+                    
+                    if (!updateResponse.ok) {
+                        throw new Error('Failed to update document cache');
+                    }
+                    
+                    const updateData = await updateResponse.json();
+                    
+                    // Update export button state and style
+                    if (updateData.isReadyForPDF) {
+                        exportBtn.style.opacity = '1';
+                        exportBtn.style.cursor = 'pointer';
+                        exportBtn.style.backgroundColor = '#4CAF50';
+                        exportBtn.title = 'All frames selected - Ready to export PDF';
+                    } else {
+                        exportBtn.style.opacity = '0.5';
+                        exportBtn.style.cursor = 'not-allowed';
+                        exportBtn.style.backgroundColor = '#ccc';
+                        exportBtn.title = 'Please select all required frames before exporting';
+                    }
+                    
                     // Close modal
-                    document.getElementById('frameSelectionModal').style.display = 'none';
+                    const modal = document.getElementById('frameSelectionModal');
+                    if (modal) {
+                        modal.style.display = 'none';
+                        activeVisual = null;
+                    }
                     
                 } catch (error) {
                     console.error('Failed to update frame:', error);
+                    alert('Failed to update frame. Please try again.');
                 }
             }
             
             // Close modal when clicking outside
-            document.getElementById('frameSelectionModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.style.display = 'none';
-                }
-            });
+            const modal = document.getElementById('frameSelectionModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                        activeVisual = null;
+                        // Reset preview image
+                        const preview = document.getElementById('framePreview');
+                        if (preview) {
+                            preview.src = '';
+                        }
+                    }
+                });
+            }
             
             // Close modal with Escape key
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    document.getElementById('frameSelectionModal').style.display = 'none';
+                const modal = document.getElementById('frameSelectionModal');
+                if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                    activeVisual = null;
+                    // Reset preview image
+                    const preview = document.getElementById('framePreview');
+                    if (preview) {
+                        preview.src = '';
+                    }
                 }
             });
         </script>
@@ -2682,8 +3190,13 @@ function wrapHTMLForPDF(content) {
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
-        @page { margin: 25mm 15mm; }
+        @page { 
+            margin: 25mm 15mm;
+            size: A4;
+        }
         body { 
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -2691,6 +3204,8 @@ function wrapHTMLForPDF(content) {
             background: white;
             margin: 0;
             padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
         .document-intro { margin-bottom: 30px; text-align: center; }
         .document-title { 
@@ -2874,6 +3389,25 @@ function wrapHTMLForPDF(content) {
                 -webkit-font-smoothing: antialiased;
                 margin: 0;
                 padding: 0;
+                min-height: 100vh;
+            }
+
+            /* Force image loading */
+            img {
+                display: block !important;
+                break-inside: avoid !important;
+                max-width: 100% !important;
+                height: auto !important;
+                page-break-before: auto !important;
+                page-break-after: auto !important;
+                page-break-inside: avoid !important;
+            }
+
+            /* Ensure all content is rendered */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
             
             img {
@@ -2960,9 +3494,9 @@ app.listen(port, () => {
     logger.log(`AWS Region: ${process.env.AWS_REGION || 'us-east-1'}`);
     logger.log(`Agent ID: ${process.env.AGENT_ID}`);
     logger.log(`Agent Alias ID: ${process.env.AGENT_ALIAS_ID}`);
-    logger.log(`Knowledge Base ID: Z2PB8IJPPU`);
+    logger.log(`Knowledge Base ID: 0STV2BEIMA`);
     logger.log(`LLM Client: AWS Bedrock Claude 3.5 Sonnet`);
-    logger.log(`Embedding Model: AWS Titan v2`);
+    logger.log(`Embedding Model: cohere.embed-multilingual-v3`);
     logger.log(`Embedding Cache: Enabled`);
     logger.log('Available endpoints:');
     logger.log('  /api/chat - Original agent method');
