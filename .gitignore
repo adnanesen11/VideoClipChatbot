@@ -10,6 +10,8 @@ videos/
 *.mov
 *.avi
 *.mkv
+frames/
+*.jpg
 
 # Logs
 npm-debug.log*
@@ -19,6 +21,7 @@ yarn-error.log*
 # System files
 .DS_Store
 Thumbs.db
+strands.py
 
 # Text and temporary files
 *.txt
@@ -27,3 +30,4 @@ Thumbs.db
 # Optional: OS/IDE files
 .vscode/
 .idea/
+memory-bank/
