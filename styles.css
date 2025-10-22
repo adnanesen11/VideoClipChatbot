@@ -1489,4 +1489,163 @@ body {
         page-break-inside: avoid;
     }
 }
+/* Reset any conflicting styles */
+.video-modal, .video-modal * {
+    box-sizing: border-box !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.video-modal {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    z-index: 99999 !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 20px !important;
+    margin: 0 !important;
+    overflow: auto !important;
+}
+
+.video-modal-content {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    width: auto !important;
+    height: auto !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    margin: auto !important;
+}
+
+.video-modal-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 15px 20px !important;
+    background: #f8f9fa !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.video-modal-header h3 {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    color: #2d3748 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+.modal-close-btn {
+    background: none !important;
+    border: none !important;
+    font-size: 24px !important;
+    cursor: pointer !important;
+    color: #4a5568 !important;
+    padding: 5px !important;
+    border-radius: 4px !important;
+    transition: background 0.2s ease !important;
+    line-height: 1 !important;
+}
+
+.modal-close-btn:hover {
+    background: #e2e8f0 !important;
+}
+
+.video-player {
+    position: relative !important;
+    width: 100% !important;
+    background: #000000 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 400px !important;
+}
+
+.video-player video {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 1280px !important;
+    max-height: 720px !important;
+    display: block !important;
+    border: none !important;
+    outline: none !important;
+    background: #000000 !important;
+}
+
+.video-modal-footer {
+    padding: 15px 20px !important;
+    background: #f8f9fa !important;
+    border-top: 1px solid #e2e8f0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 10px !important;
+}
+
+.download-video-btn {
+    background: linear-gradient(135deg, #e53e3e, #f56500) !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-size: 14px !important;
+}
+
+.download-video-btn:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3) !important;
+}
+
+/* Ensure video controls are visible */
+.video-player video::-webkit-media-controls {
+    display: flex !important;
+}
+
+.video-player video::-webkit-media-controls-panel {
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Fix for potential z-index conflicts */
+.video-modal * {
+    box-sizing: border-box !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .video-modal {
+        padding: 10px !important;
+    }
+    
+    .video-modal-content {
+        max-width: 98vw !important;
+        max-height: 98vh !important;
+    }
+    
+    .video-modal-header {
+        padding: 10px 15px !important;
+    }
+    
+    .video-modal-header h3 {
+        font-size: 1rem !important;
+    }
+    
+    .video-player {
+        min-height: 200px !important;
+    }
+    
+    .video-modal-footer {
+        padding: 10px 15px !important;
+    }
+}
+
 }

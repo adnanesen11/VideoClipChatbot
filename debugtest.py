@@ -10,8 +10,8 @@ from datetime import datetime
 from botocore.exceptions import ClientError
 
 # Configuration - Update these with your values
-AGENT_ID = "PPWFRG9GNU"  # Your agent ID
-AGENT_ALIAS_ID = "OME3LP9LLH"  # Your agent alias ID
+AGENT_ID = "FGNOXYIOTJ"  # Your agent ID
+AGENT_ALIAS_ID = "G8NSOVMJFY"  # Your agent alias ID
 AWS_REGION = "us-east-1"  # Your AWS region
 
 # Example question to test with

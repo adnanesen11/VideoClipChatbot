@@ -1,0 +1,734 @@
+[
+  {
+    "text": "Hello and welcome to the Decipher Forensics U Fed Reader Report tutorial.",
+    "start": "0:00:00.880000",
+    "end": "0:00:07.240000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "We're going to show you how to go through the data that we give you so that you can create custom reports and just search the data on your own without too much trouble.",
+    "start": "0:00:07.240000",
+    "end": "0:00:16.800000",
+    "confidence": 0.9798177
+  },
+  {
+    "text": "Now, when we give you a thumb drive or a hard drive, it's likely going to have two folders on Evidence and Reports.",
+    "start": "0:00:17.520000",
+    "end": "0:00:24.400000",
+    "confidence": 0.95166016
+  },
+  {
+    "text": "We're going to spend our time in reports.",
+    "start": "0:00:25.360000",
+    "end": "0:00:27.040000",
+    "confidence": 0.98502606
+  },
+  {
+    "text": "When you open up the Reports folder, it is going to have at least two items in there.",
+    "start": "0:00:28.370000",
+    "end": "0:00:34.050000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "First it is going to have this, which is the device that you have.",
+    "start": "0:00:38.370000",
+    "end": "0:00:42.610000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "And then those two items, we are going to focus on the U FED reader here.",
+    "start": "0:00:42.610000",
+    "end": "0:00:46.370000",
+    "confidence": 0.9584961
+  },
+  {
+    "text": "This executable, if you just double click on that, it will open up a program.",
+    "start": "0:00:46.370000",
+    "end": "0:00:49.730000",
+    "confidence": 0.9658203
+  },
+  {
+    "text": "I have already done that.",
+    "start": "0:00:51.010000",
+    "end": "0:00:52.010000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "It takes a few minutes to load.",
+    "start": "0:00:52.010000",
+    "end": "0:00:54.130000",
+    "confidence": 0.99072266
+  },
+  {
+    "text": "So I'm just going to open that up here right now and we'll show you what it's like over here.",
+    "start": "0:00:56.230000",
+    "end": "0:01:01.270000",
+    "confidence": 0.96240234
+  },
+  {
+    "text": "So first we have, when it opens up, you'll see kind of this extraction summary.",
+    "start": "0:01:02.470000",
+    "end": "0:01:07.030000",
+    "confidence": 0.8515625
+  },
+  {
+    "text": "This is going to show you all of the information about your device.",
+    "start": "0:01:07.030000",
+    "end": "0:01:12.230000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "We're going to have case information, you have specific device information, even down to the version of software that we used to extract the data from your device.",
+    "start": "0:01:12.790000",
+    "end": "0:01:31.160000",
+    "confidence": 0.93896484
+  },
+  {
+    "text": "Down here in the device contents, you'll see kind of a summary.",
+    "start": "0:01:32.760000",
+    "end": "0:01:36.440000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "You'll see these two numbers here.",
+    "start": "0:01:36.680000",
+    "end": "0:01:38.320000",
+    "confidence": 0.98095703
+  },
+  {
+    "text": "Underneath every item, the black number is the total number of items and the red number is the number of items within that that are deleted.",
+    "start": "0:01:38.320000",
+    "end": "0:01:46.680000",
+    "confidence": 0.913737
+  },
+  {
+    "text": "And so, for example, over here, under with the web bookmarks, I apologize.",
+    "start": "0:01:48.380000",
+    "end": "0:01:59.980000",
+    "confidence": 0.8076172
+  },
+  {
+    "text": "You see, there are 30 web bookmarks, but 22 of them were deleted and automatically recovered.",
+    "start": "0:02:00.380000",
+    "end": "0:02:09.100000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "Next, we're going to show you a global search option.",
+    "start": "0:02:14.630000",
+    "end": "0:02:16.750000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "You can put search keywords into.",
+    "start": "0:02:16.750000",
+    "end": "0:02:22.350000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "Here we're going to use park and it's going to show all of the different hits for park across all the data.",
+    "start": "0:02:22.350000",
+    "end": "0:02:28.710000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "This will allow you to have a keyword for maybe a custodian or something.",
+    "start": "0:02:29.510000",
+    "end": "0:02:33.190000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "This is the example we're using here.",
+    "start": "0:02:34.310000",
+    "end": "0:02:36.070000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "If you click show all, it'll bring you up more detailed and let you see where the hit happened and you can explore those hits a little bit more and checkbox those as needed.",
+    "start": "0:02:36.150000",
+    "end": "0:02:48.540000",
+    "confidence": 0.9716797
+  },
+  {
+    "text": "Now we're going to kind of review a specific item.",
+    "start": "0:02:51.740000",
+    "end": "0:02:54.300000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "So we're going to open up text messages and you see all the text messages here.",
+    "start": "0:02:54.300000",
+    "end": "0:02:58.940000",
+    "confidence": 0.9453125
+  },
+  {
+    "text": "From this device you can do different sorting options.",
+    "start": "0:03:00.780000",
+    "end": "0:03:05.180000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "If we click on, say timestamp and it's going to sort by time, you can sort by any of these different categories.",
+    "start": "0:03:05.340000",
+    "end": "0:03:13.800000",
+    "confidence": 0.93115234
+  },
+  {
+    "text": "We can also do searching within this specific table.",
+    "start": "0:03:15.160000",
+    "end": "0:03:19",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "So if we come up here to table search and we type in people, we now have all the text messages for the word people.",
+    "start": "0:03:19.560000",
+    "end": "0:03:29",
+    "confidence": 0.9042969
+  },
+  {
+    "text": "There's only one in this instance, and it was a deleted text message, as you can see by that red mark.",
+    "start": "0:03:30.120000",
+    "end": "0:03:34.760000",
+    "confidence": 0.9737956
+  },
+  {
+    "text": "Now we're going to do another search.",
+    "start": "0:03:35.670000",
+    "end": "0:03:36.950000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "We're going to do a search for all the text messages that have a question mark in it.",
+    "start": "0:03:37.910000",
+    "end": "0:03:43.030000",
+    "confidence": 0.93863934
+  },
+  {
+    "text": "And here's all those text messages.",
+    "start": "0:03:48.630000",
+    "end": "0:03:50.150000",
+    "confidence": 0.7050781
+  },
+  {
+    "text": "So you can do that with any keyword you want and get as specific as you need to to be able to search through a specific table of text messages.",
+    "start": "0:03:50.150000",
+    "end": "0:04:00.150000",
+    "confidence": 0.8339844
+  },
+  {
+    "text": "Or you can do this with emails, picture messages, instant messages, with Snapchats, or any of those other types of Facebook Messenger.",
+    "start": "0:04:00.150000",
+    "end": "0:04:08.720000",
+    "confidence": 0.96533203
+  },
+  {
+    "text": "All those types of things that we can put in here for you.",
+    "start": "0:04:08.720000",
+    "end": "0:04:11.640000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "Down here you'll see data files.",
+    "start": "0:04:12.840000",
+    "end": "0:04:14.440000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "These are all the other types of files that you'll find.",
+    "start": "0:04:14.680000",
+    "end": "0:04:16.840000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "We're going to go through pictures right now because it's very common to be looked at.",
+    "start": "0:04:16.840000",
+    "end": "0:04:22.280000",
+    "confidence": 0.9822591
+  },
+  {
+    "text": "There's three different views here, table view, thumbnail view, and folder view.",
+    "start": "0:04:22.840000",
+    "end": "0:04:26.520000",
+    "confidence": 0.9690755
+  },
+  {
+    "text": "In table view, you can scroll over and see all the details that are associated with this picture, especially like the dates that are associated with it.",
+    "start": "0:04:27.490000",
+    "end": "0:04:36.170000",
+    "confidence": 0.9682617
+  },
+  {
+    "text": "When you select the picture, you see the details over on the right hand side when you go up to thumbnail view.",
+    "start": "0:04:36.170000",
+    "end": "0:04:45.210000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "This will allow you to kind of sort through and go through all the pictures very, very quickly.",
+    "start": "0:04:45.210000",
+    "end": "0:04:50.210000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "You can checkbox them as you need to or not and and search through a lot of pictures very quickly.",
+    "start": "0:04:51.250000",
+    "end": "0:04:57.580000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "If you're very interested in pictures of a particular folder, then you can open up just a specific folder.",
+    "start": "0:04:57.580000",
+    "end": "0:05:05.500000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "So for instance, if we want to look at only the pictures that are in this Android steak folder, you click the little arrow that's next to it.",
+    "start": "0:05:06.380000",
+    "end": "0:05:14.380000",
+    "confidence": 0.7763672
+  },
+  {
+    "text": "And now we have a new tab that will open to where we look at only the pictures that were in that folder.",
+    "start": "0:05:15.180000",
+    "end": "0:05:21.300000",
+    "confidence": 0.8798828
+  },
+  {
+    "text": "And we can look at it in thumbnail view.",
+    "start": "0:05:21.300000",
+    "end": "0:05:22.940000",
+    "confidence": 0.80078125
+  },
+  {
+    "text": "We can look at it in the detailed table view or even in the folder view and confirm that we've only got this one folder.",
+    "start": "0:05:23.410000",
+    "end": "0:05:30.290000",
+    "confidence": 0.46289062
+  },
+  {
+    "text": "Now, sometimes if we have done some extra work for you, you'll see any images that we have carved and undeleted for you in this area.",
+    "start": "0:05:42.770000",
+    "end": "0:05:50.770000",
+    "confidence": 0.9145508
+  },
+  {
+    "text": "Another particular area of interest is the timeline.",
+    "start": "0:05:52.070000",
+    "end": "0:05:54.630000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "You can view everything in this timeline to show exactly from all the different types of evidence what's going on.",
+    "start": "0:05:54.870000",
+    "end": "0:06:03.390000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "So see here we can see that there are emails and then right after it, text messages.",
+    "start": "0:06:03.390000",
+    "end": "0:06:07.510000",
+    "confidence": 0.86376953
+  },
+  {
+    "text": "So if there are text messages and emails and instant messages intermingled throughout the day, then you'll See that in this view.",
+    "start": "0:06:08.070000",
+    "end": "0:06:15.110000",
+    "confidence": 0.9238281
+  },
+  {
+    "text": "Next we're going to go through just a quick setting that if it applies to you, you can change the time zone and turn off daylight savings time if you need to.",
+    "start": "0:06:22.270000",
+    "end": "0:06:30.830000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "There's a lot of other options in here that, if you want to go poking through them and change some options, you can if you need to, but you probably shouldn't need to.",
+    "start": "0:06:30.830000",
+    "end": "0:06:39.870000",
+    "confidence": 0.94840497
+  },
+  {
+    "text": "So now let's say you want to create a global report.",
+    "start": "0:06:40.670000",
+    "end": "0:06:42.750000",
+    "confidence": 0.9038086
+  },
+  {
+    "text": "You.",
+    "start": "0:06:42.830000",
+    "end": "0:06:43.090000",
+    "confidence": 0.7597656
+  },
+  {
+    "text": "You want a report that has everything that is on this device by default.",
+    "start": "0:06:43.160000",
+    "end": "0:06:48.240000",
+    "confidence": 0.8510742
+  },
+  {
+    "text": "Everything in this report is checkbox by default.",
+    "start": "0:06:48.240000",
+    "end": "0:06:53",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "And so you can see how we've gone through everything.",
+    "start": "0:06:53.400000",
+    "end": "0:06:55.520000",
+    "confidence": 0.7529297
+  },
+  {
+    "text": "We see that there's checkboxes on everything, the text messages, everything.",
+    "start": "0:06:55.520000",
+    "end": "0:07:00.760000",
+    "confidence": 0.98535156
+  },
+  {
+    "text": "So if we go up to report, generate report, we're going to see these options.",
+    "start": "0:07:01.320000",
+    "end": "0:07:07.040000",
+    "confidence": 0.9321289
+  },
+  {
+    "text": "The first one is the file name.",
+    "start": "0:07:07.040000",
+    "end": "0:07:08.440000",
+    "confidence": 0.9892578
+  },
+  {
+    "text": "I usually just leave this as the default.",
+    "start": "0:07:09.860000",
+    "end": "0:07:13.020000",
+    "confidence": 0.9794922
+  },
+  {
+    "text": "You name it, whatever you want.",
+    "start": "0:07:13.020000",
+    "end": "0:07:13.980000",
+    "confidence": 0.97265625
+  },
+  {
+    "text": "You can choose where you want to put it, where it's going to save to.",
+    "start": "0:07:13.980000",
+    "end": "0:07:17.060000",
+    "confidence": 0.97998047
+  },
+  {
+    "text": "You can change the subdirectory if you want.",
+    "start": "0:07:17.460000",
+    "end": "0:07:19.620000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "This project option is if there's more than one device in your U Fed reader, you can choose which of the ones you want to include in the report.",
+    "start": "0:07:20.820000",
+    "end": "0:07:28.740000",
+    "confidence": 0.9902344
+  },
+  {
+    "text": "And then there's format.",
+    "start": "0:07:29.460000",
+    "end": "0:07:30.740000",
+    "confidence": 0.81689453
+  },
+  {
+    "text": "In this format option, you choose.",
+    "start": "0:07:32.340000",
+    "end": "0:07:34.420000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Do you want it to be a PDF?",
+    "start": "0:07:35.980000",
+    "end": "0:07:37.260000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "Do you want it to be an Excel spreadsheet?",
+    "start": "0:07:37.340000",
+    "end": "0:07:39.340000",
+    "confidence": 0.97802734
+  },
+  {
+    "text": "You can do a Word document, you can do an Excel workbook, or you can do an Excel 97 through 2003.",
+    "start": "0:07:40.540000",
+    "end": "0:07:47.700000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "What that will do is it will make it so that you can open it up with Open Office or something else like that.",
+    "start": "0:07:47.700000",
+    "end": "0:07:52.540000",
+    "confidence": 0.99365234
+  },
+  {
+    "text": "Whereas an Excel workbook, you can only open it in Excel.",
+    "start": "0:07:52.860000",
+    "end": "0:07:56.060000",
+    "confidence": 0.98779297
+  },
+  {
+    "text": "For this example, we're just going to go with a PDF.",
+    "start": "0:07:56.380000",
+    "end": "0:07:58.620000",
+    "confidence": 0.9916992
+  },
+  {
+    "text": "Here's all the case information you can change if you need to.",
+    "start": "0:08:00.590000",
+    "end": "0:08:03.070000",
+    "confidence": 0.9708659
+  },
+  {
+    "text": "You shouldn't need to.",
+    "start": "0:08:03.150000",
+    "end": "0:08:04.070000",
+    "confidence": 0.93115234
+  },
+  {
+    "text": "That's who dumped the phone here.",
+    "start": "0:08:04.070000",
+    "end": "0:08:06.670000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "You can choose what you want included in the report.",
+    "start": "0:08:06.670000",
+    "end": "0:08:10.110000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "You can see how there's the first number 46 here, and then the second number 46.",
+    "start": "0:08:11.630000",
+    "end": "0:08:15.870000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "The first number is the number that is checkboxed, and the second number is the total number available.",
+    "start": "0:08:16.190000",
+    "end": "0:08:21.070000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "Okay, so we're going to include everything.",
+    "start": "0:08:21.390000",
+    "end": "0:08:23.870000",
+    "confidence": 0.78597003
+  },
+  {
+    "text": "You can add a password to PDFs and Microsoft documents if you need to.",
+    "start": "0:08:23.870000",
+    "end": "0:08:28.830000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "I always leave the default view sorting here.",
+    "start": "0:08:29.220000",
+    "end": "0:08:31.860000",
+    "confidence": 0.9042969
+  },
+  {
+    "text": "I've never changed this.",
+    "start": "0:08:31.860000",
+    "end": "0:08:32.860000",
+    "confidence": 0.97249347
+  },
+  {
+    "text": "You shouldn't need to.",
+    "start": "0:08:32.860000",
+    "end": "0:08:33.780000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "And then here's where you can add some headers.",
+    "start": "0:08:34.260000",
+    "end": "0:08:36.340000",
+    "confidence": 0.5126953
+  },
+  {
+    "text": "You can select a logo or something if you need to, and then it'll spit out a report if you want to create a specific report.",
+    "start": "0:08:36.420000",
+    "end": "0:08:45.060000",
+    "confidence": 0.9916992
+  },
+  {
+    "text": "So say right here where we want to create a report of all the text messages with a question mark.",
+    "start": "0:08:45.460000",
+    "end": "0:08:49.620000",
+    "confidence": 0.921875
+  },
+  {
+    "text": "We can within this view create a special report of just these items that are in this view by coming up here and selecting one of these special reports.",
+    "start": "0:08:50.740000",
+    "end": "0:09:01.240000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "So for this example we'll choose the PDF, we're going to export this out to a PDF and we're just going to leave it to go right here to the My Reports folder.",
+    "start": "0:09:02.280000",
+    "end": "0:09:11.880000",
+    "confidence": 0.9238281
+  },
+  {
+    "text": "We'll click ok.",
+    "start": "0:09:12.040000",
+    "end": "0:09:12.960000",
+    "confidence": 0.67838544
+  },
+  {
+    "text": "It's going to generate a report, we'll open it up and you can see that it spits out a nice PDF format report for you to be able to see.",
+    "start": "0:09:12.960000",
+    "end": "0:09:22.920000",
+    "confidence": 0.98860675
+  },
+  {
+    "text": "You can submit this to court or submit it to opposing whatever you need to and it's going to only include those text messages that you had in the view at the time.",
+    "start": "0:09:23.800000",
+    "end": "0:09:33.080000",
+    "confidence": 0.98583984
+  },
+  {
+    "text": "Okay.",
+    "start": "0:09:33.560000",
+    "end": "0:09:34.120000",
+    "confidence": 0.8046875
+  },
+  {
+    "text": "If you want to create multiple a special report with multiple different items from different evidence items.",
+    "start": "0:09:35",
+    "end": "0:09:45.320000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "So say you only want a couple text messages.",
+    "start": "0:09:45.480000",
+    "end": "0:09:48.560000",
+    "confidence": 0.9453125
+  },
+  {
+    "text": "So we're going to uncheck all of those.",
+    "start": "0:09:48.560000",
+    "end": "0:09:49.960000",
+    "confidence": 0.9248047
+  },
+  {
+    "text": "We're only going to check these three text messages, okay.",
+    "start": "0:09:50.280000",
+    "end": "0:09:53.160000",
+    "confidence": 0.9873047
+  },
+  {
+    "text": "And then say out of the pictures, you only want three pictures.",
+    "start": "0:09:53.560000",
+    "end": "0:09:57.460000",
+    "confidence": 0.95996094
+  },
+  {
+    "text": "So we're going to take this one, this one and this one.",
+    "start": "0:09:57.540000",
+    "end": "0:09:59.940000",
+    "confidence": 0.96240234
+  },
+  {
+    "text": "Okay?",
+    "start": "0:10:00.340000",
+    "end": "0:10:00.900000",
+    "confidence": 0.78027344
+  },
+  {
+    "text": "And now we go to create a report with only those three texts and only those three pictures in it.",
+    "start": "0:10:01.300000",
+    "end": "0:10:09.300000",
+    "confidence": 0.9321289
+  },
+  {
+    "text": "Okay?",
+    "start": "0:10:09.300000",
+    "end": "0:10:09.780000",
+    "confidence": 0.8151042
+  },
+  {
+    "text": "But we still want all the device information, all of that.",
+    "start": "0:10:10.100000",
+    "end": "0:10:12.580000",
+    "confidence": 0.9873047
+  },
+  {
+    "text": "So we check only these three text messages and then we select these three images.",
+    "start": "0:10:13.860000",
+    "end": "0:10:20.460000",
+    "confidence": 0.95751953
+  },
+  {
+    "text": "You see there's only three.",
+    "start": "0:10:20.460000",
+    "end": "0:10:21.620000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "We hit next.",
+    "start": "0:10:22.230000",
+    "end": "0:10:22.950000",
+    "confidence": 0.96972656
+  },
+  {
+    "text": "You know, we create what we need to.",
+    "start": "0:10:23.670000",
+    "end": "0:10:25.670000",
+    "confidence": 0.6142578
+  },
+  {
+    "text": "Let's create this report, open it up and you see we have a full report that has the summary.",
+    "start": "0:10:25.910000",
+    "end": "0:10:31.990000",
+    "confidence": 0.96272784
+  },
+  {
+    "text": "This is all that information that you saw in the device summary.",
+    "start": "0:10:32.310000",
+    "end": "0:10:35.030000",
+    "confidence": 0.9614258
+  },
+  {
+    "text": "Here's some technical information that you received from UFED Reader and some of the technical stuff that went into extracting it.",
+    "start": "0:10:35.110000",
+    "end": "0:10:43.510000",
+    "confidence": 0.96875
+  },
+  {
+    "text": "And then you see included in the report you have the total.",
+    "start": "0:10:43.510000",
+    "end": "0:10:46.390000",
+    "confidence": 0.92285156
+  },
+  {
+    "text": "And then what's included in the report.",
+    "start": "0:10:46.390000",
+    "end": "0:10:47.830000",
+    "confidence": 0.9838867
+  },
+  {
+    "text": "And then down below we only have the three text messages and the three pictures.",
+    "start": "0:10:47.830000",
+    "end": "0:10:51.530000",
+    "confidence": 0.9213867
+  },
+  {
+    "text": "And so there you have it.",
+    "start": "0:10:53.690000",
+    "end": "0:10:55.690000",
+    "confidence": 0.9379883
+  },
+  {
+    "text": "That's how you can create a custom report with only what you want.",
+    "start": "0:10:55.690000",
+    "end": "0:10:58.410000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "Thank you for watching the video and let us know if you have any other additional questions and we can help you out to get through your reports.",
+    "start": "0:10:59.210000",
+    "end": "0:11:07.450000",
+    "confidence": 0.99902344
+  }
+]

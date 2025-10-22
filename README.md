@@ -26,18 +26,6 @@ A professional chatbot interface that demonstrates AWS Bedrock agent integration
    ```bash
    npm install
    ```
-
-3. Create your `.env` file with the provided configuration:
-   ```
-   AWS_REGION=us-east-1
-   AWS_ACCESS_KEY_ID=ASIATJHQDSJYQL3VX2UR
-   AWS_SECRET_ACCESS_KEY=VoofJz6g10ZJD76dJ5k5dZH+dSFXzy5RhyIAqtTk
-   PORT=3000
-   NODE_ENV=development
-   AGENT_ID=PPWFRG9GNU
-   AGENT_ALIAS_ID=OME3LP9LLH
-   ```
-
 ## Project Structure
 
 ```

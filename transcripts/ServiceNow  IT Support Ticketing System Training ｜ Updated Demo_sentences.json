@@ -1,0 +1,1100 @@
+[
+  {
+    "text": "In this video, we are going to update a video for ServiceNow which is a very heavily used ticketing system and a lot of job descriptions.",
+    "start": "0:00:00.640000",
+    "end": "0:00:08.880000",
+    "confidence": 0.86621094
+  },
+  {
+    "text": "You will come across ServiceNow.",
+    "start": "0:00:08.880000",
+    "end": "0:00:10.560000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "This is a very old video.",
+    "start": "0:00:10.640000",
+    "end": "0:00:12.040000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "It's a very classic video and it's been watched, you know, thousands on YouTube and in our platform.",
+    "start": "0:00:12.040000",
+    "end": "0:00:18.480000",
+    "confidence": 0.93147784
+  },
+  {
+    "text": "But we are replacing it with a new video because there's a new way to get to the tickets and the creation of the dev account and all that sort of stuff.",
+    "start": "0:00:18.800000",
+    "end": "0:00:29.040000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "Make sure to watch this new video.",
+    "start": "0:00:29.430000",
+    "end": "0:00:30.750000",
+    "confidence": 0.9916992
+  },
+  {
+    "text": "The old video is still available on YouTube.",
+    "start": "0:00:30.750000",
+    "end": "0:00:32.910000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "If you want to watch that, that's going to be available there.",
+    "start": "0:00:32.910000",
+    "end": "0:00:35.630000",
+    "confidence": 1.0
+  },
+  {
+    "text": "But we are replacing this video in this specific module.",
+    "start": "0:00:35.630000",
+    "end": "0:00:39.830000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "It's not for someone who is looking to get a service now specific job, that's a different tool job, that's like a technical job, but it's a different than just a normal IT job.",
+    "start": "0:00:40.070000",
+    "end": "0:00:52.390000",
+    "confidence": 0.8414714
+  },
+  {
+    "text": "So with that mind, you can go to google.com and basically search for service.",
+    "start": "0:00:53.110000",
+    "end": "0:00:57.910000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "Now developer and let's go ahead and create a account.",
+    "start": "0:00:58.390000",
+    "end": "0:01:01.490000",
+    "confidence": 0.72509766
+  },
+  {
+    "text": "So here we are going to click on startup and Start building.",
+    "start": "0:01:01.810000",
+    "end": "0:01:04.930000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "Once you go to the website, type this information right here and then go ahead and click on sign up.",
+    "start": "0:01:05.090000",
+    "end": "0:01:11.250000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "So once you sign up and verify your account, you can go ahead and choose one of these options.",
+    "start": "0:01:11.890000",
+    "end": "0:01:17.170000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "So if you see this, you can just click on the first one, click next and click it Admin, I understand and finish just like that.",
+    "start": "0:01:17.410000",
+    "end": "0:01:28.400000",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "So at this point, you see, we have this all created for a developer so we don't need to create anything.",
+    "start": "0:01:29.520000",
+    "end": "0:01:35.760000",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "Like I mentioned, this is not for ServiceNow developer.",
+    "start": "0:01:35.760000",
+    "end": "0:01:39.360000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "We just want to get to the ticketing system interface.",
+    "start": "0:01:39.360000",
+    "end": "0:01:42.560000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "So let's go ahead and create.",
+    "start": "0:01:42.560000",
+    "end": "0:01:43.920000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "So you go ahead and click on start building or on the top request instance.",
+    "start": "0:01:44.400000",
+    "end": "0:01:49.360000",
+    "confidence": 0.9765625
+  },
+  {
+    "text": "So you're going to see this setting up instance and after that you're going to click on start building once your instance is ready.",
+    "start": "0:01:49.520000",
+    "end": "0:01:57.370000",
+    "confidence": 0.53125
+  },
+  {
+    "text": "Now, in your company, the ServiceNow product is gonna look little different because it's already done by somebody who have got this product and you know, configured it.",
+    "start": "0:01:57.930000",
+    "end": "0:02:08.090000",
+    "confidence": 0.91064453
+  },
+  {
+    "text": "Maybe that's an admin or the company itself came and, you know, did all this sort of stuff.",
+    "start": "0:02:08.250000",
+    "end": "0:02:13.650000",
+    "confidence": 0.9992676
+  },
+  {
+    "text": "That's this is not something you have to do with code or anything like that.",
+    "start": "0:02:13.650000",
+    "end": "0:02:16.970000",
+    "confidence": 0.8569336
+  },
+  {
+    "text": "As an IT support professional or simple help desktop role.",
+    "start": "0:02:17.130000",
+    "end": "0:02:20.390000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "You're just going to see something like if I click on workspace and I click on service operation, you will see something like this, which is going to be like a portal page for you.",
+    "start": "0:02:20.390000",
+    "end": "0:02:30.950000",
+    "confidence": 0.99527997
+  },
+  {
+    "text": "And then a customer also have some sort of form.",
+    "start": "0:02:31.270000",
+    "end": "0:02:34.870000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "Very basic stuff like they will see a web page, they will be able to open a ticket, incident or whatever request, click on it and then there's going to be templates available.",
+    "start": "0:02:35.190000",
+    "end": "0:02:43.510000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "And that's something every product with its own trainings and documentation or somebody who have already maintained that in your company will go through that with you.",
+    "start": "0:02:43.910000",
+    "end": "0:02:52.840000",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "Like every other person, every company have something going on with different stuff.",
+    "start": "0:02:52.920000",
+    "end": "0:02:56.960000",
+    "confidence": 0.7216797
+  },
+  {
+    "text": "So you don't need to really learn what the customer side looks like.",
+    "start": "0:02:56.960000",
+    "end": "0:02:59.480000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "What you should focus on for the ticketing system is what you are going to get and how you're going to assign things.",
+    "start": "0:02:59.880000",
+    "end": "0:03:04.920000",
+    "confidence": 0.8925781
+  },
+  {
+    "text": "So here, this is what you're going to see.",
+    "start": "0:03:05.320000",
+    "end": "0:03:07.240000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "You're going to see probably incident assigned to you or your team, like four or five or unassigned tickets, meaning there's so many coming in every day, 2, 3, 4, 5, 10, 20, whatever it is.",
+    "start": "0:03:07.240000",
+    "end": "0:03:17.720000",
+    "confidence": 0.9916992
+  },
+  {
+    "text": "And this is your, your main job where you come over here in the morning or whatever your time is.",
+    "start": "0:03:18.040000",
+    "end": "0:03:22.620000",
+    "confidence": 0.9707031
+  },
+  {
+    "text": "You come and say, okay, we got 25 open tickets.",
+    "start": "0:03:22.620000",
+    "end": "0:03:24.780000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "Let me go in there and see what's going on.",
+    "start": "0:03:24.780000",
+    "end": "0:03:26.820000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "Right.",
+    "start": "0:03:26.820000",
+    "end": "0:03:27.220000",
+    "confidence": 0.9399414
+  },
+  {
+    "text": "So usually of course it comes with data, but if I click on this left side, you see how I can see other stuff like requests, catalog, incidents, problems.",
+    "start": "0:03:28.020000",
+    "end": "0:03:37.220000",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "Depending on what your company have made a process, they may say we want the problems to be assigned in a specific way.",
+    "start": "0:03:37.220000",
+    "end": "0:03:46.870000",
+    "confidence": 1.0
+  },
+  {
+    "text": "Like if it's a problem with some sort of equipment, then the the client already have some sort of form that they will fill out and it will automatically come to the problem.",
+    "start": "0:03:46.870000",
+    "end": "0:03:54.950000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "If it's an incident, then it's going to come to incident.",
+    "start": "0:03:55.350000",
+    "end": "0:03:57.510000",
+    "confidence": 0.5620117
+  },
+  {
+    "text": "If it's some sort of request, like, you know, I need a software installation request or something like that, this will show up right here.",
+    "start": "0:03:57.510000",
+    "end": "0:04:04.150000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "So this is why we do these type of things, because we want to make things organized or else everything will be so out of things, like nobody will know what to do and what's the priority and how do we assign these calls and all that sort of stuff.",
+    "start": "0:04:04.550000",
+    "end": "0:04:19.420000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "So take your time over here as well and come over here.",
+    "start": "0:04:20.380000",
+    "end": "0:04:23.580000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "And then once you open this area, I want you to go in each and every section, especially request incident and problems.",
+    "start": "0:04:23.580000",
+    "end": "0:04:35.100000",
+    "confidence": 0.73095703
+  },
+  {
+    "text": "These three are the main ones and of course you can do the other ones too if you want to learn more about ticketing.",
+    "start": "0:04:35.100000",
+    "end": "0:04:41.750000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "But start with the request.",
+    "start": "0:04:41.750000",
+    "end": "0:04:43.590000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "So for example, open request.",
+    "start": "0:04:43.590000",
+    "end": "0:04:45.150000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "There is no request.",
+    "start": "0:04:45.150000",
+    "end": "0:04:46.070000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Oh, there's one.",
+    "start": "0:04:46.070000",
+    "end": "0:04:47.030000",
+    "confidence": 0.96728516
+  },
+  {
+    "text": "So it says right here, request for systems administrator, Open buy, System administrator approved.",
+    "start": "0:04:47.030000",
+    "end": "0:04:51.510000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "Okay, this is like a dummy type ticket.",
+    "start": "0:04:51.510000",
+    "end": "0:04:53.229000",
+    "confidence": 0.9827474
+  },
+  {
+    "text": "So we're going to open it.",
+    "start": "0:04:53.229000",
+    "end": "0:04:54.230000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "Get yourself familiar with these boxes, these different type of things like, for example, numbers in most of the companies, a ticket.",
+    "start": "0:04:55.110000",
+    "end": "0:05:03.750000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "When people say what is the ticket number?",
+    "start": "0:05:03.750000",
+    "end": "0:05:05.670000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "They will have some sort of number associated with that ticket.",
+    "start": "0:05:05.670000",
+    "end": "0:05:09.030000",
+    "confidence": 0.88671875
+  },
+  {
+    "text": "So you need to know what to share or what to look for.",
+    "start": "0:05:09.170000",
+    "end": "0:05:12.850000",
+    "confidence": 0.8925781
+  },
+  {
+    "text": "Now is it open, is it closed?",
+    "start": "0:05:13.330000",
+    "end": "0:05:15.130000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "All that information will be there.",
+    "start": "0:05:15.130000",
+    "end": "0:05:16.570000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Now the request for is important because if it's your team and you're the one who going to assign calls to other team members based on what you're seeing on the screen, you got to know that from just learning that information in your company.",
+    "start": "0:05:16.570000",
+    "end": "0:05:32.210000",
+    "confidence": 0.88134766
+  },
+  {
+    "text": "Nobody's going to be able to teach you this very quickly, right?",
+    "start": "0:05:32.210000",
+    "end": "0:05:35.210000",
+    "confidence": 0.98811847
+  },
+  {
+    "text": "So you go to the company and the first thing you should do, how many IT departments are available?",
+    "start": "0:05:35.210000",
+    "end": "0:05:40.180000",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "Who are the power users?",
+    "start": "0:05:40.340000",
+    "end": "0:05:41.780000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "So you have customers, but who are the power users?",
+    "start": "0:05:41.780000",
+    "end": "0:05:45.180000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "Meaning the customer sends something to the other user and you are in the middle.",
+    "start": "0:05:45.180000",
+    "end": "0:05:50.740000",
+    "confidence": 0.99975586
+  },
+  {
+    "text": "So this requires knowledge.",
+    "start": "0:05:51.220000",
+    "end": "0:05:53.020000",
+    "confidence": 0.9902344
+  },
+  {
+    "text": "This requires you going out, picking up the paper, going to the SharePoint, going to the portal, understanding who is in the team, who does what.",
+    "start": "0:05:53.020000",
+    "end": "0:06:01.940000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Because if you know that early on, most of your stress level is going to go low because you know where the stress comes from.",
+    "start": "0:06:02.180000",
+    "end": "0:06:11.160000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "When somebody sends you a message that we have this problem and we need it resolved immediately, like in an hour or two hours, whatever it is, and that's where the stress will, like, you know, if, let's say somebody's not around you, who are you going to assign that?",
+    "start": "0:06:11.160000",
+    "end": "0:06:25.600000",
+    "confidence": 1.0
+  },
+  {
+    "text": "You cannot randomly assign this call to somebody else.",
+    "start": "0:06:25.600000",
+    "end": "0:06:27.880000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Piss them off.",
+    "start": "0:06:27.880000",
+    "end": "0:06:28.680000",
+    "confidence": 0.9797363
+  },
+  {
+    "text": "Now if you have co members, co workers, if they're nice, usually a lot of people will shadow you.",
+    "start": "0:06:29.560000",
+    "end": "0:06:34.400000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "They will tell you, hey, if something comes like, like this, make sure to assign it to these type of people, okay?",
+    "start": "0:06:34.400000",
+    "end": "0:06:39.140000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "But if you don't have that, you should do your own research to make your life easy.",
+    "start": "0:06:39.140000",
+    "end": "0:06:43.460000",
+    "confidence": 0.9707031
+  },
+  {
+    "text": "So once you find that information, it will be really easy for you.",
+    "start": "0:06:43.700000",
+    "end": "0:06:46.300000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "When you see something like this, okay, we got a request from this.",
+    "start": "0:06:46.300000",
+    "end": "0:06:49.180000",
+    "confidence": 0.59228516
+  },
+  {
+    "text": "Com.",
+    "start": "0:06:49.180000",
+    "end": "0:06:49.460000",
+    "confidence": 0.66259766
+  },
+  {
+    "text": "This area, from this, okay, I'm going to assign it to this individual because I think that's that, that's where you know, this needs to go.",
+    "start": "0:06:49.460000",
+    "end": "0:06:56.300000",
+    "confidence": 1.0
+  },
+  {
+    "text": "And I'm going to put a comment here too.",
+    "start": "0:06:56.300000",
+    "end": "0:06:58.060000",
+    "confidence": 0.7055664
+  },
+  {
+    "text": "Whatever is the flow right here, you see, it's just a box with a bunch of information.",
+    "start": "0:06:58.060000",
+    "end": "0:07:02.340000",
+    "confidence": 0.99975586
+  },
+  {
+    "text": "You can add more description because managers are very strict on this area.",
+    "start": "0:07:02.500000",
+    "end": "0:07:06.740000",
+    "confidence": 1.0
+  },
+  {
+    "text": "They like to do reportings, they like to see what's going on after one month or one year.",
+    "start": "0:07:07.100000",
+    "end": "0:07:11.180000",
+    "confidence": 0.5307617
+  },
+  {
+    "text": "And a lot of people have very advanced reporting going on to make sure that they find consistent or repetitive issues so they can fix it.",
+    "start": "0:07:11.500000",
+    "end": "0:07:20.220000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "Right now, this Information helps them.",
+    "start": "0:07:20.300000",
+    "end": "0:07:23.180000",
+    "confidence": 0.9765625
+  },
+  {
+    "text": "When you put everything correctly.",
+    "start": "0:07:23.180000",
+    "end": "0:07:24.740000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "If you just.",
+    "start": "0:07:24.740000",
+    "end": "0:07:25.260000",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "Somebody gets a.",
+    "start": "0:07:25.260000",
+    "end": "0:07:26.140000",
+    "confidence": 0.94885254
+  },
+  {
+    "text": "Let's say somebody having a request or not a request, let's just do like another one.",
+    "start": "0:07:26.140000",
+    "end": "0:07:30.220000",
+    "confidence": 0.90999347
+  },
+  {
+    "text": "Let's open a problem.",
+    "start": "0:07:30.300000",
+    "end": "0:07:32.460000",
+    "confidence": 0.9682617
+  },
+  {
+    "text": "There's no problem.",
+    "start": "0:07:33.510000",
+    "end": "0:07:34.110000",
+    "confidence": 0.99332684
+  },
+  {
+    "text": "Right now we're going to click on new because you can create a problem too, right?",
+    "start": "0:07:34.110000",
+    "end": "0:07:38.710000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Because let's say somebody call you in the phone, they don't have access to the form or the customer portal and then they're having some issue, then what happens?",
+    "start": "0:07:38.870000",
+    "end": "0:07:46.790000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "Then my computer has a virus, okay.",
+    "start": "0:07:46.790000",
+    "end": "0:07:51.590000",
+    "confidence": 0.6176758
+  },
+  {
+    "text": "And then whatever description they put abcd and here you see on the right side something comes up like, like this helpful articles.",
+    "start": "0:07:51.830000",
+    "end": "0:08:03.130000",
+    "confidence": 0.9848633
+  },
+  {
+    "text": "This may be something, maybe you can quickly add that article with the ticket if you want to.",
+    "start": "0:08:03.130000",
+    "end": "0:08:08.610000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Now the more advanced or some people are integrating AI into this.",
+    "start": "0:08:08.610000",
+    "end": "0:08:12.690000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "So the AI is on the side like on like the way you see the agent assist is like AI assist.",
+    "start": "0:08:13.250000",
+    "end": "0:08:18.290000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "So they basically the AI kind of goes through that and then start looking for articles, start giving you answers, start even giving you like what to type basically.",
+    "start": "0:08:18.530000",
+    "end": "0:08:26.370000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "So even though my grammar is bad, it will fix my grammar.",
+    "start": "0:08:26.370000",
+    "end": "0:08:29.750000",
+    "confidence": 0.98339844
+  },
+  {
+    "text": "So expect that, that in the new companies, a lot of new.",
+    "start": "0:08:29.830000",
+    "end": "0:08:33.830000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Sorry in normal companies people are looking for solutions like AI to make our job easy, not to replace you, to make our job easy.",
+    "start": "0:08:33.830000",
+    "end": "0:08:41.990000",
+    "confidence": 0.98583984
+  },
+  {
+    "text": "Okay, so once you set that up, that right here, first reported low.",
+    "start": "0:08:41.990000",
+    "end": "0:08:46.630000",
+    "confidence": 0.97477216
+  },
+  {
+    "text": "This is very important.",
+    "start": "0:08:46.870000",
+    "end": "0:08:47.750000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Again you learn this in our lectures, beginning lectures in our ticketing system course that understanding the priorities, asking questions, what is normal priority, what is higher priority, what is urgency levels?",
+    "start": "0:08:47.750000",
+    "end": "0:09:01.120000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "This is going to really help you because then you can determine and the, you know, the team that is going to respond to this basically will look at these priorities and then you can assign.",
+    "start": "0:09:01.600000",
+    "end": "0:09:12.160000",
+    "confidence": 1.0
+  },
+  {
+    "text": "This is again what I was talking about, assignment of a group.",
+    "start": "0:09:12.160000",
+    "end": "0:09:14.280000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "If you know the group, that's great.",
+    "start": "0:09:14.280000",
+    "end": "0:09:15.600000",
+    "confidence": 1.0
+  },
+  {
+    "text": "If you have a coworker, ask them, do your research.",
+    "start": "0:09:15.600000",
+    "end": "0:09:18.320000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "You're going to make your life super, super easy.",
+    "start": "0:09:18.400000",
+    "end": "0:09:20.720000",
+    "confidence": 0.8836263
+  },
+  {
+    "text": "You can search the people, you see how quickly so many people came in.",
+    "start": "0:09:20.990000",
+    "end": "0:09:24.830000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "And if it was database related, it was hardware related, it was like incident management, it was cybersecurity, whatever that was.",
+    "start": "0:09:24.830000",
+    "end": "0:09:31.070000",
+    "confidence": 0.91503906
+  },
+  {
+    "text": "So basically this is cybersecurity.",
+    "start": "0:09:31.550000",
+    "end": "0:09:33.790000",
+    "confidence": 0.9902344
+  },
+  {
+    "text": "So I'm going to sign into cybersecurity and click save.",
+    "start": "0:09:33.870000",
+    "end": "0:09:36.670000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "And now we have a ticket saved right now, priority 11.",
+    "start": "0:09:37.230000",
+    "end": "0:09:41.310000",
+    "confidence": 0.9873047
+  },
+  {
+    "text": "So if I can go back right now and open all tickets, let's say all tickets right here, open.",
+    "start": "0:09:41.470000",
+    "end": "0:09:48.850000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "You see my, my, my ticket came on the top right there.",
+    "start": "0:09:49.730000",
+    "end": "0:09:52.690000",
+    "confidence": 0.87597656
+  },
+  {
+    "text": "While there are so many other.",
+    "start": "0:09:53.410000",
+    "end": "0:09:54.970000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Unable to connect to vpn, unable connect this, that, that that you can go through all of these 16 tickets and play around with it and see who you need to assign it to make more practice in this product.",
+    "start": "0:09:54.970000",
+    "end": "0:10:05.090000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Making it very hands on.",
+    "start": "0:10:05.970000",
+    "end": "0:10:07.370000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "But at the same time you have that really good answer in interview where somebody say, do you know about ServiceNow?",
+    "start": "0:10:07.370000",
+    "end": "0:10:14.010000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Yeah, I have install a developer version of ServiceNow.",
+    "start": "0:10:14.010000",
+    "end": "0:10:18.220000",
+    "confidence": 0.9944661
+  },
+  {
+    "text": "I created the whole, you know, incident management in there.",
+    "start": "0:10:18.220000",
+    "end": "0:10:22.340000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "I worked on the ticketing, the problem areas.",
+    "start": "0:10:22.340000",
+    "end": "0:10:25.980000",
+    "confidence": 1.0
+  },
+  {
+    "text": "I assigned some sort of articles in there and I played around with I know exactly what this product do.",
+    "start": "0:10:26.300000",
+    "end": "0:10:33.180000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "So and not only that, if a company is using some sort of ticketing system, it can be more advanced than this.",
+    "start": "0:10:33.420000",
+    "end": "0:10:39.860000",
+    "confidence": 0.6508789
+  },
+  {
+    "text": "ServiceNow is very advanced.",
+    "start": "0:10:39.860000",
+    "end": "0:10:41.500000",
+    "confidence": 0.96973
+  },
+  {
+    "text": "So if it's anything that they use right now, if you play around with this ticketing system, I feel at the end of the day none of the ticketing system will be a worry for you.",
+    "start": "0:10:41.820000",
+    "end": "0:10:52",
+    "confidence": 0.9921875
+  },
+  {
+    "text": "In most cases it's the information, it's the, it's you looking for more information like you know, where are people located, where are the power users, what do we do?",
+    "start": "0:10:52.480000",
+    "end": "0:11:01.200000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "What, what's our client, what sort of question do they ask on normal basis?",
+    "start": "0:11:01.200000",
+    "end": "0:11:05.560000",
+    "confidence": 0.79785156
+  },
+  {
+    "text": "And the tickets have everything.",
+    "start": "0:11:05.560000",
+    "end": "0:11:06.800000",
+    "confidence": 0.9667969
+  },
+  {
+    "text": "The best part of here, let's say for example I did that ticket and if I come over here and I looked into resolve right here, like if I click on result and if there was many, many resolved tickets, now there aren't any right there.",
+    "start": "0:11:06.960000",
+    "end": "0:11:20.720000",
+    "confidence": 1.0
+  },
+  {
+    "text": "Okay, so if you come over here in your company, you're going to see thousands of thousands of resolved tickets in there.",
+    "start": "0:11:20.720000",
+    "end": "0:11:27.760000",
+    "confidence": 0.9897461
+  },
+  {
+    "text": "What does that tell you?",
+    "start": "0:11:27.760000",
+    "end": "0:11:28.880000",
+    "confidence": 1.0
+  },
+  {
+    "text": "This is quality information.",
+    "start": "0:11:29.440000",
+    "end": "0:11:32",
+    "confidence": 1.0
+  },
+  {
+    "text": "This is what you need.",
+    "start": "0:11:32.240000",
+    "end": "0:11:33.600000",
+    "confidence": 1.0
+  },
+  {
+    "text": "If you go through these resolve ticket information, don't open it, just go through what is going on with this?",
+    "start": "0:11:33.680000",
+    "end": "0:11:39.440000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "What happened to this specific area?",
+    "start": "0:11:39.440000",
+    "end": "0:11:41.200000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Who assigned it, how did they resolve it?",
+    "start": "0:11:41.200000",
+    "end": "0:11:43.640000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "This is how I learned my, you know, technical skills in the beginning when I was confused about how do I learn because I'm working for this company right now.",
+    "start": "0:11:43.720000",
+    "end": "0:11:52.360000",
+    "confidence": 1.0
+  },
+  {
+    "text": "I don't care what Google is going to tell me, I don't care what an IT expert tells me outside of my company.",
+    "start": "0:11:52.360000",
+    "end": "0:11:58.080000",
+    "confidence": 1.0
+  },
+  {
+    "text": "That IT expert doesn't know anything what's going on in my company.",
+    "start": "0:11:58.080000",
+    "end": "0:12:01.080000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "So you can do this smart or you can do this not a very smart way by going out and just searching too many things and asking people here and there, wasting your time.",
+    "start": "0:12:02.310000",
+    "end": "0:12:12.470000",
+    "confidence": 0.99365234
+  },
+  {
+    "text": "That's a good process, but that's a very long process.",
+    "start": "0:12:12.870000",
+    "end": "0:12:15.430000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "That's a generic, that's a broad process.",
+    "start": "0:12:15.430000",
+    "end": "0:12:17.350000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "Why aren't you coming to the ticketing system when things are right in front of you?",
+    "start": "0:12:17.430000",
+    "end": "0:12:20.550000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "If you Go through the thousands of issues that are already happening in your company and somebody have resolved that they had a resolutions, they know where, how they fixed it.",
+    "start": "0:12:20.790000",
+    "end": "0:12:29.310000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "They probably put everything inside the description.",
+    "start": "0:12:29.310000",
+    "end": "0:12:31.510000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "That's the best thing you can do for yourself specifically in that company if you're staying there for next one year.",
+    "start": "0:12:32.480000",
+    "end": "0:12:38.160000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "Make your one year life easy for yourself.",
+    "start": "0:12:38.480000",
+    "end": "0:12:41.360000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Once you start getting comfortable with the request incident problem area and that is the most heavily used, you know areas you're going to come across as an IT professional for help desk, then you should actually come to the basically like you know, the knowledge area where you want to do some sort of article knowledge base.",
+    "start": "0:12:42.080000",
+    "end": "0:13:04.050000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "And even though you can play around with other things but some people like some companies use, you know, management systems alongside your ticketing system or they may be using ServiceNow to even manage PCs, hardware infrastructure, servers and services extra etc so you can go over this stuff just to understand how do they configure these things.",
+    "start": "0:13:04.050000",
+    "end": "0:13:24.330000",
+    "confidence": 0.6513672
+  },
+  {
+    "text": "But this is not too important.",
+    "start": "0:13:24.850000",
+    "end": "0:13:26.130000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "Another the most important things are the first three and the last one as well.",
+    "start": "0:13:26.770000",
+    "end": "0:13:30.170000",
+    "confidence": 0.50097656
+  },
+  {
+    "text": "Like for example, if you come to articles, go over these articles and then they, the company will say do you know how to create a knowledge base?",
+    "start": "0:13:30.170000",
+    "end": "0:13:37.250000",
+    "confidence": 0.5551758
+  },
+  {
+    "text": "Knowledge base is also what they're saying, do you know how to create articles?",
+    "start": "0:13:37.250000",
+    "end": "0:13:40.690000",
+    "confidence": 0.9319661
+  },
+  {
+    "text": "Okay, for companies, for customers.",
+    "start": "0:13:40.770000",
+    "end": "0:13:42.690000",
+    "confidence": 0.9630534
+  },
+  {
+    "text": "And the usually the keyword that they use is knowledge base.",
+    "start": "0:13:43.090000",
+    "end": "0:13:46.130000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "And that's actually you use.",
+    "start": "0:13:46.130000",
+    "end": "0:13:47.330000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "You see that in your job descriptions as well.",
+    "start": "0:13:47.490000",
+    "end": "0:13:49.890000",
+    "confidence": 0.99365234
+  },
+  {
+    "text": "So if I click on the new.",
+    "start": "0:13:50.460000",
+    "end": "0:13:52.140000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "You should come over here and create a knowledge base so I can search.",
+    "start": "0:13:52.380000",
+    "end": "0:13:56.620000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Maybe I click it Description abcd.",
+    "start": "0:13:56.780000",
+    "end": "0:14:01.660000",
+    "confidence": 0.9987793
+  },
+  {
+    "text": "Don't know how to spell abcd.",
+    "start": "0:14:06.700000",
+    "end": "0:14:08.140000",
+    "confidence": 0.70458984
+  },
+  {
+    "text": "Okay, so there, of course you can, you can just kind of type over here and don't do it like me.",
+    "start": "0:14:08.140000",
+    "end": "0:14:14.220000",
+    "confidence": 0.99348956
+  },
+  {
+    "text": "You should come over here, create some sort of like go to ChatGPT and say I want to, I want you to create an article for me and then add it right here, add an image over here.",
+    "start": "0:14:14.380000",
+    "end": "0:14:23.100000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Link stuff like I have seen people that don't know how to actually, you know, create a paragraph and then add certain things to that paragraph.",
+    "start": "0:14:23.260000",
+    "end": "0:14:33.100000",
+    "confidence": 0.9958496
+  },
+  {
+    "text": "So by you see like if somebody say can you link this specific text?",
+    "start": "0:14:33.420000",
+    "end": "0:14:38.300000",
+    "confidence": 0.9902344
+  },
+  {
+    "text": "Now a lot of people don't know how do I get the link in here.",
+    "start": "0:14:38.700000",
+    "end": "0:14:41.500000",
+    "confidence": 0.98291016
+  },
+  {
+    "text": "So you know, you need to click on these three dots.",
+    "start": "0:14:41.580000",
+    "end": "0:14:43.500000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "Click on this link button right here.",
+    "start": "0:14:44.220000",
+    "end": "0:14:45.820000",
+    "confidence": 1.0
+  },
+  {
+    "text": "This is the link button.",
+    "start": "0:14:45.820000",
+    "end": "0:14:46.620000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "So try to understand these little simple things.",
+    "start": "0:14:46.620000",
+    "end": "0:14:50.210000",
+    "confidence": 0.98583984
+  },
+  {
+    "text": "It just adds to the stress when you go to the company and you don't know these tiny money things.",
+    "start": "0:14:50.370000",
+    "end": "0:14:54.890000",
+    "confidence": 0.95458984
+  },
+  {
+    "text": "This is some basic stuff right here.",
+    "start": "0:14:54.890000",
+    "end": "0:14:56.770000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "So if you know how to do these things practice it.",
+    "start": "0:14:57.410000",
+    "end": "0:14:59.850000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "What's happening you're just creating more confidence in the article areas and then you're going to be comfortable talking about knowledge base and then try to attach some you know if there is an attachment you can add links in there all that sort of stuff here and then add it watch your article do like four or five you don't really need to spend too much time and remember one thing once you do this one time you really don't need to spend too much time here.",
+    "start": "0:14:59.850000",
+    "end": "0:15:23.690000",
+    "confidence": 0.99934894
+  },
+  {
+    "text": "You need to move on to more technical learning in our platform and that's it for today for ServiceNow.",
+    "start": "0:15:23.690000",
+    "end": "0:15:28.610000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "That's all you have to do to be able to say I know ServiceNow I have worked on it, I have practiced on it.",
+    "start": "0:15:28.610000",
+    "end": "0:15:33.890000",
+    "confidence": 0.9998372
+  },
+  {
+    "text": "I'm confident to work in your environment as well but I'm willing to learn and I'm actually not willing.",
+    "start": "0:15:33.890000",
+    "end": "0:15:39.810000",
+    "confidence": 0.8730469
+  },
+  {
+    "text": "I'll say I'm eager to learn more from the other co IT members.",
+    "start": "0:15:39.810000",
+    "end": "0:15:44.450000",
+    "confidence": 0.8069661
+  },
+  {
+    "text": "Thank you.",
+    "start": "0:15:44.450000",
+    "end": "0:15:44.990000",
+    "confidence": 0.9968262
+  }
+]

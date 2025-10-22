@@ -42,16 +42,17 @@ const logger = {
 
 // INDUSTRY STANDARD: Enhanced clip configuration with more permissive settings
 const CLIP_CONFIG = {
-    MIN_RELEVANCE_SCORE: 0.05,   // LOWERED from 0.1 - more permissive
+    MIN_RELEVANCE_SCORE: 0.1,   // LOWERED from 0.1 - more permissive
     MIN_LLM_SCORE: 0.4,          // LOWERED from 0.6 - more permissive  
     MIN_DURATION: 5,             // LOWERED from 8 - shorter clips ok
-    MAX_DURATION: 90,            // Maximum clip length
-    OPTIMAL_DURATION: 45,        // Target clip length
-    MAX_CLIPS: 4,                // Max clips to return
-    CONTEXT_BUFFER: 3,           // Seconds before/after
+    MAX_DURATION: 180,            // Maximum clip length
+    OPTIMAL_DURATION: 60,        // Target clip length
+    MAX_CLIPS: 8,                // Max clips to return
+    CONTEXT_BUFFER: 10,           // Seconds before/after
     // Use AWS Bedrock Claude instead of external APIs
     CLAUDE_MODEL_ID: 'arn:aws:bedrock:us-east-1:225989333617:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0',
-    EMBEDDING_MODEL_ID: 'cohere.embed-multilingual-v3' // AWS native embedding model
+    EMBEDDING_MODEL_ID: 'cohere.embed-multilingual-v3', // Primary embedding model
+    FALLBACK_EMBEDDING_MODEL_ID: 'amazon.titan-embed-text-v2:0' // Fallback model
 };
 
 require('dotenv').config();
@@ -300,7 +301,14 @@ class FrameExtractor {
 }
 
 // Initialize frame extractor
+const VideoGenerator = require('./video_generator');
 const frameExtractor = new FrameExtractor();
+const videoGenerator = new VideoGenerator();
+
+// Initialize video generator
+videoGenerator.initialize().catch(error => {
+    logger.error('Failed to initialize video generator:', error);
+});
 
 // Clean cache periodically
 setInterval(() => frameExtractor.cleanCache(), 60 * 60 * 1000); // Every hour
@@ -573,26 +581,41 @@ class IndustryStandardVideoExtractor {
                 return this.createFallbackSegments(timestamps);
             }
             
-            // Create sliding windows
+            // Create sliding windows with overlap
             const windows = this.createSlidingWindows(timestamps, 45);
             logger.log(`🔍 Analyzing ${windows.length} windows in parallel...`);
+            
+            // Track seen content to avoid duplicates
+            const seenContent = new Map();
             
             // OPTIMIZATION: Process all windows in parallel instead of sequentially
             const windowPromises = windows.map(async (window, index) => {
                 try {
                     const text = window.map(t => t.text).join(' ');
+                    
+                    // Skip if we've seen very similar content
+                    const contentKey = this.getContentKey(text);
+                    if (seenContent.has(contentKey)) {
+                        return null;
+                    }
+                    
                     const embedding = await this.getAWSEmbedding(text);
                     
                     if (embedding) {
                         const similarity = this.cosineSimilarity(queryEmbedding, embedding);
                         
                         if (similarity > CLIP_CONFIG.MIN_RELEVANCE_SCORE) {
+                            // Mark this content as seen
+                            seenContent.set(contentKey, true);
+                            
                             return {
                                 timestamps: window,
                                 similarity: similarity,
                                 text: text,
                                 startTime: window[0].start,
-                                endTime: window[window.length - 1].end
+                                endTime: window[window.length - 1].end,
+                                duration: window[window.length - 1].end - window[0].start,
+                                wordCount: text.split(/\s+/).length
                             };
                         }
                     }
@@ -608,9 +631,8 @@ class IndustryStandardVideoExtractor {
             
             logger.log(`📊 Found ${scoredWindows.length} relevant segments`);
             
-            return scoredWindows
-                .sort((a, b) => b.similarity - a.similarity)
-                .slice(0, 6);
+            // Enhanced segment selection
+            return this.selectBestSegments(scoredWindows);
                 
         } catch (error) {
             logger.error('Semantic segmentation failed:', error.message);
@@ -915,45 +937,152 @@ Respond with JSON only:
             return this.embeddingCache.get(cacheKey);
         }
         
+        // Try Cohere first
         try {
-            const payload = {
-                inputText: text.substring(0, 8000),
-                dimensions: 1024,
-                normalize: true
+            const coherePayload = {
+                input_type: "search_document",
+                texts: [text.substring(0, 2048)], // Cohere limit is 2048 chars
+                truncate: "END"
             };
 
-            const command = new InvokeModelCommand({
+            const cohereCommand = new InvokeModelCommand({
                 modelId: CLIP_CONFIG.EMBEDDING_MODEL_ID,
                 contentType: "application/json",
                 accept: "application/json",
-                body: JSON.stringify(payload)
+                body: JSON.stringify(coherePayload)
             });
 
-            // OPTIMIZATION: Add timeout to prevent hanging requests
             const timeoutPromise = new Promise((_, reject) => 
                 setTimeout(() => reject(new Error('Embedding timeout')), 10000)
             );
             
-            const response = await Promise.race([
-                this.bedrockRuntimeClient.send(command),
+            const cohereResponse = await Promise.race([
+                this.bedrockRuntimeClient.send(cohereCommand),
                 timeoutPromise
             ]);
             
-            const responseBody = JSON.parse(new TextDecoder().decode(response.body));
-            const embedding = responseBody.embedding;
+            const cohereBody = JSON.parse(new TextDecoder().decode(cohereResponse.body));
             
-            // Cache the result
-            this.embeddingCache.set(cacheKey, embedding);
-            return embedding;
-            
-        } catch (error) {
-            // Only log embedding errors once per session to reduce console spam
-            if (!this.embeddingErrorLogged) {
-                logger.error('Embedding generation failed - using fallback:', error.message);
-                this.embeddingErrorLogged = true;
+            // Cohere returns embeddings array with first element being our embedding
+            if (cohereBody.embeddings && cohereBody.embeddings[0]) {
+                const embedding = cohereBody.embeddings[0];
+                this.embeddingCache.set(cacheKey, embedding);
+                return embedding;
             }
-            return null;
+            
+            throw new Error('No embedding in Cohere response');
+            
+        } catch (cohereError) {
+            // Log Cohere error and try Titan fallback
+            logger.error('Cohere embedding failed, trying Titan fallback:', cohereError.message);
+            
+            try {
+                const titanPayload = {
+                    inputText: text.substring(0, 8000),
+                    normalize: true,
+                    dimensions: 1024
+                };
+
+                const titanCommand = new InvokeModelCommand({
+                    modelId: CLIP_CONFIG.FALLBACK_EMBEDDING_MODEL_ID,
+                    contentType: "application/json",
+                    accept: "application/json",
+                    body: JSON.stringify(titanPayload)
+                });
+
+                const titanResponse = await Promise.race([
+                    this.bedrockRuntimeClient.send(titanCommand),
+                    new Promise((_, reject) => setTimeout(() => reject(new Error('Titan timeout')), 10000))
+                ]);
+                
+                const titanBody = JSON.parse(new TextDecoder().decode(titanResponse.body));
+                const titanEmbedding = titanBody.embedding;
+                
+                if (titanEmbedding) {
+                    logger.log('Successfully used Titan fallback embedding');
+                    this.embeddingCache.set(cacheKey, titanEmbedding);
+                    return titanEmbedding;
+                }
+                
+                throw new Error('No embedding in Titan response');
+                
+            } catch (titanError) {
+                // Only log embedding errors once per session
+                if (!this.embeddingErrorLogged) {
+                    logger.error('Both Cohere and Titan embedding failed:', titanError.message);
+                    this.embeddingErrorLogged = true;
+                }
+                return null;
+            }
         }
+    }
+
+    getContentKey(text) {
+        // Create a simplified version of the text for comparison
+        return text
+            .toLowerCase()
+            .replace(/[^\w\s]/g, '')  // Remove punctuation
+            .split(/\s+/)              // Split into words
+            .filter(w => w.length > 3) // Keep meaningful words
+            .sort()                    // Sort for consistent comparison
+            .join(' ');
+    }
+
+    selectBestSegments(segments) {
+        // Sort by multiple criteria
+        const scored = segments.map(seg => ({
+            ...seg,
+            score: this.calculateSegmentScore(seg)
+        }));
+
+        // Sort by score descending
+        scored.sort((a, b) => b.score - a.score);
+
+        // Take top segments but ensure diversity
+        const selected = [];
+        const usedTimestamps = new Set();
+        
+        for (const segment of scored) {
+            // Skip if too close to existing segments
+            const isOverlapping = Array.from(usedTimestamps).some(time => 
+                Math.abs(segment.startTime - time) < 30 || // Within 30s of start
+                Math.abs(segment.endTime - time) < 30      // Within 30s of end
+            );
+            
+            if (!isOverlapping) {
+                selected.push(segment);
+                usedTimestamps.add(segment.startTime);
+                usedTimestamps.add(segment.endTime);
+            }
+
+            // Stop when we have enough good segments
+            if (selected.length >= CLIP_CONFIG.MAX_CLIPS) break;
+        }
+
+        return selected;
+    }
+
+    calculateSegmentScore(segment) {
+        let score = 0;
+        
+        // Base score from similarity (0-1)
+        score += segment.similarity * 2;
+        
+        // Duration score (prefer 30-60s clips)
+        const duration = segment.duration;
+        if (duration >= 30 && duration <= 60) {
+            score += 1;
+        } else if (duration >= 20 && duration <= 90) {
+            score += 0.5;
+        }
+        
+        // Word density score (prefer segments with more content)
+        const wordsPerSecond = segment.wordCount / duration;
+        if (wordsPerSecond >= 1.5 && wordsPerSecond <= 3.0) {
+            score += 1; // Good speaking pace
+        }
+        
+        return score;
     }
 
     cosineSimilarity(a, b) {
@@ -1274,8 +1403,16 @@ app.post('/api/chat-direct', async (req, res) => {
         const userQuery = message;
         logger.log(`🚀 DIRECT KB PROCESSING START: "${userQuery}"`);
         
+        // Verify bedrockClient is initialized
+        if (!bedrockClient) {
+            throw new Error('Bedrock Agent Runtime Client not initialized. Check AWS credentials.');
+        }
+        
         // PHASE 1: Direct Knowledge Base Retrieve + Generate
         const kbStartTime = Date.now();
+        logger.log(`📚 Calling Knowledge Base: EAW3QT0ESQ`);
+        logger.log(`📚 Model ARN: ${CLIP_CONFIG.CLAUDE_MODEL_ID}`);
+        
         const command = new RetrieveAndGenerateCommand({
             input: {
                 text: message
@@ -1283,21 +1420,34 @@ app.post('/api/chat-direct', async (req, res) => {
             retrieveAndGenerateConfiguration: {
                 type: "KNOWLEDGE_BASE",
                 knowledgeBaseConfiguration: {
-                knowledgeBaseId: "0STV2BEIMA", // Your Knowledge Base ID
+                    knowledgeBaseId: "EAW3QT0ESQ",
                     modelArn: CLIP_CONFIG.CLAUDE_MODEL_ID,
                     retrievalConfiguration: {
                         vectorSearchConfiguration: {
-                            numberOfResults: 8, // Increased for better coverage
-                            overrideSearchType: "HYBRID" // Use hybrid search for better results
+                            numberOfResults: 8,
+                            overrideSearchType: "SEMANTIC"
                         }
                     }
                 }
             }
         });
         
-        const response = await bedrockClient.send(command);
-        const kbTime = ((Date.now() - kbStartTime) / 1000).toFixed(1);
-        logger.log(`📚 Direct KB retrieve + generate: ${kbTime}s`);
+        let response;
+        let kbTime;
+        try {
+            response = await bedrockClient.send(command);
+            kbTime = ((Date.now() - kbStartTime) / 1000).toFixed(1);
+            logger.log(`📚 Direct KB retrieve + generate: ${kbTime}s`);
+        } catch (kbError) {
+            logger.error('Knowledge Base call failed:', kbError);
+            logger.error('Error details:', {
+                name: kbError.name,
+                message: kbError.message,
+                code: kbError.$metadata?.httpStatusCode,
+                requestId: kbError.$metadata?.requestId
+            });
+            throw new Error(`Knowledge Base call failed: ${kbError.message}`);
+        }
         
         // PHASE 2: Extract response and references
         const agentResponse = response.output?.text || '';
@@ -1802,19 +1952,34 @@ app.post('/api/generate-document', async (req, res) => {
         logger.log(`📄 Generating document for: "${query}"`);
         
         // Step 1: Get content from KB
+        logger.log('Step 1: Calling Knowledge Base...');
         const kbResponse = await fetch(`http://localhost:${port}/api/chat-direct`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: query })
         });
         
+        if (!kbResponse.ok) {
+            const errorText = await kbResponse.text();
+            logger.error(`KB call failed with status ${kbResponse.status}: ${errorText}`);
+            throw new Error(`Knowledge Base call failed: ${kbResponse.status}`);
+        }
+        
         const kbData = await kbResponse.json();
+        logger.log(`Step 1 complete: Got ${kbData.videoClips?.length || 0} clips`);
         
         // Step 2: Generate document structure using Claude
+        logger.log('Step 2: Generating document structure with Claude...');
+        if (!bedrockRuntimeClient) {
+            throw new Error('Bedrock Runtime Client not initialized');
+        }
         const documentStructure = await generateDocumentStructure(query, kbData, bedrockRuntimeClient);
+        logger.log('Step 2 complete: Document structure generated');
         
         // Step 3: Extract frames for visuals
+        logger.log('Step 3: Extracting frames...');
         const documentWithFrames = await extractDocumentFrames(documentStructure, kbData.videoClips);
+        logger.log('Step 3 complete: Frames extracted');
         
         // Step 4: Generate HTML
         const htmlContent = generateDocumentHTML(documentWithFrames);
@@ -1862,7 +2027,12 @@ app.post('/api/generate-document', async (req, res) => {
         
     } catch (error) {
         logger.error('Document generation failed:', error);
-        res.status(500).json({ error: 'Failed to generate document' });
+        logger.error('Error stack:', error.stack);
+        res.status(500).json({ 
+            error: 'Failed to generate document',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+            step: error.step || 'unknown'
+        });
     }
 });
 
@@ -1936,16 +2106,246 @@ function validateDocumentStructure(structure) {
         }
     }
 
-    // Must have exactly 4 visual steps
-    if (visualStepCount !== 4) {
-        logger.error(`Invalid visual step count: ${visualStepCount} (must be exactly 4)`);
+    // FIXED: Allow any number of visual steps (2-4), not just exactly 4
+    if (visualStepCount < 2 || visualStepCount > 4) {
+        logger.error(`Invalid visual step count: ${visualStepCount} (must be between 2 and 4)`);
         return false;
     }
 
+    logger.log(`✅ Document structure valid with ${visualStepCount} visual steps`);
     return true;
 }
 
-// Update selected frame endpoint
+// Enhanced video generation from document with semantic validation
+app.post('/api/generate-video', async (req, res) => {
+    try {
+        const { documentId } = req.body;
+        
+        if (!documentId) {
+            return res.status(400).json({ error: 'Document ID is required' });
+        }
+
+        // Get document from cache
+        const cached = documentCache.get(documentId);
+        if (!cached || !cached.structure || !cached.selectedFrames) {
+            return res.status(404).json({ error: 'Document not found or frames not selected' });
+        }
+
+        if (!cached.isReadyForPDF) {
+            return res.status(400).json({ error: 'Please select all required frames before generating video' });
+        }
+
+        // Enhanced video segment preparation with semantic validation
+        const segments = [];
+        let previousEndTime = 0;
+        let currentVideoPath = null;
+
+        // Add title segment
+        segments.push({
+            type: 'title',
+            title: cached.structure.title,
+            duration: 3,
+            text: cached.structure.title
+        });
+
+        // Process sections and steps
+        for (const section of cached.structure.sections) {
+            // Add section title
+            segments.push({
+                type: 'section_title',
+                title: section.title,
+                duration: 2,
+                text: section.title
+            });
+
+            for (const step of section.steps) {
+                if (step.needsVisual) {
+                    const sectionIndex = cached.structure.sections.indexOf(section);
+                    const stepIndex = section.steps.indexOf(step);
+                    const key = `${sectionIndex}-${stepIndex}`;
+                    const frame = cached.selectedFrames.get(key);
+                    
+                    if (frame && frame.videoPath && frame.timestamp !== undefined) {
+                        const actualTimestamp = parseFloat(frame.timestamp);
+                        
+                        // Validate timestamp and video path
+                        if (isNaN(actualTimestamp)) {
+                            logger.error(`Invalid timestamp for step ${step.number}: ${frame.timestamp}`);
+                            continue;
+                        }
+
+                        // Add transition if switching videos
+                        if (currentVideoPath && currentVideoPath !== frame.videoPath) {
+                            segments.push({
+                                type: 'transition',
+                                duration: 1
+                            });
+                        }
+                        currentVideoPath = frame.videoPath;
+
+                        // Calculate optimal clip duration based on text length
+                        const textLength = step.text.length;
+                        const baseDuration = 8; // minimum duration
+                        const extraDuration = Math.min(Math.floor(textLength / 50) * 2, 12); // 2 seconds per 50 chars, max 12s extra
+                        const totalDuration = baseDuration + extraDuration;
+
+                        // Create segment with smart timing
+                        segments.push({
+                            type: 'content',
+                            videoPath: frame.videoPath,
+                            startTime: Math.max(0, actualTimestamp - 1), // 1 second lead-in
+                            endTime: actualTimestamp + totalDuration, // Dynamic duration
+                            text: step.text,
+                            stepNumber: step.number,
+                            sectionTitle: section.title,
+                            caption: frame.caption || step.text
+                        });
+
+                        previousEndTime = actualTimestamp + totalDuration;
+                    }
+                }
+            }
+
+            // Add section transition
+            if (section !== cached.structure.sections[cached.structure.sections.length - 1]) {
+                segments.push({
+                    type: 'transition',
+                    duration: 1
+                });
+            }
+        }
+
+        // Add conclusion if available
+        if (cached.structure.conclusion) {
+            segments.push({
+                type: 'conclusion',
+                title: 'Conclusion',
+                duration: 3,
+                text: cached.structure.conclusion
+            });
+        }
+
+        if (segments.length === 0) {
+            return res.status(400).json({ error: 'No valid video segments found' });
+        }
+
+        logger.log(`🎬 Generating video with ${segments.length} segments for document: ${cached.structure.title}`);
+        
+        // Generate video
+        const videoPath = await videoGenerator.generateVideo(segments, {
+            title: cached.structure.title,
+            documentId: documentId
+        });
+        
+        // Check if video file exists
+        const videoExists = await fs.access(videoPath).then(() => true).catch(() => false);
+        if (!videoExists) {
+            throw new Error('Generated video file not found');
+        }
+        
+        // Get video file stats
+        const stats = await fs.stat(videoPath);
+        const fileSize = stats.size;
+        
+        logger.log(`✅ Video generated successfully: ${videoPath} (${(fileSize / (1024 * 1024)).toFixed(2)} MB)`);
+        
+        // Handle range requests for video streaming
+        const range = req.headers.range;
+        
+        if (range) {
+            // Parse range header
+            const parts = range.replace(/bytes=/, "").split("-");
+            const start = parseInt(parts[0], 10);
+            const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+            const chunksize = (end - start) + 1;
+            
+            // Create read stream for the requested range
+            const file = fsSync.createReadStream(videoPath, { start, end });
+            
+            // Set appropriate headers
+            const head = {
+                'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+                'Accept-Ranges': 'bytes',
+                'Content-Length': chunksize,
+                'Content-Type': 'video/mp4',
+                'Cache-Control': 'no-cache'
+            };
+            
+            res.writeHead(206, head);
+            file.pipe(res);
+        } else {
+            // Stream entire file
+            const head = {
+                'Content-Length': fileSize,
+                'Content-Type': 'video/mp4',
+                'Accept-Ranges': 'bytes',
+                'Cache-Control': 'no-cache'
+            };
+            
+            res.writeHead(200, head);
+            fsSync.createReadStream(videoPath).pipe(res);
+        }
+
+    } catch (error) {
+        logger.error('Video generation failed:', error);
+        res.status(500).json({ 
+            error: 'Failed to generate video',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+});
+
+// FIXED: Also add a simple GET endpoint for direct video access
+app.get('/api/video/:filename', async (req, res) => {
+    try {
+        const { filename } = req.params;
+        const videoPath = path.join(__dirname, 'generated_videos', filename);
+        
+        // Check if file exists
+        const videoExists = await fs.access(videoPath).then(() => true).catch(() => false);
+        if (!videoExists) {
+            return res.status(404).json({ error: 'Video not found' });
+        }
+        
+        // Get file stats
+        const stats = await fs.stat(videoPath);
+        const fileSize = stats.size;
+        
+        // Handle range requests
+        const range = req.headers.range;
+        
+        if (range) {
+            const parts = range.replace(/bytes=/, "").split("-");
+            const start = parseInt(parts[0], 10);
+            const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+            const chunksize = (end - start) + 1;
+            
+            const file = fsSync.createReadStream(videoPath, { start, end });
+            const head = {
+                'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+                'Accept-Ranges': 'bytes',
+                'Content-Length': chunksize,
+                'Content-Type': 'video/mp4',
+            };
+            res.writeHead(206, head);
+            file.pipe(res);
+        } else {
+            const head = {
+                'Content-Length': fileSize,
+                'Content-Type': 'video/mp4',
+                'Accept-Ranges': 'bytes',
+            };
+            res.writeHead(200, head);
+            fsSync.createReadStream(videoPath).pipe(res);
+        }
+        
+    } catch (error) {
+        logger.error('Video serving failed:', error);
+        res.status(500).json({ error: 'Failed to serve video' });
+    }
+});
+
+// FIXED: Update selected frame endpoint
 app.post('/api/update-selected-frame', async (req, res) => {
     try {
         const { documentId, stepIndex, sectionIndex, frameData } = req.body;
@@ -1971,11 +2371,23 @@ app.post('/api/update-selected-frame', async (req, res) => {
             return res.status(400).json({ error: 'Invalid step index' });
         }
 
-        // Update selected frame for this step
+        // FIXED: Store the frame data with the actual video timestamp
         const key = `${sectionIndex}-${stepIndex}`;
+        
+        // Log what timestamp we're storing
+        logger.log(`📸 Storing frame for ${documentId}: section ${sectionIndex}, step ${stepIndex}`);
+        logger.log(`   Video: ${frameData.videoPath}`);
+        logger.log(`   Timestamp: ${frameData.timestamp}s`);
+        logger.log(`   Selected at: ${frameData.selectedAt || new Date().toISOString()}`);
+        
+        // Store frame data with actual video timestamp (not Unix timestamp)
         cached.selectedFrames.set(key, {
-            ...frameData,
-            timestamp: Date.now()
+            base64Image: frameData.base64Image,
+            videoPath: frameData.videoPath,
+            timestamp: parseFloat(frameData.timestamp), // FIXED: Ensure this is the video timestamp
+            caption: frameData.caption,
+            success: frameData.success,
+            selectedAt: frameData.selectedAt || new Date().toISOString() // When it was selected
         });
 
         // Check if all required frames are selected
@@ -1989,7 +2401,7 @@ app.post('/api/update-selected-frame', async (req, res) => {
                 // Only count steps that are explicitly marked as needing visuals
                 if (step.needsVisual === true) {
                     totalSteps++;
-                    logger.log(`Found step needing visual: Section ${sectionIndex}, Step ${step.number}`);
+                    logger.log(`Found step needing visual: Section ${cached.structure.sections.indexOf(section)}, Step ${step.number}`);
                 }
             }
         }
@@ -2007,7 +2419,7 @@ app.post('/api/update-selected-frame', async (req, res) => {
                         const step = section.steps[frameStep];
                         if (step.needsVisual === true) {
                             selectedSteps++;
-                            logger.log(`Found selected frame for required step: Section ${frameSection}, Step ${step.number}`);
+                            logger.log(`Found selected frame for required step: Section ${frameSection}, Step ${step.number} at ${frame.timestamp}s`);
                         }
                     }
                 }
@@ -2021,7 +2433,7 @@ app.post('/api/update-selected-frame', async (req, res) => {
         cached.lastUpdated = new Date();
         documentCache.set(documentId, cached);
 
-        logger.log(`Frame selection updated: ${selectedSteps}/${totalSteps} frames selected`);
+        logger.log(`Frame selection updated: ${selectedSteps}/${totalSteps} frames selected. Ready for PDF/Video: ${allFramesSelected}`);
 
         res.json({ 
             success: true, 
@@ -2030,8 +2442,10 @@ app.post('/api/update-selected-frame', async (req, res) => {
                 total: totalSteps,
                 selected: selectedSteps,
                 remaining: totalSteps - selectedSteps
-            }
+            },
+            frameTimestamp: parseFloat(frameData.timestamp) // Return the actual timestamp for verification
         });
+        
     } catch (error) {
         logger.error('Error updating selected frame:', error);
         res.status(500).json({ 
@@ -2587,7 +3001,7 @@ async function loadFullTranscript(videoPath) {
     try {
         // Find corresponding transcript file
         const videoName = path.basename(videoPath, path.extname(videoPath));
-        const transcriptPath = path.join(__dirname, 'transcripts', `${videoName}.json`);
+        const transcriptPath = path.join(__dirname, 'transcripts', `${videoName}_sentences.json`);
         
         const transcriptContent = await fs.readFile(transcriptPath, 'utf8');
         const transcript = JSON.parse(transcriptContent);
@@ -3055,10 +3469,17 @@ function generateDocumentHTML(doc, forPDF = false) {
                 await updateFramePreview(newTime);
             }
             
-            document.getElementById('timelineSlider').addEventListener('input', async function(e) {
+            // FIXED: Add debouncing for smooth slider updates
+            let sliderTimeout;
+            document.getElementById('timelineSlider').addEventListener('input', function(e) {
                 const timestamp = parseFloat(e.target.value);
                 updateTimestamp(timestamp);
-                await updateFramePreview(timestamp);
+                
+                // Debounce frame preview updates for smooth dragging
+                clearTimeout(sliderTimeout);
+                sliderTimeout = setTimeout(async () => {
+                    await updateFramePreview(timestamp);
+                }, 150); // 150ms debounce
             });
             
             async function selectFrame() {

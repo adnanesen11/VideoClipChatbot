@@ -1,0 +1,578 @@
+[
+  {
+    "text": "Dear all, welcome to this new tutorial dedicated to Microsoft project.",
+    "start": "0:00:00.400000",
+    "end": "0:00:05.360000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "In just 14 minutes we are going to see everything you need to know to start using it, even if you see it for the first time.",
+    "start": "0:00:05.920000",
+    "end": "0:00:13.440000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Microsoft Project is one of the best project management products available.",
+    "start": "0:00:22",
+    "end": "0:00:26.560000",
+    "confidence": 0.9355469
+  },
+  {
+    "text": "Once you define working times, holidays, people, resources and deadlines, Project helps you get the best solutions to respect the deadlines, reduce the expenses and reach milestones.",
+    "start": "0:00:27.330000",
+    "end": "0:00:40.770000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "Project runs on Windows 10 and 11 and is available as a cloud subscription plan or a perpetual license on its own since it is not within any Office or Microsoft bundle.",
+    "start": "0:00:41.570000",
+    "end": "0:00:53.970000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "When opening Project, this shows several options to start working, you can reopen any existing project in an MPP format or pick any ready template offered by Microsoft under New to learn how to use Project.",
+    "start": "0:00:54.650000",
+    "end": "0:01:10.489000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "Let's start from a new blank Project this opens the main workspace showing the ribbon on top with all the tools needed to work the project timeline and the Gantt chart at the bottom with the task list on the task sheet on the left and the graphic chart on the right.",
+    "start": "0:01:10.970000",
+    "end": "0:01:31.780000",
+    "confidence": 0.9848633
+  },
+  {
+    "text": "First of all, define all the tasks by typing their name and at least two between duration, start and finish date.",
+    "start": "0:01:32.820000",
+    "end": "0:01:41.940000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "Each task is represented as a bar well placed on the Gantt chart and kept updated according to the task sheet content.",
+    "start": "0:01:42.340000",
+    "end": "0:01:51",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Use your mouse wheel while holding down the control key to zoom in and out on the chart in order to show quarters, weeks, days or hours.",
+    "start": "0:01:57.160000",
+    "end": "0:02:06.200000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "The timeline above is also very useful, showing the portion visible on the chart within two green lines through the total project duration defined by the start date of the first task until the finish date of the last task.",
+    "start": "0:02:09.160000",
+    "end": "0:02:25.050000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "If you are not able to see it, just go to view Timeline.",
+    "start": "0:02:25.930000",
+    "end": "0:02:30.410000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "You can click on these green lines to move through time or drag these to adjust the zoom.",
+    "start": "0:02:31.690000",
+    "end": "0:02:38.490000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "You can also add the main tasks on it by right clicking on these and and going to add to timeline.",
+    "start": "0:02:40.330000",
+    "end": "0:02:47.400000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "In the same way you can right click on the timeline and use Remove from timeline to remove these.",
+    "start": "0:02:48.120000",
+    "end": "0:02:54.840000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "Let's see how to manage and edit tasks.",
+    "start": "0:02:56.120000",
+    "end": "0:02:58.680000",
+    "confidence": 0.97005206
+  },
+  {
+    "text": "Double click on any task bar to edit its appearance on its borders, style and color.",
+    "start": "0:02:59.080000",
+    "end": "0:03:05.400000",
+    "confidence": 0.99975586
+  },
+  {
+    "text": "Whereas go to Gantt chart format style to change the appearance of all the taskbars all at once.",
+    "start": "0:03:07.880000",
+    "end": "0:03:15.430000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "Click and drag any bar to move it in time day per day and change its start and finish dates.",
+    "start": "0:03:16.790000",
+    "end": "0:03:23.350000",
+    "confidence": 0.99975586
+  },
+  {
+    "text": "Drag the right edge to adjust its duration by moving its finish date.",
+    "start": "0:03:24.310000",
+    "end": "0:03:29.350000",
+    "confidence": 0.80322266
+  },
+  {
+    "text": "The task sheet will show the effect of your modifications.",
+    "start": "0:03:29.510000",
+    "end": "0:03:32.790000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "By default.",
+    "start": "0:03:34.470000",
+    "end": "0:03:35.430000",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "Project takes all Mondays up to Fridays as working days shown as white columns considering Saturdays and Sundays, non working days shown as gray columns.",
+    "start": "0:03:35.590000",
+    "end": "0:03:47.220000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "This means that if you move or extend any task towards the weekends.",
+    "start": "0:03:47.460000",
+    "end": "0:03:51.940000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "It simply extends in order to cover its full duration expressed in working days.",
+    "start": "0:03:52.020000",
+    "end": "0:03:57.780000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "To manage working days and holidays, go to Project Change working time first of all, go to options to set the default options for your project, such as when the new week starts, when the working day starts and ends the hours per day and week, and so on.",
+    "start": "0:03:58.500000",
+    "end": "0:04:17.100000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "You can check your calendar status by selecting any working day at the bottom under exceptions, add extra holidays or special working days following different hours than default, adding recurrence if necessary.",
+    "start": "0:04:18.060000",
+    "end": "0:04:36.550000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "On work weeks, you define the working and non working rules for each week on your project.",
+    "start": "0:04:39.270000",
+    "end": "0:04:44.950000",
+    "confidence": 0.9897461
+  },
+  {
+    "text": "Double click on default to check and edit the general work week for each day of the week.",
+    "start": "0:04:45.510000",
+    "end": "0:04:51.430000",
+    "confidence": 0.99975586
+  },
+  {
+    "text": "You can follow the rules defined within the project options just seen.",
+    "start": "0:04:51.590000",
+    "end": "0:04:56.070000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Turn it to a non working day or keep it as a working day with the same or different hours.",
+    "start": "0:04:56.230000",
+    "end": "0:05:01.870000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Below default you can add special periods where the weeks follow special rules superimposed over the default ones.",
+    "start": "0:05:03.710000",
+    "end": "0:05:11.630000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "When you go to ok, the GANTT chart gets updated according to your new working days and hours.",
+    "start": "0:05:12.590000",
+    "end": "0:05:18.910000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Moreover, you can right click on any task and go to Split Task to split any task and add gaps on it without changing its total duration.",
+    "start": "0:05:19.950000",
+    "end": "0:05:30.200000",
+    "confidence": 0.9992676
+  },
+  {
+    "text": "You can also add its percentage of completion by dragging from its left edge.",
+    "start": "0:05:31.320000",
+    "end": "0:05:36.680000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "If you double click on any task name, you open the Task Information panel.",
+    "start": "0:05:38.280000",
+    "end": "0:05:44.200000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Very useful to check and adjust all the task properties in detail.",
+    "start": "0:05:44.600000",
+    "end": "0:05:49",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "Under Notes you can add some comments and description, and on Advanced you can specify any strict deadline for such task.",
+    "start": "0:05:50.040000",
+    "end": "0:05:59.180000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "This is shown as a green arrow that brings visible red warnings on the left when the task overcomes it.",
+    "start": "0:06:00.860000",
+    "end": "0:06:07.579000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "To remove any task, right click on it and go to Delete Task.",
+    "start": "0:06:09.020000",
+    "end": "0:06:13.420000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Choose Inactivate Task if you want to exclude the task from the project without removing it.",
+    "start": "0:06:14.380000",
+    "end": "0:06:20.540000",
+    "confidence": 0.93815106
+  },
+  {
+    "text": "All these tasks are manually scheduled tasks whose duration, start and finish dates must be adjusted manually and without any automation, and they are suggested on tasks where you prefer to be more in control.",
+    "start": "0:06:21.440000",
+    "end": "0:06:35.440000",
+    "confidence": 0.98828125
+  },
+  {
+    "text": "If you switch to auto scheduled, you give to project the possibility to manage these for you according to the constraint type and date you specify under the Advanced tab.",
+    "start": "0:06:36.640000",
+    "end": "0:06:48.880000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "On Task information you can manage the task in order to finish it as soon as possible or not earlier or later than any date.",
+    "start": "0:06:49.270000",
+    "end": "0:06:58.470000",
+    "confidence": 0.6220703
+  },
+  {
+    "text": "You can still move and edit auto schedule tasks as you want.",
+    "start": "0:06:59.750000",
+    "end": "0:07:03.670000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "If you do not respect any constraint, project will show warnings with possible options.",
+    "start": "0:07:03.750000",
+    "end": "0:07:09.350000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "You can also make multiple tasks dependent by using the links.",
+    "start": "0:07:10.550000",
+    "end": "0:07:15.110000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "If you click and drag vertically from any task and release your click on a second task, you create a Finish to start link.",
+    "start": "0:07:15.680000",
+    "end": "0:07:23.760000",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "This means that the second task starts when the previous one, also called predecessor, finishes.",
+    "start": "0:07:23.920000",
+    "end": "0:07:30.560000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "This way you can drop multiple links to several tasks and help project understand what comes next in the schedule.",
+    "start": "0:07:31.279000",
+    "end": "0:07:38.880000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "The Predecessors column shows the dependence of the current task by showing the row number of its predecessor.",
+    "start": "0:07:39.600000",
+    "end": "0:07:46.320000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "To manage these links, open the Task information under the Predecessors tab.",
+    "start": "0:07:47.230000",
+    "end": "0:07:52.190000",
+    "confidence": 0.9921875
+  },
+  {
+    "text": "In this case, you can change the link type and add lags if necessary.",
+    "start": "0:07:53.470000",
+    "end": "0:07:58.510000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "In this case, remember to use H for hours, D for days, and W for weeks.",
+    "start": "0:07:58.910000",
+    "end": "0:08:05.230000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "The Finish to start link is used the most, but you can switch to Start to Start to start the current task when the predecessor starts, Finish to Finish to finish it when the previous one finishes, and Start to Finish to finish the current task when the previous starts.",
+    "start": "0:08:06.430000",
+    "end": "0:08:24.210000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "You can still move and edit tasks with links.",
+    "start": "0:08:25.010000",
+    "end": "0:08:28.050000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "However, errors may occur if you do not respect the constraints.",
+    "start": "0:08:28.290000",
+    "end": "0:08:32.370000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "In particular, if you see manually scheduled tasks with dashed contours, you can right click on these and go to Respect Links to correct the error automatically.",
+    "start": "0:08:32.690000",
+    "end": "0:08:44.720000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Or open the task inspector to see what's wrong and get the best solutions suggested by Project.",
+    "start": "0:08:45.040000",
+    "end": "0:08:51.360000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "To remove any link applied, select the task and go to Task Unlink Tasks.",
+    "start": "0:08:52.400000",
+    "end": "0:08:58.560000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Links get removed also in case you delete any related task, but not in case you simply inactivate it.",
+    "start": "0:08:59.040000",
+    "end": "0:09:06.160000",
+    "confidence": 0.9895833
+  },
+  {
+    "text": "Besides the tasks, you can also include summaries and milestones from the Insert section of the Task tab.",
+    "start": "0:09:07.500000",
+    "end": "0:09:14.860000",
+    "confidence": 0.96191406
+  },
+  {
+    "text": "The summary is a group of tasks collected together.",
+    "start": "0:09:15.500000",
+    "end": "0:09:18.540000",
+    "confidence": 0.98779297
+  },
+  {
+    "text": "Define its name in bold, its task mode, and all its tasks inside.",
+    "start": "0:09:19.260000",
+    "end": "0:09:24.540000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "You can also include any existing task by selecting its row and dragging it within the summary.",
+    "start": "0:09:25.660000",
+    "end": "0:09:32.620000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "On the GANTT chart, the summary is shown as a thick container, as much long as its inner tasks spread in time only.",
+    "start": "0:09:33.620000",
+    "end": "0:09:42.700000",
+    "confidence": 0.98046875
+  },
+  {
+    "text": "In case of manually scheduled summaries, you may need to adjust its duration if any task is not contained any longer.",
+    "start": "0:09:42.700000",
+    "end": "0:09:50.980000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "Whereas the milestones represent important goals falling on certain dates shown in bold, you can manage the milestones and the summaries just like the tasks, setting properties and adding links if necessary.",
+    "start": "0:09:52.260000",
+    "end": "0:10:07.510000",
+    "confidence": 0.99731445
+  },
+  {
+    "text": "Once all tasks are defined, you can switch to the Team Planner to assign these to your team members.",
+    "start": "0:10:08.470000",
+    "end": "0:10:14.550000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "You can add any colleague by going to Resource Add resources, then double click on the new entry and add name, email, group a custom working time, for example, to include part time jobs and any declared holiday.",
+    "start": "0:10:15.110000",
+    "end": "0:10:31.870000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Under exceptions.",
+    "start": "0:10:32.110000",
+    "end": "0:10:33.310000",
+    "confidence": 0.98583984
+  },
+  {
+    "text": "Under cost, you can include any wage and overtime rate expressed per hour, h per week, or per month.",
+    "start": "0:10:35.070000",
+    "end": "0:10:44.510000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "At this point, you can drag and drop any unassigned task to the right person, always respecting their time placement in the schedule and the holidays of your team members.",
+    "start": "0:10:48.350000",
+    "end": "0:10:59.160000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "If you drag an auto scheduled task, this is adjusted according to the working time and the holidays of each person.",
+    "start": "0:10:59.720000",
+    "end": "0:11:07.160000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "If it is manually scheduled, you may need to correct assignments on your own with the help of the inspector above.",
+    "start": "0:11:07.640000",
+    "end": "0:11:14.920000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "All these people appear on the Task sheet, under the Resource column and next to each task in bold color.",
+    "start": "0:11:16.200000",
+    "end": "0:11:24.220000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "You can also double click on the bars and go to bar text to change the content of this note.",
+    "start": "0:11:25.100000",
+    "end": "0:11:31.660000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "Switch to Resource Sheet to keep your cost under control.",
+    "start": "0:11:34.140000",
+    "end": "0:11:37.740000",
+    "confidence": 0.99975586
+  },
+  {
+    "text": "Besides your collaborator salaries, you can also include materials or costs with their amount.",
+    "start": "0:11:38.460000",
+    "end": "0:11:44.620000",
+    "confidence": 0.9793294
+  },
+  {
+    "text": "Then you can return to the Task sheet list, right click and go to Assign Resources to associate any resource to the specific task defining units and get a complete preview on the total cost of such task.",
+    "start": "0:11:47.990000",
+    "end": "0:12:04.950000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "Open the Task Usage view to get a complete overview on how much working time and how many units each task requires from Resources.",
+    "start": "0:12:06.310000",
+    "end": "0:12:15.830000",
+    "confidence": 1.0
+  },
+  {
+    "text": "From the Format tab above, you can also enable cost rows and see how this is distributed day by day as you work on your projects.",
+    "start": "0:12:16.680000",
+    "end": "0:12:27.240000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "You may need new columns if necessary, or change the kind of table shown by going to View Tables.",
+    "start": "0:12:27.400000",
+    "end": "0:12:35.560000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "You can also sort the task list or apply very useful highlighting and filtering on it.",
+    "start": "0:12:38.040000",
+    "end": "0:12:45.160000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "To extract any chart or graph from the actual project status, go to Report above and then to New Report selecting the right format as you build reports.",
+    "start": "0:12:46.950000",
+    "end": "0:12:59.590000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "The latest one is always shown on the Report view, but you can find the complete list under Report Recent.",
+    "start": "0:12:59.910000",
+    "end": "0:13:08.150000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "We won't see in detail how to customize these reports.",
+    "start": "0:13:08.710000",
+    "end": "0:13:12.310000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Consider that you can set data and options on the right and adjust appearance with the green tabs on top.",
+    "start": "0:13:13.370000",
+    "end": "0:13:20.250000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "Please check out our Excel tutorial to learn more about how to edit charts.",
+    "start": "0:13:20.890000",
+    "end": "0:13:25.850000",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "To save your project mate, go to File and then to save as setting destination folder and file name in an MPP file format.",
+    "start": "0:13:27.370000",
+    "end": "0:13:38.090000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "This way you can retrieve your project and edit it again if you need.",
+    "start": "0:13:38.580000",
+    "end": "0:13:42.740000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "You can also combine multiple projects together.",
+    "start": "0:13:43.540000",
+    "end": "0:13:46.660000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "If you go to Project Subproject, you can browse for your MPP file to import it within your current project as an auto scheduled summary.",
+    "start": "0:13:47.300000",
+    "end": "0:13:57.860000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "This is also linked to the original file so it gets updated if such file is modified.",
+    "start": "0:13:58.180000",
+    "end": "0:14:04.020000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "Thank you very much for watching this tutorial.",
+    "start": "0:14:04.810000",
+    "end": "0:14:07.610000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "Do not lose our complete Office guide to learn about other Microsoft products in no time.",
+    "start": "0:14:07.930000",
+    "end": "0:14:13.850000",
+    "confidence": 0.9980469
+  }
+]

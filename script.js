@@ -174,146 +174,151 @@ class IndustryStandardChatBot {
     }
     
     async selectFrame() {
-        if (!this.activeVisual) {
-            console.error('No active visual element');
-            return;
+    if (!this.activeVisual) {
+        console.error('No active visual element');
+        return;
+    }
+    
+    try {
+        const slider = document.getElementById('timelineSlider');
+        if (!slider) {
+            throw new Error('Timeline slider not found');
         }
         
-        try {
-            const slider = document.getElementById('timelineSlider');
-            if (!slider) {
-                throw new Error('Timeline slider not found');
-            }
-            
-            const timestamp = parseFloat(slider.value);
-            if (isNaN(timestamp)) {
-                throw new Error('Invalid timestamp');
-            }
-            
-            const videoPath = this.activeVisual.dataset.videoPath;
-            if (!videoPath) {
-                throw new Error('No video path found');
-            }
-            
-            const response = await fetch(`/api/frame-at-timestamp?videoPath=${encodeURIComponent(videoPath)}&timestamp=${timestamp}`);
-            if (!response.ok) {
-                throw new Error(`Failed to get frame: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            if (!data.base64Image) {
-                throw new Error('No image data received');
-            }
-            
-            // Update the visual element
-            const img = this.activeVisual.querySelector('img');
-            if (!img) {
-                throw new Error('Image element not found');
-            }
-            
-            img.src = data.base64Image;
-            this.activeVisual.dataset.timestamp = timestamp;
-            
-            // Update timestamp info
-            const timestampInfo = this.activeVisual.querySelector('.timestamp-info');
-            if (timestampInfo) {
-                timestampInfo.textContent = `Video: ${videoPath.split('/').pop()} at ${this.formatTimestamp(timestamp)}`;
-            }
-            
-            // Get section and step indices from visual element
-            const step = this.activeVisual.closest('.process-step');
-            const section = step.closest('.document-section');
-            const sections = Array.from(document.querySelectorAll('.document-section'));
-            const sectionIndex = sections.indexOf(section);
-            const stepIndex = Array.from(section.querySelectorAll('.process-step')).indexOf(step);
-            
-            // Get document ID from export button
-            const exportBtn = document.querySelector('.document-action-btn');
-            const documentId = exportBtn.getAttribute('data-document-id');
-            if (!documentId) {
-                throw new Error('Document ID not found');
-            }
-            
-            // Update selected frame in document cache with retry
-            let retryCount = 0;
-            const maxRetries = 3;
-            let updateSuccess = false;
-            
-            while (retryCount < maxRetries && !updateSuccess) {
-                try {
-                    const updateResponse = await fetch('/api/update-selected-frame', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            documentId,
-                            sectionIndex,
-                            stepIndex,
-                            frameData: {
-                                base64Image: data.base64Image,
-                                videoPath,
-                                timestamp,
-                                caption: this.activeVisual.querySelector('.visual-caption')?.textContent || '',
-                                success: true
-                            }
-                        })
-                    });
-                    
-                    if (!updateResponse.ok) {
-                        throw new Error(`Failed to update document cache: ${updateResponse.status}`);
-                    }
-                    
-                    const updateData = await updateResponse.json();
-                    
-                    // Update export button state and style
-                    if (updateData.isReadyForPDF) {
-                        exportBtn.style.opacity = '1';
-                        exportBtn.style.cursor = 'pointer';
-                        exportBtn.style.backgroundColor = '#4CAF50';
-                        exportBtn.title = 'All frames selected - Ready to export PDF';
-                    } else {
-                        exportBtn.style.opacity = '0.5';
-                        exportBtn.style.cursor = 'not-allowed';
-                        exportBtn.style.backgroundColor = '#ccc';
-                        exportBtn.title = 'Please select all required frames before exporting';
-                    }
-                    
-                    updateSuccess = true;
-                    
-                } catch (error) {
-                    retryCount++;
-                    if (retryCount === maxRetries) {
-                        throw error;
-                    }
-                    await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
+        const timestamp = parseFloat(slider.value);
+        if (isNaN(timestamp)) {
+            throw new Error('Invalid timestamp');
+        }
+        
+        const videoPath = this.activeVisual.dataset.videoPath;
+        if (!videoPath) {
+            throw new Error('No video path found');
+        }
+        
+        const response = await fetch(`/api/frame-at-timestamp?videoPath=${encodeURIComponent(videoPath)}&timestamp=${timestamp}`);
+        if (!response.ok) {
+            throw new Error(`Failed to get frame: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        if (!data.base64Image) {
+            throw new Error('No image data received');
+        }
+        
+        // Update the visual element
+        const img = this.activeVisual.querySelector('img');
+        if (!img) {
+            throw new Error('Image element not found');
+        }
+        
+        img.src = data.base64Image;
+        this.activeVisual.dataset.timestamp = timestamp;
+        
+        // Update timestamp info
+        const timestampInfo = this.activeVisual.querySelector('.timestamp-info');
+        if (timestampInfo) {
+            timestampInfo.textContent = `Video: ${videoPath.split('/').pop()} at ${this.formatTimestamp(timestamp)}`;
+        }
+        
+        // Get section and step indices from visual element
+        const step = this.activeVisual.closest('.process-step');
+        const section = step.closest('.document-section');
+        const sections = Array.from(document.querySelectorAll('.document-section'));
+        const sectionIndex = sections.indexOf(section);
+        const stepIndex = Array.from(section.querySelectorAll('.process-step')).indexOf(step);
+        
+        // Get document ID from export button
+        const exportBtn = document.querySelector('.document-action-btn');
+        const documentId = exportBtn.getAttribute('data-document-id');
+        if (!documentId) {
+            throw new Error('Document ID not found');
+        }
+        
+        // FIXED: Use the actual video timestamp, not Date.now()
+        // Update selected frame in document cache with retry
+        let retryCount = 0;
+        const maxRetries = 3;
+        let updateSuccess = false;
+        
+        while (retryCount < maxRetries && !updateSuccess) {
+            try {
+                const updateResponse = await fetch('/api/update-selected-frame', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        documentId,
+                        sectionIndex,
+                        stepIndex,
+                        frameData: {
+                            base64Image: data.base64Image,
+                            videoPath,
+                            timestamp: timestamp, // FIXED: Use actual video timestamp
+                            caption: this.activeVisual.querySelector('.visual-caption')?.textContent || '',
+                            success: true,
+                            selectedAt: new Date().toISOString() // Separate field for when it was selected
+                        }
+                    })
+                });
+                
+                if (!updateResponse.ok) {
+                    throw new Error(`Failed to update document cache: ${updateResponse.status}`);
                 }
-            }
-            
-            // Close modal
-            const modal = document.getElementById('frameSelectionModal');
-            if (modal) {
-                modal.style.display = 'none';
-                // Reset preview image
-                const preview = document.getElementById('framePreview');
-                if (preview) {
-                    preview.src = '';
+                
+                const updateData = await updateResponse.json();
+                
+                // Update export button state and style
+                if (updateData.isReadyForPDF) {
+                    exportBtn.style.opacity = '1';
+                    exportBtn.style.cursor = 'pointer';
+                    exportBtn.style.backgroundColor = '#4CAF50';
+                    exportBtn.title = 'All frames selected - Ready to export PDF';
+                } else {
+                    exportBtn.style.opacity = '0.5';
+                    exportBtn.style.cursor = 'not-allowed';
+                    exportBtn.style.backgroundColor = '#ccc';
+                    exportBtn.title = 'Please select all required frames before exporting';
                 }
+                
+                updateSuccess = true;
+                
+                // Log the successful selection
+                console.log(`✅ Frame selected: ${videoPath} at ${timestamp}s (${this.formatTimestamp(timestamp)})`);
+                
+            } catch (error) {
+                retryCount++;
+                if (retryCount === maxRetries) {
+                    throw error;
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
             }
-            
-            this.activeVisual = null;
-            
-        } catch (error) {
-            console.error('Failed to select frame:', error);
-            this.addErrorMessage(`Failed to update frame: ${error.message}`);
-            
-            // Keep modal open on error
+        }
+        
+        // Close modal
+        const modal = document.getElementById('frameSelectionModal');
+        if (modal) {
+            modal.style.display = 'none';
+            // Reset preview image
             const preview = document.getElementById('framePreview');
             if (preview) {
                 preview.src = '';
             }
         }
+        
+        this.activeVisual = null;
+        
+    } catch (error) {
+        console.error('Failed to select frame:', error);
+        this.addErrorMessage(`Failed to update frame: ${error.message}`);
+        
+        // Keep modal open on error
+        const preview = document.getElementById('framePreview');
+        if (preview) {
+            preview.src = '';
+        }
     }
+}
 
     initializeEventListeners() {
         if (!this.sendButton || !this.messageInput) return;
@@ -796,6 +801,9 @@ class IndustryStandardChatBot {
                 <button class="document-action-btn" data-document-id="${data.documentId}" onclick="exportPDF('${data.documentId}')" style="opacity: 0.5; cursor: not-allowed;">
                     📥 Export PDF
                 </button>
+                <button class="document-action-btn video-btn" data-document-id="${data.documentId}" onclick="generateVideo('${data.documentId}')" style="opacity: 0.5; cursor: not-allowed; margin-left: 10px;">
+                    🎥 Generate Video
+                </button>
             </div>
         `;
 
@@ -1262,6 +1270,134 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Timeline slider not found');
     }
 });
+
+// Add video generation function - FIXED VERSION
+window.generateVideo = async function(documentId) {
+    try {
+        console.log(`🎬 Starting video generation for document: ${documentId}`);
+        
+        // Show loading state
+        const videoBtn = document.querySelector(`.document-action-btn.video-btn[data-document-id="${documentId}"]`);
+        if (videoBtn) {
+            videoBtn.disabled = true;
+            videoBtn.innerHTML = '🔄 Generating...';
+        }
+        
+        // FIXED: Use POST method and correct endpoint
+        const response = await fetch('/api/generate-video', {
+            method: 'POST',  // Changed from GET to POST
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ documentId })  // Send documentId in body
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Failed to generate video');
+        }
+
+        // FIXED: For video streaming, handle as blob
+        const contentType = response.headers.get('content-type');
+        
+        if (contentType && contentType.includes('video/mp4')) {
+            // Video is being streamed directly
+            const videoBlob = await response.blob();
+            const videoUrl = URL.createObjectURL(videoBlob);
+            
+            // Create video player modal
+            showVideoModal(videoUrl, `Generated Video - ${documentId}`);
+        } else {
+            // JSON response with video path
+            const data = await response.json();
+            if (data.videoPath) {
+                showVideoModal(data.videoPath, `Generated Video - ${documentId}`);
+            }
+        }
+
+    } catch (error) {
+        console.error('Video generation failed:', error);
+        alert(`Video generation failed: ${error.message}`);
+    } finally {
+        // Reset button state
+        const videoBtn = document.querySelector(`.document-action-btn.video-btn[data-document-id="${documentId}"]`);
+        if (videoBtn) {
+            videoBtn.disabled = false;
+            videoBtn.innerHTML = '🎥 Generate Video';
+        }
+    }
+};
+
+function showVideoModal(videoUrl, title = 'Generated Video') {
+    // Remove any existing video modal
+    const existingModal = document.querySelector('.video-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Create video player modal
+    const modal = document.createElement('div');
+    modal.className = 'video-modal';
+    modal.innerHTML = `
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h3>${title}</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="video-player">
+                <video controls autoplay style="width: 100%; max-width: 1280px;">
+                    <source src="${videoUrl}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="video-modal-footer">
+                <button class="download-video-btn">💾 Download Video</button>
+            </div>
+        </div>
+    `;
+
+    // Add modal to body
+    document.body.appendChild(modal);
+
+    // Close modal functionality
+    const closeBtn = modal.querySelector('.modal-close-btn');
+    const downloadBtn = modal.querySelector('.download-video-btn');
+    
+    closeBtn.onclick = () => {
+        modal.remove();
+        // Clean up object URL if it was created
+        if (videoUrl.startsWith('blob:')) {
+            URL.revokeObjectURL(videoUrl);
+        }
+    };
+    
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            closeBtn.onclick();
+        }
+    };
+    
+    // Download functionality
+    downloadBtn.onclick = () => {
+        const link = document.createElement('a');
+        link.href = videoUrl;
+        link.download = `generated-video-${Date.now()}.mp4`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    
+    // Close with Escape key
+    const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+            closeBtn.onclick();
+            document.removeEventListener('keydown', handleEscape);
+        }
+    };
+    document.addEventListener('keydown', handleEscape);
+    
+    console.log('✅ Video modal created successfully');
+}
 
 // Multiple initialization strategies
 if (document.readyState === 'loading') {

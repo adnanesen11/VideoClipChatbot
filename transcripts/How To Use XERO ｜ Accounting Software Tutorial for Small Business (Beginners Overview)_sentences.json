@@ -1,0 +1,1574 @@
+[
+  {
+    "text": "Xero is a leading user friendly online accounting software for small business and is designed to simplify your day to day business tasks.",
+    "start": "0:00:00.320000",
+    "end": "0:00:08.320000",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "This is to essentially streamline your workflow and give you back more time so you can focus on the things you're best at within your small business.",
+    "start": "0:00:08.480000",
+    "end": "0:00:16.080000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Hey team, welcome back to another small business tutorial and thanks for joining me.",
+    "start": "0:00:16.560000",
+    "end": "0:00:20.520000",
+    "confidence": 0.9987793
+  },
+  {
+    "text": "If it's your first time here now today, I'm excited to walk you through the online accounting software called Xerox from a small business owner's perspective, AKA me, and share how you can quickly get started and leverage Xero to manage your daily accounting requirements for your small business.",
+    "start": "0:00:20.520000",
+    "end": "0:00:38.110000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Okay, now just quickly guys.",
+    "start": "0:00:38.750000",
+    "end": "0:00:40.310000",
+    "confidence": 0.9760742
+  },
+  {
+    "text": "Before we launch into our Xero account, consider subscribing if you haven't done so already.",
+    "start": "0:00:40.310000",
+    "end": "0:00:44.750000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "And that way you'll stay updated with actionable videos and tutorials designed to equip you with the skills, knowledge and tools to grow your small business online.",
+    "start": "0:00:44.750000",
+    "end": "0:00:53.320000",
+    "confidence": 0.9404297
+  },
+  {
+    "text": "And with that quick note out the way, let's go ahead and jump into our Xero account and guide you through this powerful online accounting software for your small business.",
+    "start": "0:00:53.480000",
+    "end": "0:01:01.960000",
+    "confidence": 0.96777344
+  },
+  {
+    "text": "Okay, so here we are in our Xero account.",
+    "start": "0:01:14.520000",
+    "end": "0:01:17.160000",
+    "confidence": 0.81673175
+  },
+  {
+    "text": "Now as you can see, we're currently using a demo company.",
+    "start": "0:01:17.480000",
+    "end": "0:01:20.440000",
+    "confidence": 0.9897461
+  },
+  {
+    "text": "Now with your Xero account you can actually create a new organization and you have access to a Demo account.",
+    "start": "0:01:20.760000",
+    "end": "0:01:27.380000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "This allows you to play around with Xero and kind of understand all the extensive features and tools within Xero.",
+    "start": "0:01:27.700000",
+    "end": "0:01:34.740000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Okay, so before we dive into Xero and show you how to get started and leverage all the tools and features within Xero, first we need to understand exactly what Xero is.",
+    "start": "0:01:34.980000",
+    "end": "0:01:44.660000",
+    "confidence": 0.8704427
+  },
+  {
+    "text": "Well, Xero in essence is a cloud based accounting software designed for small business accounting needs.",
+    "start": "0:01:45.060000",
+    "end": "0:01:51.300000",
+    "confidence": 0.9746094
+  },
+  {
+    "text": "Xero simply allows you to manage your day to day operations and transactions from invoicing, simple bank reconciliations, inventory, project management and more.",
+    "start": "0:01:51.620000",
+    "end": "0:02:03.040000",
+    "confidence": 0.9987793
+  },
+  {
+    "text": "Xero is extremely user friendly and will ultimately save you time and money.",
+    "start": "0:02:03.120000",
+    "end": "0:02:07.920000",
+    "confidence": 0.9963379
+  },
+  {
+    "text": "And one of the great reasons you want to use an online accounting software like Xero for your small business is you can simply connect your accountant with your Xero account, which means your accountant can simply monitor and access your account when they need to.",
+    "start": "0:02:08.080000",
+    "end": "0:02:23.040000",
+    "confidence": 0.9038086
+  },
+  {
+    "text": "For financial reporting at the end of the financial year or anytime you need support and help, you can reach out to your accountant and they can access your account and provide the information you're looking for.",
+    "start": "0:02:23.120000",
+    "end": "0:02:33.190000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "So it's important to talk to your accountant and discuss Xero as an option for your small business.",
+    "start": "0:02:33.350000",
+    "end": "0:02:38.630000",
+    "confidence": 0.9770508
+  },
+  {
+    "text": "And one last thing, before we dive into our Xero account and waste no more time, it's important to Note that this video tutorial is not sponsored by Xero.",
+    "start": "0:02:38.950000",
+    "end": "0:02:47.190000",
+    "confidence": 0.96191406
+  },
+  {
+    "text": "This is not a sponsored video.",
+    "start": "0:02:47.350000",
+    "end": "0:02:49.030000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "This is a overview from the perspective of a small business owner.",
+    "start": "0:02:49.270000",
+    "end": "0:02:53.670000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "But myself, like I mentioned at the beginning of this tutorial, I am not an accountant.",
+    "start": "0:02:53.750000",
+    "end": "0:02:58.060000",
+    "confidence": 0.12792969
+  },
+  {
+    "text": "So if you do need some advice in terms of your accounts, then get in touch with your accountant.",
+    "start": "0:02:58.140000",
+    "end": "0:03:03.340000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "I'm just going to cover this as a online accounting software that can benefit small business owners from my perspective as a small business owner.",
+    "start": "0:03:03.420000",
+    "end": "0:03:12.060000",
+    "confidence": 0.95442706
+  },
+  {
+    "text": "Okay, so with that out the way, let's get straight into it.",
+    "start": "0:03:12.140000",
+    "end": "0:03:14.540000",
+    "confidence": 0.9739583
+  },
+  {
+    "text": "Now, first things first, what we need to do is dive into our settings and make sure that our business information is correct within our Xero account.",
+    "start": "0:03:14.780000",
+    "end": "0:03:22.780000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "So navigate up to your Demo account up here or your regular account if you're using your normal account, and then come down to Settings.",
+    "start": "0:03:23.180000",
+    "end": "0:03:30.920000",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "Then within Settings, navigate under General and select Organization Details.",
+    "start": "0:03:31.320000",
+    "end": "0:03:35.800000",
+    "confidence": 0.9892578
+  },
+  {
+    "text": "Then under Organization Details, the first element you can see here is include some of your information on the online invoices you send.",
+    "start": "0:03:36.200000",
+    "end": "0:03:44.600000",
+    "confidence": 0.98583984
+  },
+  {
+    "text": "So with Xero, you can create invoices and automatically send those to your clients and your customers.",
+    "start": "0:03:44.840000",
+    "end": "0:03:50.680000",
+    "confidence": 0.8803711
+  },
+  {
+    "text": "So I recommend navigating over here and selecting on.",
+    "start": "0:03:50.920000",
+    "end": "0:03:53.880000",
+    "confidence": 0.59228516
+  },
+  {
+    "text": "Then what we want to do is come down here and fill out your basic information.",
+    "start": "0:03:54.120000",
+    "end": "0:03:57.400000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "Then down to Contact Details and fill out your contact details.",
+    "start": "0:03:58.180000",
+    "end": "0:04:01.620000",
+    "confidence": 0.9892578
+  },
+  {
+    "text": "Now you can choose what you want to include in your invoice.",
+    "start": "0:04:01.780000",
+    "end": "0:04:05.060000",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "So for example, if I wanted to include what is your line of business, I could include that on the invoice.",
+    "start": "0:04:05.140000",
+    "end": "0:04:11.540000",
+    "confidence": 0.96972656
+  },
+  {
+    "text": "Again, contact details, I can include those in the invoice.",
+    "start": "0:04:11.540000",
+    "end": "0:04:15.820000",
+    "confidence": 0.9921875
+  },
+  {
+    "text": "So this is completely up to you.",
+    "start": "0:04:15.820000",
+    "end": "0:04:17.460000",
+    "confidence": 0.96240234
+  },
+  {
+    "text": "Then we want to come down here and agree to the terms and conditions.",
+    "start": "0:04:17.540000",
+    "end": "0:04:21.300000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "Then it's also recommended that you select Xero Terms of Use and Community Guidelines and read through those documents.",
+    "start": "0:04:21.700000",
+    "end": "0:04:27.780000",
+    "confidence": 0.99121094
+  },
+  {
+    "text": "Then once you're happy with all your business information, navigate over to save.",
+    "start": "0:04:28.150000",
+    "end": "0:04:32.150000",
+    "confidence": 0.9213867
+  },
+  {
+    "text": "Okay, so once you've completed your organization details, what we're going to do is navigate back to organization settings.",
+    "start": "0:04:32.310000",
+    "end": "0:04:38.230000",
+    "confidence": 0.8844401
+  },
+  {
+    "text": "And under General, there's a few more settings that we want to quickly cover.",
+    "start": "0:04:38.630000",
+    "end": "0:04:41.910000",
+    "confidence": 0.9091797
+  },
+  {
+    "text": "First, we have users.",
+    "start": "0:04:42.230000",
+    "end": "0:04:43.590000",
+    "confidence": 0.9902344
+  },
+  {
+    "text": "So this is where you can essentially add other users to your Xero account.",
+    "start": "0:04:43.590000",
+    "end": "0:04:47.910000",
+    "confidence": 0.95214844
+  },
+  {
+    "text": "Now, in a small business, you might have a few people that have access to your accounts.",
+    "start": "0:04:48.390000",
+    "end": "0:04:52.870000",
+    "confidence": 0.95214844
+  },
+  {
+    "text": "You can give them access here.",
+    "start": "0:04:52.950000",
+    "end": "0:04:54.710000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "Again, if you have an accountant, you want to give them access under Users.",
+    "start": "0:04:54.870000",
+    "end": "0:04:59.150000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Then you can also remove and modify the type of permission level that they have in your organization.",
+    "start": "0:04:59.150000",
+    "end": "0:05:04.610000",
+    "confidence": 0.9658203
+  },
+  {
+    "text": "Then we have currencies manage the currencies your business uses.",
+    "start": "0:05:05.170000",
+    "end": "0:05:08.850000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "Then we have connected apps.",
+    "start": "0:05:09.090000",
+    "end": "0:05:10.810000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "Now, for the purpose of this beginners tutorial, we're not going to Discuss too much about the apps.",
+    "start": "0:05:10.810000",
+    "end": "0:05:15.490000",
+    "confidence": 0.9736328
+  },
+  {
+    "text": "However, what you can do is browse some of the important apps that you want to possibly connect with your Xero account.",
+    "start": "0:05:15.490000",
+    "end": "0:05:21.970000",
+    "confidence": 1.0
+  },
+  {
+    "text": "Now for example, if you have a payment gateway and you want people to make online payments through your invoices, then you can connect apps like Stripe, PayPal and there's dozens of other apps that you can connect with Xero.",
+    "start": "0:05:22.370000",
+    "end": "0:05:35.030000",
+    "confidence": 0.95947266
+  },
+  {
+    "text": "So have a browse through connected apps if you like.",
+    "start": "0:05:35.190000",
+    "end": "0:05:37.830000",
+    "confidence": 0.9350586
+  },
+  {
+    "text": "And then on the right hand side we have more features.",
+    "start": "0:05:37.990000",
+    "end": "0:05:40.830000",
+    "confidence": 0.9716797
+  },
+  {
+    "text": "However, we're not going to discuss too much about this.",
+    "start": "0:05:40.830000",
+    "end": "0:05:42.950000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Now these are tedious details that you can cover in your own time.",
+    "start": "0:05:42.950000",
+    "end": "0:05:46.790000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "Now what we want to do is navigate back to the dashboard and dive into the dashboard.",
+    "start": "0:05:47.190000",
+    "end": "0:05:52.470000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "Okay, so on your Xero dashboard we have important elements that we're going to cover shortly.",
+    "start": "0:05:52.550000",
+    "end": "0:05:57.110000",
+    "confidence": 0.8929036
+  },
+  {
+    "text": "Firstly, what we need to do is actually set up our business bank accounts.",
+    "start": "0:05:57.270000",
+    "end": "0:06:01.510000",
+    "confidence": 0.99731445
+  },
+  {
+    "text": "So what we need to do is connect our business bank account with Xero.",
+    "start": "0:06:01.590000",
+    "end": "0:06:06.210000",
+    "confidence": 0.9667969
+  },
+  {
+    "text": "And what this does is automatically imports our transactions.",
+    "start": "0:06:06.450000",
+    "end": "0:06:10.530000",
+    "confidence": 0.9736328
+  },
+  {
+    "text": "So any business transactions that we do within our account, that gets automatically imported into our Xero account.",
+    "start": "0:06:10.850000",
+    "end": "0:06:17.650000",
+    "confidence": 0.99560547
+  },
+  {
+    "text": "And then what we can do is actually reconcile those items.",
+    "start": "0:06:17.730000",
+    "end": "0:06:21.650000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "So for example, if you purchased office supplies, then that purchase, that transaction is going to be automatically imported into Xero and that's going to be an item that you need to reconcile.",
+    "start": "0:06:21.810000",
+    "end": "0:06:33.250000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "And then what you would simply do is click reconcile and you would make sure that you've selected office supplies under the drop down.",
+    "start": "0:06:33.330000",
+    "end": "0:06:40.710000",
+    "confidence": 0.97753906
+  },
+  {
+    "text": "And we'll show you more about this soon.",
+    "start": "0:06:40.710000",
+    "end": "0:06:42.510000",
+    "confidence": 0.97802734
+  },
+  {
+    "text": "This is just a quick example and you can reconcile that item.",
+    "start": "0:06:42.670000",
+    "end": "0:06:46.350000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "And this essentially allows you to manage and balance your accounts with complete ease by simply reconciling all your different transactions.",
+    "start": "0:06:46.590000",
+    "end": "0:06:54.830000",
+    "confidence": 0.92333984
+  },
+  {
+    "text": "So what we want to do now is actually connect our bank accounts.",
+    "start": "0:06:55.150000",
+    "end": "0:06:58.470000",
+    "confidence": 0.9770508
+  },
+  {
+    "text": "So how do we do that?",
+    "start": "0:06:58.470000",
+    "end": "0:06:59.470000",
+    "confidence": 0.9814453
+  },
+  {
+    "text": "Well, first what we need to do is navigate up to accounting and then click on bank accounts.",
+    "start": "0:06:59.470000",
+    "end": "0:07:04.730000",
+    "confidence": 0.9707031
+  },
+  {
+    "text": "And down here as an example you can see that we have a business bank account with ASB connected with Xero.",
+    "start": "0:07:05.130000",
+    "end": "0:07:12.010000",
+    "confidence": 0.9189453
+  },
+  {
+    "text": "And down here you can see that we have 27 items that need to be reconciled.",
+    "start": "0:07:12.250000",
+    "end": "0:07:16.970000",
+    "confidence": 0.9394531
+  },
+  {
+    "text": "Then below that we have a business savings account.",
+    "start": "0:07:17.050000",
+    "end": "0:07:19.770000",
+    "confidence": 0.9741211
+  },
+  {
+    "text": "Again this is connected with Xero.",
+    "start": "0:07:20.090000",
+    "end": "0:07:22.650000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "However, we have had no transactions imported.",
+    "start": "0:07:22.810000",
+    "end": "0:07:25.850000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "So basically now what we need to do is connect our bank accounts with Xero.",
+    "start": "0:07:26.090000",
+    "end": "0:07:30.050000",
+    "confidence": 0.9145508
+  },
+  {
+    "text": "We need to connect our bank account feeds.",
+    "start": "0:07:30.050000",
+    "end": "0:07:32.330000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "To do that, simply navigate up to add bank account and this is where you can simply connect your bank account.",
+    "start": "0:07:32.330000",
+    "end": "0:07:38.370000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "So follow the process.",
+    "start": "0:07:38.450000",
+    "end": "0:07:39.490000",
+    "confidence": 0.9560547
+  },
+  {
+    "text": "It's very straightforward.",
+    "start": "0:07:39.730000",
+    "end": "0:07:41.090000",
+    "confidence": 0.98079425
+  },
+  {
+    "text": "Xero and your bank will guide you through this process.",
+    "start": "0:07:41.250000",
+    "end": "0:07:43.970000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "So find your bank and then go through the Step by step process that's very easy to follow.",
+    "start": "0:07:44.370000",
+    "end": "0:07:49.970000",
+    "confidence": 0.9458008
+  },
+  {
+    "text": "So we're not going to do that now because this process is very straightforward and easy to follow.",
+    "start": "0:07:50.210000",
+    "end": "0:07:54.930000",
+    "confidence": 0.89208984
+  },
+  {
+    "text": "So once you've added your bank accounts, it can take up to 10 days for your bank feeds to connect and start seeing those transactions on your account.",
+    "start": "0:07:55.170000",
+    "end": "0:08:04.750000",
+    "confidence": 0.8930664
+  },
+  {
+    "text": "Okay, so now that you've connected your bank accounts, what we want to do is navigate back to Dashboard.",
+    "start": "0:08:05.150000",
+    "end": "0:08:10.270000",
+    "confidence": 0.9264323
+  },
+  {
+    "text": "And just like that, we've set up all the basics to getting started with your Xero account.",
+    "start": "0:08:10.750000",
+    "end": "0:08:15.230000",
+    "confidence": 0.9458008
+  },
+  {
+    "text": "Now what we want to do is leverage all the tools and features within Xero so you can make the most of this powerful online accounting software.",
+    "start": "0:08:15.630000",
+    "end": "0:08:23.230000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "Okay, so firstly here on our dashboard is where you can see snapshots of what's happening within your business, within your account.",
+    "start": "0:08:23.470000",
+    "end": "0:08:30.510000",
+    "confidence": 0.9401042
+  },
+  {
+    "text": "Firstly, you can see our bank feed.",
+    "start": "0:08:31.070000",
+    "end": "0:08:33.150000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "So these are our bank accounts that we have connected to Xero.",
+    "start": "0:08:33.150000",
+    "end": "0:08:36.490000",
+    "confidence": 0.97021484
+  },
+  {
+    "text": "So this is where you can go ahead and reconcile your items, the transactions that have been happening in your account.",
+    "start": "0:08:36.490000",
+    "end": "0:08:42.250000",
+    "confidence": 0.9248047
+  },
+  {
+    "text": "And we'll show you how to do this after we've covered the dashboard.",
+    "start": "0:08:42.250000",
+    "end": "0:08:45.130000",
+    "confidence": 0.93896484
+  },
+  {
+    "text": "Then below our bank feeds we have total cash in and out.",
+    "start": "0:08:45.210000",
+    "end": "0:08:48.970000",
+    "confidence": 0.97998047
+  },
+  {
+    "text": "This is just a snapshot of the last six months.",
+    "start": "0:08:49.210000",
+    "end": "0:08:51.930000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Then over here we've got account watch.",
+    "start": "0:08:52.090000",
+    "end": "0:08:54.090000",
+    "confidence": 0.9873047
+  },
+  {
+    "text": "Now these are accounts that you want to keep an eye on.",
+    "start": "0:08:54.330000",
+    "end": "0:08:57.130000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "So this is a snapshot of your accounts that you want to watch.",
+    "start": "0:08:57.130000",
+    "end": "0:09:00.650000",
+    "confidence": 0.9814453
+  },
+  {
+    "text": "And what you can do is add accounts that are important to you that you want to keep on your dashboard.",
+    "start": "0:09:00.730000",
+    "end": "0:09:05.690000",
+    "confidence": 0.9658203
+  },
+  {
+    "text": "So currently we have 1, 2, 5 accounts on our watch list.",
+    "start": "0:09:05.770000",
+    "end": "0:09:10.390000",
+    "confidence": 0.97021484
+  },
+  {
+    "text": "Now, to add a new account, all you need to do is navigate up to accounting and then come down under advanced and click on chart of accounts and then navigate down here and simply select any of these accounts that you want to add on your watchlist.",
+    "start": "0:09:10.470000",
+    "end": "0:09:24.670000",
+    "confidence": 0.97021484
+  },
+  {
+    "text": "For example, if I wanted to add other revenue to my watchlist, I would simply click other revenue and then navigate down to show on dashboard watchlist and click save.",
+    "start": "0:09:24.670000",
+    "end": "0:09:35.370000",
+    "confidence": 0.5620117
+  },
+  {
+    "text": "Then if we navigate back to our dashboard, then if we come back down to our account watchlist, you'll notice that we have other revenue as another account under our watch list.",
+    "start": "0:09:35.610000",
+    "end": "0:09:45.770000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "So go ahead and add the accounts that are important to you on your dashboard watch list.",
+    "start": "0:09:45.850000",
+    "end": "0:09:50.730000",
+    "confidence": 0.9614258
+  },
+  {
+    "text": "Then down here we have invoices owed to you.",
+    "start": "0:09:51.050000",
+    "end": "0:09:53.690000",
+    "confidence": 0.9868164
+  },
+  {
+    "text": "So this is a snapshot of the invoices that are owed to you.",
+    "start": "0:09:53.690000",
+    "end": "0:09:57.210000",
+    "confidence": 0.9321289
+  },
+  {
+    "text": "You can also navigate up here to new sales invoice and go ahead and create an invoice from your dashboard.",
+    "start": "0:09:57.210000",
+    "end": "0:10:02.960000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Below that we have bills you need to pay.",
+    "start": "0:10:03.350000",
+    "end": "0:10:05.430000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "And again, similar to invoices owed to you, you can Create a new bill from your dashboard.",
+    "start": "0:10:05.590000",
+    "end": "0:10:10.550000",
+    "confidence": 0.97802734
+  },
+  {
+    "text": "So this is a snapshot of the bills that you need to pay.",
+    "start": "0:10:10.550000",
+    "end": "0:10:13.750000",
+    "confidence": 0.9819336
+  },
+  {
+    "text": "And below that we have expense claims.",
+    "start": "0:10:13.830000",
+    "end": "0:10:16.310000",
+    "confidence": 0.9868164
+  },
+  {
+    "text": "Now I can also navigate down to edit dashboard.",
+    "start": "0:10:16.470000",
+    "end": "0:10:19.349000",
+    "confidence": 0.98876953
+  },
+  {
+    "text": "And this is where you can actually hide each of these figures.",
+    "start": "0:10:19.430000",
+    "end": "0:10:22.870000",
+    "confidence": 0.9873047
+  },
+  {
+    "text": "So any of these accounts that you don't want to watch.",
+    "start": "0:10:23.190000",
+    "end": "0:10:26.150000",
+    "confidence": 0.9897461
+  },
+  {
+    "text": "For example, if I didn't want to watch my business savings account because there are no transactions happening through this account, I can go ahead and click H and that's going to hide this account on my dashboard.",
+    "start": "0:10:26.310000",
+    "end": "0:10:37.970000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Now I can also navigate through any of these accounts or elements and I can move them around.",
+    "start": "0:10:38.050000",
+    "end": "0:10:43.930000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "So for example, I could place this section over here.",
+    "start": "0:10:43.930000",
+    "end": "0:10:47.450000",
+    "confidence": 0.92529297
+  },
+  {
+    "text": "Again, I'm going to put that back over under my accounts business bank account.",
+    "start": "0:10:47.450000",
+    "end": "0:10:52.170000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "So I'm happy with that.",
+    "start": "0:10:52.170000",
+    "end": "0:10:53.170000",
+    "confidence": 0.74121094
+  },
+  {
+    "text": "So again, you can hide and show your different accounts or elements.",
+    "start": "0:10:53.250000",
+    "end": "0:10:57.650000",
+    "confidence": 0.9921875
+  },
+  {
+    "text": "And when you're happy with that, come down and click Save changes.",
+    "start": "0:10:57.650000",
+    "end": "0:11:00.690000",
+    "confidence": 0.53125
+  },
+  {
+    "text": "And as you can see if we navigate up here, you can see that we've hidden that bank account, the savings business bank account.",
+    "start": "0:11:01.160000",
+    "end": "0:11:07.160000",
+    "confidence": 0.9428711
+  },
+  {
+    "text": "So that is a quick overview of your dashboard snapshots.",
+    "start": "0:11:07.640000",
+    "end": "0:11:11.240000",
+    "confidence": 0.9794922
+  },
+  {
+    "text": "Now, if we navigate up to this plus icon on the right hand side, you can quickly create new elements.",
+    "start": "0:11:11.480000",
+    "end": "0:11:17.240000",
+    "confidence": 0.9902344
+  },
+  {
+    "text": "For example, you can go ahead and create a invoice, bill, contact quote, purchase order, manual, journal, spend, receive and transfer money.",
+    "start": "0:11:17.240000",
+    "end": "0:11:25.880000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "Now, from your dashboard, there are actually three places that you can quickly go ahead and create a bill and invoice, as these are two important elements that you will most likely commonly use.",
+    "start": "0:11:26.040000",
+    "end": "0:11:36.330000",
+    "confidence": 0.9902344
+  },
+  {
+    "text": "So basically, I can go ahead and create a new invoice here or a new bill.",
+    "start": "0:11:36.650000",
+    "end": "0:11:40.850000",
+    "confidence": 0.9663086
+  },
+  {
+    "text": "I can also come down here and like I mentioned earlier, I can create a new sales invoice here and also a new bill down here.",
+    "start": "0:11:40.850000",
+    "end": "0:11:48.250000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "Now, if I navigate back up to the top and click Business, I can also navigate down to invoices and bills to create an invoice or bill from under business.",
+    "start": "0:11:48.410000",
+    "end": "0:11:57.370000",
+    "confidence": 0.9921875
+  },
+  {
+    "text": "So there's multiple places where you can access different areas of your Xero account.",
+    "start": "0:11:57.880000",
+    "end": "0:12:01.800000",
+    "confidence": 0.93115234
+  },
+  {
+    "text": "Okay, so now that we've covered your dashboard, what we want to do now is dive into how you can reconcile your different items.",
+    "start": "0:12:02.200000",
+    "end": "0:12:08.920000",
+    "confidence": 0.90755206
+  },
+  {
+    "text": "So remember, we've already connected our bank accounts, our bank feeds with Xero, and our transactions are automatically going to be imported into our Xero account.",
+    "start": "0:12:09",
+    "end": "0:12:18.840000",
+    "confidence": 0.95214844
+  },
+  {
+    "text": "And you can see those transactions here as items that need to be reconciled.",
+    "start": "0:12:19",
+    "end": "0:12:23.670000",
+    "confidence": 0.8925781
+  },
+  {
+    "text": "So to simply reconcile your items, just click here.",
+    "start": "0:12:24.060000",
+    "end": "0:12:27.020000",
+    "confidence": 0.9145508
+  },
+  {
+    "text": "So basically this is where you can go ahead and reconcile your bank transactions.",
+    "start": "0:12:27.820000",
+    "end": "0:12:32.300000",
+    "confidence": 0.9321289
+  },
+  {
+    "text": "For example, if we come down here, you can see that we have 27 items that need to be reconciled under this particular bank account.",
+    "start": "0:12:32.540000",
+    "end": "0:12:40.980000",
+    "confidence": 0.9897461
+  },
+  {
+    "text": "So business bank account.",
+    "start": "0:12:40.980000",
+    "end": "0:12:42.540000",
+    "confidence": 0.77441406
+  },
+  {
+    "text": "Then if we come down here, you can see that this information has already been inputted.",
+    "start": "0:12:42.940000",
+    "end": "0:12:47.460000",
+    "confidence": 0.9863281
+  },
+  {
+    "text": "So what I would do is simply go, ok, and again, Xero has found a match with our contacts, with our information and you can go ahead and go reconcile.",
+    "start": "0:12:47.460000",
+    "end": "0:12:57.110000",
+    "confidence": 0.89160156
+  },
+  {
+    "text": "And then down here you can see that this item has no match.",
+    "start": "0:12:57.190000",
+    "end": "0:13:00.390000",
+    "confidence": 0.9765625
+  },
+  {
+    "text": "That means that this is a new contact, a new transaction that isn't similar to anything else that's happened within Xero.",
+    "start": "0:13:00.630000",
+    "end": "0:13:08.230000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Basically, this could be a new client of ours, this could be a new transaction in some form, credit or debit.",
+    "start": "0:13:08.470000",
+    "end": "0:13:15.440000",
+    "confidence": 0.9987793
+  },
+  {
+    "text": "And if you navigate over to more details, you can see more details about this transaction.",
+    "start": "0:13:15.440000",
+    "end": "0:13:20.800000",
+    "confidence": 0.9897461
+  },
+  {
+    "text": "So for example, this could be a new client and they have just sent $4,500 into our account to start a new project.",
+    "start": "0:13:20.880000",
+    "end": "0:13:29.120000",
+    "confidence": 0.9897461
+  },
+  {
+    "text": "So what I would do is type in the name of this new client, I would navigate over here and choose the right account.",
+    "start": "0:13:29.360000",
+    "end": "0:13:35.280000",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "So for us I could type in sales, this is a sales account.",
+    "start": "0:13:35.600000",
+    "end": "0:13:40.080000",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "Then I can enter a description down here.",
+    "start": "0:13:40.650000",
+    "end": "0:13:42.690000",
+    "confidence": 0.98046875
+  },
+  {
+    "text": "Again I can add a region.",
+    "start": "0:13:42.690000",
+    "end": "0:13:44.170000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "And if there's GST on this income, I can add that here.",
+    "start": "0:13:44.490000",
+    "end": "0:13:48.170000",
+    "confidence": 0.97314453
+  },
+  {
+    "text": "If I want to add additional details, I can do so here.",
+    "start": "0:13:48.410000",
+    "end": "0:13:51.370000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "And as you can see, I've quickly filled out this information.",
+    "start": "0:13:51.450000",
+    "end": "0:13:53.850000",
+    "confidence": 0.9033203
+  },
+  {
+    "text": "Now what I want to do is click OK and that's going to reconcile that item.",
+    "start": "0:13:54.090000",
+    "end": "0:13:58.410000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "Now if this is your first time, I recommend watching the video up above which will guide you through how reconciliation works through Xero.",
+    "start": "0:13:58.650000",
+    "end": "0:14:05.730000",
+    "confidence": 0.9526367
+  },
+  {
+    "text": "That is just a basic overview which we have just covered.",
+    "start": "0:14:05.730000",
+    "end": "0:14:08.980000",
+    "confidence": 0.95947266
+  },
+  {
+    "text": "You can also talk to your accountant and they will help you set this up.",
+    "start": "0:14:08.980000",
+    "end": "0:14:12.780000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "So what your accountant can actually do, and this is what they did for us, is they went through a lot of these with us and showed us the right account that we need to put each of these items in.",
+    "start": "0:14:12.780000",
+    "end": "0:14:24.180000",
+    "confidence": 0.9921875
+  },
+  {
+    "text": "And this just helped us gauge how to reconcile our own account.",
+    "start": "0:14:24.180000",
+    "end": "0:14:28.420000",
+    "confidence": 0.97021484
+  },
+  {
+    "text": "So talk to your accountant and they'll guide you through this.",
+    "start": "0:14:28.740000",
+    "end": "0:14:31.220000",
+    "confidence": 0.9897461
+  },
+  {
+    "text": "And following that, you should have the confidence to reconcile your item on a daily or weekly basis, depending on the volume of transactions your business receives.",
+    "start": "0:14:31.220000",
+    "end": "0:14:40.460000",
+    "confidence": 0.5620117
+  },
+  {
+    "text": "Okay, so now that we've gone through a basic overview of reconciling items, what we want to do now is head back to our dashboard.",
+    "start": "0:14:40.620000",
+    "end": "0:14:47.660000",
+    "confidence": 0.9505208
+  },
+  {
+    "text": "Okay, so now that we've covered bank reconciliation, what we're going to do now is cover these other important areas within Xero.",
+    "start": "0:14:47.740000",
+    "end": "0:14:54.860000",
+    "confidence": 0.9625651
+  },
+  {
+    "text": "So firstly, if we navigate over to business, this is where you can manage areas of your business.",
+    "start": "0:14:55.100000",
+    "end": "0:15:00.220000",
+    "confidence": 0.9145508
+  },
+  {
+    "text": "Short term, cash flow, business snapshot.",
+    "start": "0:15:00.790000",
+    "end": "0:15:03.270000",
+    "confidence": 0.96435547
+  },
+  {
+    "text": "Then we have invoices, quotes and sales overview.",
+    "start": "0:15:03.270000",
+    "end": "0:15:06.390000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "So this is for Your customers.",
+    "start": "0:15:06.630000",
+    "end": "0:15:08.390000",
+    "confidence": 0.95214844
+  },
+  {
+    "text": "Then below that we've got bills to pay, purchase orders and purchase overview.",
+    "start": "0:15:08.470000",
+    "end": "0:15:13.590000",
+    "confidence": 0.7817383
+  },
+  {
+    "text": "This is from suppliers.",
+    "start": "0:15:13.750000",
+    "end": "0:15:15.510000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "So we have customers over here, information regarding our customers, and then we have actions down here or elements, activities that are based around our suppliers.",
+    "start": "0:15:15.590000",
+    "end": "0:15:25.870000",
+    "confidence": 0.9707031
+  },
+  {
+    "text": "Below that we have expense claims and products and services.",
+    "start": "0:15:25.870000",
+    "end": "0:15:29.430000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Now some of this information is more advanced.",
+    "start": "0:15:30.310000",
+    "end": "0:15:32.670000",
+    "confidence": 0.9873047
+  },
+  {
+    "text": "So what we're going to talk about today is some of the important elements that you're going to be using on a daily or weekly basis.",
+    "start": "0:15:32.670000",
+    "end": "0:15:38.870000",
+    "confidence": 0.9741211
+  },
+  {
+    "text": "Firstly, we have invoices.",
+    "start": "0:15:39.110000",
+    "end": "0:15:40.870000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "So if we click invoices, this is where we can go ahead and create a new invoice.",
+    "start": "0:15:40.870000",
+    "end": "0:15:45.670000",
+    "confidence": 0.95654297
+  },
+  {
+    "text": "Now we can also add a new credit note, send statements, import and export invoices.",
+    "start": "0:15:45.670000",
+    "end": "0:15:51.590000",
+    "confidence": 0.96240234
+  },
+  {
+    "text": "As you can see, we've got invoices down here.",
+    "start": "0:15:51.670000",
+    "end": "0:15:53.910000",
+    "confidence": 0.9980469
+  },
+  {
+    "text": "We can see information, for example, the number of the invoice, reference to date, we've got due date up here we can set reminders if we like.",
+    "start": "0:15:53.990000",
+    "end": "0:16:02.900000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "And next to due date we have paid, due, status and sent.",
+    "start": "0:16:02.980000",
+    "end": "0:16:07.380000",
+    "confidence": 0.9223633
+  },
+  {
+    "text": "So you can see all this information over here.",
+    "start": "0:16:07.540000",
+    "end": "0:16:09.660000",
+    "confidence": 0.94384766
+  },
+  {
+    "text": "Again we have the different columns that we can select and that's going to take us to the appropriate category.",
+    "start": "0:16:09.660000",
+    "end": "0:16:15.220000",
+    "confidence": 0.99365234
+  },
+  {
+    "text": "So to create an invoice, simply come up here and simply click new invoice or new invoice down here.",
+    "start": "0:16:15.460000",
+    "end": "0:16:21.300000",
+    "confidence": 0.8925781
+  },
+  {
+    "text": "And you can see that this is a basic invoice that you can add all your information regarding your invoice and send it directly to your customer.",
+    "start": "0:16:21.460000",
+    "end": "0:16:29.100000",
+    "confidence": 0.75439453
+  },
+  {
+    "text": "Again, this is a very straightforward process.",
+    "start": "0:16:29.810000",
+    "end": "0:16:31.970000",
+    "confidence": 0.9926758
+  },
+  {
+    "text": "So we're not going to show you how to fill this out because it is very straightforward.",
+    "start": "0:16:31.970000",
+    "end": "0:16:35.890000",
+    "confidence": 0.9916992
+  },
+  {
+    "text": "Once you have created your invoice, navigate over to save or click approve.",
+    "start": "0:16:36.050000",
+    "end": "0:16:40.930000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Now that we've briefly showed you how to create a new invoice, navigate back up to business and come down to bills to pay.",
+    "start": "0:16:41.010000",
+    "end": "0:16:48.210000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "And as you can see, this is a very similar layout and interface as invoices.",
+    "start": "0:16:48.450000",
+    "end": "0:16:53.570000",
+    "confidence": 0.9033203
+  },
+  {
+    "text": "So bills and invoices, remember, invoices are for customers, clients, and then bills are for suppliers.",
+    "start": "0:16:53.650000",
+    "end": "0:17:00.130000",
+    "confidence": 0.97314453
+  },
+  {
+    "text": "And if you want to create a new bill that you need to pay, click new bill.",
+    "start": "0:17:00.130000",
+    "end": "0:17:03.970000",
+    "confidence": 0.9638672
+  },
+  {
+    "text": "And as you can see, creating a new bill is the same process as creating a new invoice.",
+    "start": "0:17:04.050000",
+    "end": "0:17:09.330000",
+    "confidence": 0.9458008
+  },
+  {
+    "text": "So once you've created your new bill, come down and click approve.",
+    "start": "0:17:09.570000",
+    "end": "0:17:13.250000",
+    "confidence": 0.9741211
+  },
+  {
+    "text": "And that's going to take you to the following step.",
+    "start": "0:17:13.410000",
+    "end": "0:17:15.450000",
+    "confidence": 0.95751953
+  },
+  {
+    "text": "It's a very straightforward process.",
+    "start": "0:17:15.450000",
+    "end": "0:17:17.170000",
+    "confidence": 0.9967448
+  },
+  {
+    "text": "Okay, so we've just showed you that within Xero you can create new invoices and bills.",
+    "start": "0:17:17.650000",
+    "end": "0:17:22.370000",
+    "confidence": 0.93033856
+  },
+  {
+    "text": "And you can also set up your bills and invoices so they are automatic in terms of the way that they are sent and delivered.",
+    "start": "0:17:22.370000",
+    "end": "0:17:28.740000",
+    "confidence": 0.97021484
+  },
+  {
+    "text": "And just like I mentioned earlier, you can navigate up to this plus icon and create an invoice, bill and other elements through this way.",
+    "start": "0:17:29.130000",
+    "end": "0:17:36.810000",
+    "confidence": 0.94628906
+  },
+  {
+    "text": "Now, if we navigate back over to business, there are other elements that you can quickly look over if you like.",
+    "start": "0:17:36.970000",
+    "end": "0:17:42.730000",
+    "confidence": 0.9794922
+  },
+  {
+    "text": "However, those were the important elements that we wanted to cover bills and invoices.",
+    "start": "0:17:42.810000",
+    "end": "0:17:47.690000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Again, take the time to go through this.",
+    "start": "0:17:47.850000",
+    "end": "0:17:49.530000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "Your accountant will support you if you have any other questions in regards to these elements under business.",
+    "start": "0:17:49.530000",
+    "end": "0:17:55.130000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "Now, if we navigate over to accounting, we've showed you how to connect your bank feeds with Xero.",
+    "start": "0:17:55.860000",
+    "end": "0:18:01.300000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "We also have Reports, which shows you all your reports within Xero.",
+    "start": "0:18:01.460000",
+    "end": "0:18:05.460000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "And then down here we have all your starred reports.",
+    "start": "0:18:05.540000",
+    "end": "0:18:08.020000",
+    "confidence": 0.9814453
+  },
+  {
+    "text": "So you can simply access your reports that you're often visiting over here because they've been starred.",
+    "start": "0:18:08.500000",
+    "end": "0:18:14.180000",
+    "confidence": 0.97314453
+  },
+  {
+    "text": "Now, if you click on reports, this will allow you to see all your reporting.",
+    "start": "0:18:14.180000",
+    "end": "0:18:18.180000",
+    "confidence": 0.9736328
+  },
+  {
+    "text": "So for example, we've got financial, sales, purchases, tax, accounting, inventory, payroll, and all the allocated reports under each of these categories.",
+    "start": "0:18:18.180000",
+    "end": "0:18:28.040000",
+    "confidence": 0.5917969
+  },
+  {
+    "text": "Now you can see the little star icon on the left hand side of each of these reports.",
+    "start": "0:18:28.280000",
+    "end": "0:18:32.440000",
+    "confidence": 0.9838867
+  },
+  {
+    "text": "You can select that or choose to turn that off.",
+    "start": "0:18:32.840000",
+    "end": "0:18:35.720000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "And that's going to allow you to add that to your starred reports.",
+    "start": "0:18:35.880000",
+    "end": "0:18:39.400000",
+    "confidence": 0.9736328
+  },
+  {
+    "text": "Down here again, if you want to view any of these reports, all you need to do is simply click the report you want to view.",
+    "start": "0:18:39.560000",
+    "end": "0:18:46.120000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "And you can see that we've selected balance sheet.",
+    "start": "0:18:46.280000",
+    "end": "0:18:48.560000",
+    "confidence": 0.8803711
+  },
+  {
+    "text": "We can see the date over here, which we can change if we like.",
+    "start": "0:18:48.560000",
+    "end": "0:18:51.720000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "We can compare with another period.",
+    "start": "0:18:52.110000",
+    "end": "0:18:54.030000",
+    "confidence": 0.9814453
+  },
+  {
+    "text": "And then once we've selected a comparison period or we've selected a date, so end of financial year, then we can select update and that's going to update all this information.",
+    "start": "0:18:54.270000",
+    "end": "0:19:03.630000",
+    "confidence": 0.9394531
+  },
+  {
+    "text": "And all reporting is very similar to this layout here.",
+    "start": "0:19:04.190000",
+    "end": "0:19:07.070000",
+    "confidence": 0.828125
+  },
+  {
+    "text": "Then we have edit layout.",
+    "start": "0:19:07.070000",
+    "end": "0:19:08.430000",
+    "confidence": 0.9902344
+  },
+  {
+    "text": "We can select edit layout and here you have the option to edit the layout of your reports.",
+    "start": "0:19:08.430000",
+    "end": "0:19:12.830000",
+    "confidence": 0.99316406
+  },
+  {
+    "text": "However, I'm going to leave that as it is and select done.",
+    "start": "0:19:13.230000",
+    "end": "0:19:16.030000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Then we can come down here and save as if we like, or we can export this document and you can see the exporting options here.",
+    "start": "0:19:16.190000",
+    "end": "0:19:23.570000",
+    "confidence": 0.9916992
+  },
+  {
+    "text": "Now if we navigate back up to accounting, you can see that we have more advanced information down here.",
+    "start": "0:19:23.730000",
+    "end": "0:19:29.650000",
+    "confidence": 0.98583984
+  },
+  {
+    "text": "Again, because this is a beginner's tutorial, we're not going to dive into any advanced information within Xero.",
+    "start": "0:19:29.810000",
+    "end": "0:19:35.890000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "However, that is a basic overview of some of the important elements within accounting.",
+    "start": "0:19:36.210000",
+    "end": "0:19:40.930000",
+    "confidence": 1.0
+  },
+  {
+    "text": "Now if we navigate over to payroll, this is where we have an overview of our payroll.",
+    "start": "0:19:41.170000",
+    "end": "0:19:46.210000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "We have employees leave, timesheets, pay employees tax, and filings.",
+    "start": "0:19:46.210000",
+    "end": "0:19:51.760000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "Again, this is relatively straightforward, so take the time to go through each of these elements yourself.",
+    "start": "0:19:51.920000",
+    "end": "0:19:56.800000",
+    "confidence": 0.9975586
+  },
+  {
+    "text": "However, what we're going to do is click on overview and you can see elements of the payroll overview.",
+    "start": "0:19:56.960000",
+    "end": "0:20:02",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "For example, we've got pay runs, leave to approve and then we've got the dates over here with any important information.",
+    "start": "0:20:02",
+    "end": "0:20:08.400000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "We can also navigate back up to payroll and select employees.",
+    "start": "0:20:08.800000",
+    "end": "0:20:12.320000",
+    "confidence": 0.9970703
+  },
+  {
+    "text": "And this is where you can manage all your employees and your contractors.",
+    "start": "0:20:12.720000",
+    "end": "0:20:16.530000",
+    "confidence": 0.8515625
+  },
+  {
+    "text": "You can navigate over here to add an employee or add a contractor.",
+    "start": "0:20:16.530000",
+    "end": "0:20:20.370000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "So as you can see, this is a very important area within payroll.",
+    "start": "0:20:20.530000",
+    "end": "0:20:23.890000",
+    "confidence": 0.9667969
+  },
+  {
+    "text": "If you have employees in your small business, you can add all their information here or contractors.",
+    "start": "0:20:23.890000",
+    "end": "0:20:29.170000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Then if we navigate over to projects, this is where we can create and allocate projects.",
+    "start": "0:20:29.410000",
+    "end": "0:20:34.730000",
+    "confidence": 0.99658203
+  },
+  {
+    "text": "So if we click all projects, Projects is basically an easy to use job tracking tool that helps you maximize and optimize jobs, projects and work.",
+    "start": "0:20:34.730000",
+    "end": "0:20:44.790000",
+    "confidence": 0.703125
+  },
+  {
+    "text": "Essentially what this does is helps you with efficiency and helps you move towards more profitability within your small business.",
+    "start": "0:20:44.950000",
+    "end": "0:20:51.670000",
+    "confidence": 0.9996338
+  },
+  {
+    "text": "Again, Xero Projects is a place for you to track profitability within your workplace.",
+    "start": "0:20:51.990000",
+    "end": "0:20:57.670000",
+    "confidence": 0.9941406
+  },
+  {
+    "text": "Xero has a lot of information online to help you make the most of projects.",
+    "start": "0:20:57.750000",
+    "end": "0:21:01.750000",
+    "confidence": 0.923584
+  },
+  {
+    "text": "If this is something you want to get involved in, then next to projects we have contacts.",
+    "start": "0:21:01.750000",
+    "end": "0:21:06.870000",
+    "confidence": 0.9873047
+  },
+  {
+    "text": "Again Contacts is very self explanatory.",
+    "start": "0:21:07.030000",
+    "end": "0:21:09.870000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "We can access all our contacts, we can click customers and that's going to take us to all our customers.",
+    "start": "0:21:09.870000",
+    "end": "0:21:16.260000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Within Xero we can also add and edit our customers and the same goes for suppliers.",
+    "start": "0:21:16.260000",
+    "end": "0:21:21.860000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "Now you can also navigate over to this plus icon again and you can come down and add contacts here.",
+    "start": "0:21:22.100000",
+    "end": "0:21:27.940000",
+    "confidence": 0.9794922
+  },
+  {
+    "text": "Now the last thing that I briefly want to mention that makes Xero one of the leading online accounting software tools available is the apps that they provide.",
+    "start": "0:21:28.260000",
+    "end": "0:21:36.340000",
+    "confidence": 0.9770508
+  },
+  {
+    "text": "They provide many Xero apps that allow you to further enhance your online accounting.",
+    "start": "0:21:36.500000",
+    "end": "0:21:41.490000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "Again to essentially streamline your day to day accounting tasks.",
+    "start": "0:21:42.040000",
+    "end": "0:21:46.040000",
+    "confidence": 0.99365234
+  },
+  {
+    "text": "These apps essentially complement your Xero account, making things a lot easier when you can just work from your phone.",
+    "start": "0:21:46.440000",
+    "end": "0:21:52.760000",
+    "confidence": 0.99853516
+  },
+  {
+    "text": "Okay guys, so that is a brief overview of how Xero works from the perspective of a small business owner.",
+    "start": "0:21:52.920000",
+    "end": "0:21:59.320000",
+    "confidence": 0.82405597
+  },
+  {
+    "text": "Make sure you navigate through this demo company.",
+    "start": "0:21:59.480000",
+    "end": "0:22:01.800000",
+    "confidence": 0.9995117
+  },
+  {
+    "text": "Remember we're currently using the demo company that is within our account.",
+    "start": "0:22:01.880000",
+    "end": "0:22:06.200000",
+    "confidence": 0.9992676
+  },
+  {
+    "text": "So when you create an account, when you sign up to Xero, you have access to a demo company which allows you to as essentially learn how you can leverage all the different areas that we've covered today in Xero and more.",
+    "start": "0:22:06.520000",
+    "end": "0:22:18.820000",
+    "confidence": 0.9921875
+  },
+  {
+    "text": "Now we're not going to dive too much into the prices for Xero as these vary based on the country that you're in and depending on your accounting needs for your small business, you can go for which option best works for you.",
+    "start": "0:22:18.980000",
+    "end": "0:22:30.420000",
+    "confidence": 0.9951172
+  },
+  {
+    "text": "Again, talk to your accountant and they will recommend the best plan for your small business.",
+    "start": "0:22:30.420000",
+    "end": "0:22:34.820000",
+    "confidence": 0.99609375
+  },
+  {
+    "text": "You can also get started with Xero for free for the first 30 days to see if Xero works for you and your small business business.",
+    "start": "0:22:35.380000",
+    "end": "0:22:42.770000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "And there we have it guys.",
+    "start": "0:22:43.330000",
+    "end": "0:22:44.410000",
+    "confidence": 0.92333984
+  },
+  {
+    "text": "That is it for this comprehensive overview of the online accounting software called Xero.",
+    "start": "0:22:44.410000",
+    "end": "0:22:49.330000",
+    "confidence": 0.9946289
+  },
+  {
+    "text": "Now this is from a perspective of a small business owner and not an accountant.",
+    "start": "0:22:49.730000",
+    "end": "0:22:54.290000",
+    "confidence": 0.9814453
+  },
+  {
+    "text": "Now if you have any questions about this tutorial, make sure to pop them down below.",
+    "start": "0:22:54.370000",
+    "end": "0:22:57.890000",
+    "confidence": 0.97021484
+  },
+  {
+    "text": "And with that said, thank you so much for watching the Xero tutorial all the way through to the end.",
+    "start": "0:22:58.129000",
+    "end": "0:23:01.970000",
+    "confidence": 0.9667969
+  },
+  {
+    "text": "If you got value, make sure you leave a like down below and subscribe if you haven't done so already.",
+    "start": "0:23:02.050000",
+    "end": "0:23:06.770000",
+    "confidence": 0.99902344
+  },
+  {
+    "text": "And that way I'll see you you in the next video.",
+    "start": "0:23:06.850000",
+    "end": "0:23:08.860000",
+    "confidence": 0.953125
+  },
+  {
+    "text": "Take care guys.",
+    "start": "0:23:08.940000",
+    "end": "0:23:09.820000",
+    "confidence": 0.9980469
+  }
+]
