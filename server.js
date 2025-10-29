@@ -86,7 +86,7 @@ try {
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'VideoClipChatbotUI')));
 app.use('/videos', express.static(path.join(__dirname, 'videos')));
 app.use('/frames', express.static(path.join(__dirname, 'frames')));
 
@@ -1386,7 +1386,7 @@ const clipExtractor = new IndustryStandardVideoExtractor('./videos', bedrockRunt
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'VideoClipChatbotUI', 'home.html'));
 });
 
 // NEW: Direct Knowledge Base route (FASTEST)
@@ -1632,10 +1632,127 @@ app.post('/api/chat', async (req, res) => {
     } catch (error) {
         const TOTAL_TIME = ((Date.now() - TOTAL_START_TIME) / 1000).toFixed(1);
         logger.error(`❌ Agent request failed after ${TOTAL_TIME}s:`, error);
-        res.status(500).json({ 
+        res.status(500).json({
             error: 'An error occurred while processing your request.',
             details: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
+    }
+});
+
+// NEW: Streaming agent endpoint
+app.post('/api/chat-stream', async (req, res) => {
+    const TOTAL_START_TIME = Date.now();
+
+    // Set headers for Server-Sent Events
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+
+    try {
+        const { message } = req.body;
+
+        if (!message) {
+            res.write(`data: ${JSON.stringify({ type: 'error', message: 'Message is required' })}\n\n`);
+            return res.end();
+        }
+
+        const userQuery = message;
+        logger.log(`🔍 STREAMING AGENT START: "${userQuery}"`);
+
+        const agentStartTime = Date.now();
+        const command = new InvokeAgentCommand({
+            agentId: process.env.AGENT_ID,
+            agentAliasId: process.env.AGENT_ALIAS_ID,
+            sessionId: generateSessionId(),
+            inputText: message,
+            enableTrace: true,
+        });
+
+        const response = await bedrockClient.send(command);
+        const agentTime = ((Date.now() - agentStartTime) / 1000).toFixed(1);
+        logger.log(`🤖 AWS Agent query: ${agentTime}s`);
+
+        const processingStartTime = Date.now();
+        let agentResponse = '';
+        let sources = [];
+        let traceEvents = [];
+
+        if (response.completion) {
+            for await (const event of response.completion) {
+                if (event.chunk && event.chunk.bytes) {
+                    const chunk = new TextDecoder().decode(event.chunk.bytes);
+                    agentResponse += chunk;
+
+                    // Stream the text chunk to frontend
+                    res.write(`data: ${JSON.stringify({ type: 'content', text: chunk })}\n\n`);
+                }
+
+                if (event.trace) {
+                    traceEvents.push(event.trace);
+
+                    const references = event.trace?.orchestrationTrace?.observation?.knowledgeBaseLookupOutput?.retrievedReferences || [];
+
+                    if (references.length > 0) {
+                        sources = references.map(ref => ({
+                            id: ref.metadata?.sourceId || ref.location?.s3Location?.uri || 'unknown',
+                            title: ref.metadata?.title || ref.metadata?.source || ref.location?.s3Location?.uri || 'Unknown Source',
+                            content: ref.content?.text || '',
+                            score: ref.score || 0
+                        }));
+                    }
+                }
+            }
+        }
+
+        const processingTime = ((Date.now() - processingStartTime) / 1000).toFixed(1);
+        logger.log(`📄 Response processing: ${processingTime}s`);
+
+        // Extract video clips
+        const agentTrace = {
+            all_events: traceEvents
+        };
+
+        const videoClips = await clipExtractor.extractRelevantClips(
+            agentTrace,
+            sources,
+            agentResponse,
+            userQuery
+        );
+
+        const TOTAL_TIME = ((Date.now() - TOTAL_START_TIME) / 1000).toFixed(1);
+        logger.log(`⏱️  STREAMING AGENT TOTAL: ${TOTAL_TIME}s`);
+
+        // Send metadata
+        res.write(`data: ${JSON.stringify({
+            type: 'metadata',
+            metadata: {
+                clipCount: videoClips.length,
+                hasLLMEnhancement: !!bedrockRuntimeClient,
+                totalProcessingTime: TOTAL_TIME,
+                method: 'agent',
+                agentTime: agentTime,
+                processingTime: processingTime
+            },
+            sessionId: command.input.sessionId
+        })}\n\n`);
+
+        // Send video clips
+        res.write(`data: ${JSON.stringify({
+            type: 'clips',
+            clips: videoClips
+        })}\n\n`);
+
+        res.end();
+
+    } catch (error) {
+        const TOTAL_TIME = ((Date.now() - TOTAL_START_TIME) / 1000).toFixed(1);
+        logger.error(`❌ Streaming agent failed after ${TOTAL_TIME}s:`, error);
+        res.write(`data: ${JSON.stringify({
+            type: 'error',
+            message: 'An error occurred while processing your request.',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        })}\n\n`);
+        res.end();
     }
 });
 
