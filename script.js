@@ -1399,6 +1399,157 @@ function showVideoModal(videoUrl, title = 'Generated Video') {
     console.log('✅ Video modal created successfully');
 }
 
+// ============= VIDEO UPLOAD FUNCTIONALITY =============
+function initializeVideoUpload() {
+    const uploadToggleBtn = document.getElementById('uploadToggleBtn');
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadTabs = document.querySelectorAll('.upload-tab');
+    const youtubeTab = document.getElementById('youtubeTab');
+    const fileTab = document.getElementById('fileTab');
+    const youtubeUrl = document.getElementById('youtubeUrl');
+    const videoTitle = document.getElementById('videoTitle');
+    const submitYoutubeBtn = document.getElementById('submitYoutubeBtn');
+    const videoFileInput = document.getElementById('videoFile');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+    const submitFileBtn = document.getElementById('submitFileBtn');
+    const uploadStatus = document.getElementById('uploadStatus');
+
+    // Toggle upload form
+    uploadToggleBtn.addEventListener('click', () => {
+        const isVisible = uploadForm.style.display !== 'none';
+        uploadForm.style.display = isVisible ? 'none' : 'block';
+    });
+
+    // Tab switching
+    uploadTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            uploadTabs.forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.upload-tab-content').forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+            const tabName = tab.dataset.tab;
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        });
+    });
+
+    // File input change handler
+    videoFileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            const file = e.target.files[0];
+            fileNameDisplay.textContent = file.name;
+            submitFileBtn.disabled = false;
+        } else {
+            fileNameDisplay.textContent = 'Choose video or audio file';
+            submitFileBtn.disabled = true;
+        }
+    });
+
+    // Submit YouTube video
+    submitYoutubeBtn.addEventListener('click', async () => {
+        const url = youtubeUrl.value.trim();
+        const title = videoTitle.value.trim();
+
+        if (!url) {
+            showUploadStatus('Please enter a YouTube URL', 'error');
+            return;
+        }
+
+        await processVideo({ youtubeUrl: url, videoTitle: title });
+    });
+
+    // Submit uploaded file
+    submitFileBtn.addEventListener('click', async () => {
+        const file = videoFileInput.files[0];
+        if (!file) {
+            showUploadStatus('Please select a file', 'error');
+            return;
+        }
+
+        await processVideo({ file });
+    });
+
+    async function processVideo(data) {
+        try {
+            // Show processing status
+            showUploadStatus('Processing video... This may take a few minutes.', 'processing');
+            submitYoutubeBtn.disabled = true;
+            submitFileBtn.disabled = true;
+
+            // Prepare form data
+            const formData = new FormData();
+
+            if (data.file) {
+                formData.append('video', data.file);
+            } else {
+                formData.append('youtubeUrl', data.youtubeUrl);
+                if (data.videoTitle) {
+                    formData.append('videoTitle', data.videoTitle);
+                }
+            }
+
+            // Send to backend
+            const response = await fetch('/api/upload-video', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                showUploadStatus(
+                    `Success! Video processed and added to knowledge base.\n` +
+                    `File: ${result.data.fileName}\n` +
+                    `Sentences: ${result.data.sentenceCount}\n` +
+                    `Processing time: ${result.data.processingTime}`,
+                    'success'
+                );
+
+                // Clear inputs
+                youtubeUrl.value = '';
+                videoTitle.value = '';
+                videoFileInput.value = '';
+                fileNameDisplay.textContent = 'Choose video or audio file';
+
+                // Hide form after success
+                setTimeout(() => {
+                    uploadForm.style.display = 'none';
+                }, 3000);
+            } else {
+                showUploadStatus(
+                    `Error: ${result.error}\n${result.details || ''}`,
+                    'error'
+                );
+            }
+        } catch (error) {
+            console.error('Upload error:', error);
+            showUploadStatus(
+                `Failed to process video: ${error.message}`,
+                'error'
+            );
+        } finally {
+            submitYoutubeBtn.disabled = false;
+            submitFileBtn.disabled = false;
+        }
+    }
+
+    function showUploadStatus(message, type) {
+        uploadStatus.textContent = message;
+        uploadStatus.className = `upload-status ${type}`;
+        uploadStatus.style.display = 'block';
+    }
+
+    console.log('✅ Video upload functionality initialized');
+}
+
+// Initialize upload on load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeVideoUpload);
+} else {
+    initializeVideoUpload();
+}
+
 // Multiple initialization strategies
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeChatBot);

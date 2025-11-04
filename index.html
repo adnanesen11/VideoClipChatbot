@@ -12,6 +12,46 @@
         <header class="header">
             <h1>AI Video Intelligence Platform</h1>
             <p>Semantic search and Claude 3.5 Sonnet curation for enterprise training content</p>
+
+            <!-- Video Upload Section -->
+            <div class="upload-section">
+                <button id="uploadToggleBtn" class="test-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    Add Training Video
+                </button>
+
+                <div id="uploadForm" class="upload-form" style="display: none;">
+                    <div class="upload-tabs">
+                        <button class="upload-tab active" data-tab="youtube">YouTube URL</button>
+                        <button class="upload-tab" data-tab="file">Upload File</button>
+                    </div>
+
+                    <div id="youtubeTab" class="upload-tab-content active">
+                        <input type="text" id="youtubeUrl" placeholder="Paste YouTube URL here..." class="upload-input">
+                        <input type="text" id="videoTitle" placeholder="Video title (optional)" class="upload-input">
+                        <button id="submitYoutubeBtn" class="test-btn">Process YouTube Video</button>
+                    </div>
+
+                    <div id="fileTab" class="upload-tab-content">
+                        <input type="file" id="videoFile" accept="video/*,audio/*" class="file-input">
+                        <label for="videoFile" class="file-label">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <span id="fileNameDisplay">Choose video or audio file</span>
+                        </label>
+                        <button id="submitFileBtn" class="test-btn" disabled>Process Uploaded File</button>
+                    </div>
+
+                    <div id="uploadStatus" class="upload-status" style="display: none;"></div>
+                </div>
+            </div>
         </header>
         
         <main class="main">

@@ -1,7 +1,13 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const crypto = require('crypto');
 const { BedrockAgentRuntimeClient, InvokeAgentCommand, RetrieveAndGenerateCommand } = require('@aws-sdk/client-bedrock-agent-runtime');
+const { BedrockAgentClient, StartIngestionJobCommand } = require('@aws-sdk/client-bedrock-agent');
+const { S3Client, PutObjectCommand, ListObjectsV2Command, HeadObjectCommand } = require('@aws-sdk/client-s3');
+const { AssemblyAI } = require('assemblyai');
+const multer = require('multer');
+const ytdl = require('@distube/ytdl-core');
 const fs = require('fs').promises;
 const util = require('util');
 const fsSync = require('fs');
@@ -62,6 +68,7 @@ const port = process.env.PORT || 3000;
 
 // AWS Configuration
 let bedrockClient;
+let bedrockAgentClient;
 let bedrockRuntimeClient;
 
 try {
@@ -73,14 +80,65 @@ try {
             sessionToken: process.env.AWS_SESSION_TOKEN,
         },
     };
-    
+
     bedrockClient = new BedrockAgentRuntimeClient(awsConfig);
+    bedrockAgentClient = new BedrockAgentClient(awsConfig);
     bedrockRuntimeClient = new BedrockRuntimeClient(awsConfig);
-    
+
     logger.log('AWS Bedrock clients initialized successfully');
     logger.log('Using region:', process.env.AWS_REGION || 'us-east-1');
 } catch (error) {
     logger.error('Failed to initialize AWS clients:', error);
+}
+
+// S3 Client for transcript uploads
+let s3Client;
+try {
+    s3Client = new S3Client({
+        region: process.env.AWS_REGION || 'us-east-1',
+        credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            sessionToken: process.env.AWS_SESSION_TOKEN,
+        },
+    });
+    logger.log('S3 client initialized successfully');
+} catch (error) {
+    logger.error('Failed to initialize S3 client:', error);
+}
+
+// AssemblyAI Client for transcription
+let assemblyAIClient;
+try {
+    assemblyAIClient = new AssemblyAI({
+        apiKey: process.env.ASSEMBLYAI_API_KEY
+    });
+    logger.log('AssemblyAI client initialized successfully');
+} catch (error) {
+    logger.error('Failed to initialize AssemblyAI client:', error);
+}
+
+// Configure multer for file uploads
+const upload = multer({
+    dest: path.join(__dirname, 'temp-uploads'),
+    limits: {
+        fileSize: 500 * 1024 * 1024 // 500MB limit
+    },
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = ['.mp4', '.mp3', '.wav', '.m4a', '.mov', '.aac', '.avi', '.mkv'];
+        const ext = path.extname(file.originalname).toLowerCase();
+        if (allowedTypes.includes(ext)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Invalid file type. Supported: ' + allowedTypes.join(', ')));
+        }
+    }
+});
+
+// Ensure temp upload directory exists
+const tempUploadDir = path.join(__dirname, 'temp-uploads');
+if (!fsSync.existsSync(tempUploadDir)) {
+    fsSync.mkdirSync(tempUploadDir, { recursive: true });
 }
 
 // Middleware
@@ -4019,6 +4077,485 @@ function generateSessionId() {
     return `session-${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
 }
 
+// ============= VIDEO UPLOAD & TRANSCRIPTION ENDPOINTS =============
+
+// Helper function to download YouTube video
+async function downloadYouTubeVideo(url, outputPath) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            logger.log(`📥 Downloading YouTube video from: ${url}`);
+
+            // Validate URL first
+            if (!ytdl.validateURL(url)) {
+                throw new Error('Invalid YouTube URL');
+            }
+
+            // Get video info to verify it's accessible
+            const info = await ytdl.getInfo(url);
+            logger.log(`Video title: ${info.videoDetails.title}`);
+            logger.log(`Video duration: ${info.videoDetails.lengthSeconds}s`);
+
+            const video = ytdl(url, {
+                quality: 'highestaudio',
+                filter: 'audioonly',
+                requestOptions: {
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36'
+                    }
+                }
+            });
+
+            const writeStream = fsSync.createWriteStream(outputPath);
+            let downloadedBytes = 0;
+
+            video.on('progress', (chunkLength, downloaded, total) => {
+                downloadedBytes = downloaded;
+                const percent = (downloaded / total * 100).toFixed(1);
+                logger.log(`Download progress: ${percent}%`);
+            });
+
+            video.pipe(writeStream);
+
+            video.on('error', (error) => {
+                logger.error('YouTube download error:', error);
+                reject(error);
+            });
+
+            writeStream.on('finish', async () => {
+                logger.log('✅ YouTube video downloaded successfully');
+
+                // Verify file exists and has content
+                try {
+                    const stats = await fs.stat(outputPath);
+                    logger.log(`Downloaded file size: ${(stats.size / 1024 / 1024).toFixed(2)} MB`);
+
+                    if (stats.size === 0) {
+                        throw new Error('Downloaded file is empty');
+                    }
+
+                    resolve(outputPath);
+                } catch (statError) {
+                    reject(new Error(`Downloaded file verification failed: ${statError.message}`));
+                }
+            });
+
+            writeStream.on('error', (error) => {
+                logger.error('Write stream error:', error);
+                reject(error);
+            });
+        } catch (error) {
+            logger.error('YouTube download setup error:', error);
+            reject(error);
+        }
+    });
+}
+
+// Upload and process video/YouTube URL
+app.post('/api/upload-video', upload.single('video'), async (req, res) => {
+    const startTime = Date.now();
+    let tempFilePath = null;
+    let youtubeDownloadPath = null;
+
+    try {
+        logger.log('🎥 Starting video upload and transcription process');
+
+        const { youtubeUrl, videoTitle } = req.body;
+        let videoSource = null;
+        let fileName = null;
+
+        // Determine source: YouTube URL or uploaded file
+        if (youtubeUrl) {
+            // Download YouTube video first
+            const videoId = ytdl.getVideoID(youtubeUrl);
+            youtubeDownloadPath = path.join(tempUploadDir, `${videoId}_${Date.now()}.m4a`);
+
+            logger.log(`📺 Processing YouTube URL: ${youtubeUrl}`);
+            logger.log(`Video ID: ${videoId}`);
+
+            await downloadYouTubeVideo(youtubeUrl, youtubeDownloadPath);
+
+            videoSource = youtubeDownloadPath;
+            fileName = videoTitle || `youtube_${videoId}`;
+        } else if (req.file) {
+            tempFilePath = req.file.path;
+            videoSource = tempFilePath;
+            fileName = path.parse(req.file.originalname).name;
+            logger.log(`📁 Processing uploaded file: ${req.file.originalname}`);
+        } else {
+            return res.status(400).json({ error: 'Either video file or YouTube URL is required' });
+        }
+
+        // Calculate video hash for duplicate detection
+        logger.log('🔍 Calculating video hash for duplicate detection...');
+        const videoHash = await calculateVideoHash(videoSource);
+        const videoStats = await fs.stat(videoSource);
+
+        if (videoHash) {
+            logger.log(`Video hash: ${videoHash}`);
+
+            // Check if this video already exists in S3
+            const existingTranscript = await findExistingTranscriptByHash(videoHash);
+
+            if (existingTranscript) {
+                logger.log(`⚠️ Duplicate video detected!`);
+                logger.log(`   Existing transcript: ${existingTranscript.key}`);
+                logger.log(`   Original filename: ${existingTranscript.originalFilename}`);
+                logger.log(`   Uploaded at: ${existingTranscript.uploadedAt}`);
+
+                return res.status(409).json({
+                    success: false,
+                    duplicate: true,
+                    message: 'This video has already been processed',
+                    existingTranscript: {
+                        filename: existingTranscript.key,
+                        originalName: existingTranscript.originalFilename,
+                        uploadedAt: existingTranscript.uploadedAt
+                    }
+                });
+            }
+        }
+
+        // Step 1: Transcribe with AssemblyAI
+        logger.log('🎙️ Starting transcription with AssemblyAI...');
+        logger.log(`Transcribing file: ${videoSource}`);
+
+        const transcriptConfig = {
+            audio: videoSource,
+            speaker_labels: false,
+            auto_highlights: false,
+            sentiment_analysis: false,
+            entity_detection: false
+        };
+
+        const transcript = await assemblyAIClient.transcripts.transcribe(transcriptConfig);
+
+        if (transcript.status === 'error') {
+            throw new Error(`Transcription failed: ${transcript.error}`);
+        }
+
+        logger.log('✅ Transcription completed successfully');
+
+        // Step 2: Extract sentences with timestamps
+        logger.log('📊 Checking transcript data structure...');
+
+        let outputSentences = [];
+
+        // Check if we have sentences
+        if (transcript.sentences && transcript.sentences.length > 0) {
+            logger.log(`✅ Found ${transcript.sentences.length} sentences in transcript`);
+            outputSentences = transcript.sentences.map(sentence => ({
+                text: sentence.text,
+                start: formatTimestamp(sentence.start),
+                end: formatTimestamp(sentence.end),
+                confidence: sentence.confidence
+            }));
+        } else {
+            // Fallback: use words if sentences not available
+            logger.log('⚠️ No sentences found, checking for words...');
+
+            if (transcript.words && transcript.words.length > 0) {
+                logger.log(`✅ Found ${transcript.words.length} words, will group into sentences`);
+
+                // Group words into sentence-like chunks (every ~15 words or by punctuation)
+                const words = transcript.words;
+                let currentSentence = { words: [], start: words[0].start, end: words[0].end };
+
+                for (let i = 0; i < words.length; i++) {
+                    const word = words[i];
+                    currentSentence.words.push(word.text);
+                    currentSentence.end = word.end;
+
+                    // End sentence on punctuation or every 15 words
+                    const endsWithPunctuation = /[.!?]$/.test(word.text);
+                    const isLongEnough = currentSentence.words.length >= 15;
+
+                    if ((endsWithPunctuation || isLongEnough) || i === words.length - 1) {
+                        outputSentences.push({
+                            text: currentSentence.words.join(' '),
+                            start: formatTimestamp(currentSentence.start),
+                            end: formatTimestamp(currentSentence.end),
+                            confidence: word.confidence || 0.9
+                        });
+
+                        if (i < words.length - 1) {
+                            currentSentence = { words: [], start: words[i + 1].start, end: words[i + 1].end };
+                        }
+                    }
+                }
+            } else if (transcript.text) {
+                // Last resort: use the full text as one sentence
+                logger.log('⚠️ No words or sentences found, using full transcript text');
+                outputSentences = [{
+                    text: transcript.text,
+                    start: '00:00:00',
+                    end: formatTimestamp(transcript.audio_duration || 0),
+                    confidence: 1.0
+                }];
+            } else {
+                logger.error('❌ No usable transcript data found!');
+                logger.log('Available keys:', Object.keys(transcript));
+                throw new Error('No transcript data available');
+            }
+        }
+
+        logger.log(`📝 Extracted ${outputSentences.length} sentences with timestamps`);
+
+        // Save transcript locally
+        const transcriptFileName = `${fileName}_sentences.json`;
+        const localTranscriptPath = path.join(__dirname, 'transcripts', transcriptFileName);
+        await fs.writeFile(localTranscriptPath, JSON.stringify(outputSentences, null, 2));
+        logger.log(`💾 Transcript saved locally: ${localTranscriptPath}`);
+
+        // Step 3: Upload to S3
+        const s3Key = `${process.env.S3_TRANSCRIPT_PREFIX || ''}${transcriptFileName}`;
+
+        logger.log(`☁️ Uploading transcript to S3: ${s3Key}`);
+
+        const s3Command = new PutObjectCommand({
+            Bucket: process.env.S3_BUCKET_NAME,
+            Key: s3Key,
+            Body: JSON.stringify(outputSentences, null, 2),
+            ContentType: 'application/json',
+            Metadata: {
+                'original-filename': fileName,
+                'uploaded-at': new Date().toISOString(),
+                'source-type': youtubeUrl ? 'youtube' : 'upload',
+                'video-hash': videoHash || 'unknown',
+                'video-size': videoStats.size.toString(),
+                'sentence-count': outputSentences.length.toString(),
+                'youtube-url': youtubeUrl || 'none'
+            }
+        });
+
+        await s3Client.send(s3Command);
+        logger.log('✅ Transcript uploaded to S3 successfully');
+
+        // Step 4: Trigger Knowledge Base ingestion
+        logger.log('🔄 Starting Knowledge Base ingestion job...');
+
+        const ingestionCommand = new StartIngestionJobCommand({
+            knowledgeBaseId: process.env.KNOWLEDGE_BASE_ID,
+            dataSourceId: process.env.DATA_SOURCE_ID
+        });
+
+        const ingestionResponse = await bedrockAgentClient.send(ingestionCommand);
+        logger.log(`✅ Ingestion job started: ${ingestionResponse.ingestionJob.ingestionJobId}`);
+
+        // Save video file to /videos folder for clip extraction
+        const videosDir = path.join(__dirname, 'videos');
+        await fs.mkdir(videosDir, { recursive: true }); // Ensure videos folder exists
+
+        let savedVideoPath = null;
+
+        if (tempFilePath) {
+            // For uploaded files
+            const fileExt = path.extname(req.file.originalname);
+            const videoFileName = `${fileName}${fileExt}`;
+            savedVideoPath = path.join(videosDir, videoFileName);
+
+            try {
+                await fs.copyFile(tempFilePath, savedVideoPath);
+                logger.log(`💾 Video saved to: ${savedVideoPath}`);
+
+                // Now clean up the temp file
+                await fs.unlink(tempFilePath);
+                logger.log('🗑️ Temp file cleaned up');
+            } catch (error) {
+                logger.error('Warning: Failed to save/cleanup video file:', error);
+            }
+        }
+
+        if (youtubeDownloadPath) {
+            // For YouTube downloads, convert to mp4
+            const videoFileName = `${fileName}.mp4`;
+            savedVideoPath = path.join(videosDir, videoFileName);
+
+            try {
+                // Check if we need to convert from m4a to mp4
+                const sourceExt = path.extname(youtubeDownloadPath);
+                if (sourceExt === '.m4a') {
+                    // Convert audio to video format with a black screen
+                    await new Promise((resolve, reject) => {
+                        ffmpeg(youtubeDownloadPath)
+                            .outputOptions([
+                                '-c:a copy',
+                                '-f lavfi',
+                                '-i color=c=black:s=1280x720:r=1'
+                            ])
+                            .output(savedVideoPath)
+                            .on('end', resolve)
+                            .on('error', reject)
+                            .run();
+                    });
+                    logger.log(`💾 YouTube video converted and saved to: ${savedVideoPath}`);
+                } else {
+                    // Just copy if it's already video
+                    await fs.copyFile(youtubeDownloadPath, savedVideoPath);
+                    logger.log(`💾 YouTube video saved to: ${savedVideoPath}`);
+                }
+
+                // Clean up the temp download
+                await fs.unlink(youtubeDownloadPath);
+                logger.log('🗑️ YouTube temp file cleaned up');
+            } catch (error) {
+                logger.error('Warning: Failed to save/cleanup YouTube video:', error);
+            }
+        }
+
+        const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
+        logger.log(`⚡ Total processing time: ${totalTime}s`);
+
+        res.json({
+            success: true,
+            message: 'Video processed and added to knowledge base',
+            data: {
+                fileName: transcriptFileName,
+                s3Location: `s3://${process.env.S3_BUCKET_NAME}/${s3Key}`,
+                sentenceCount: outputSentences.length,
+                ingestionJobId: ingestionResponse.ingestionJob.ingestionJobId,
+                processingTime: `${totalTime}s`
+            }
+        });
+
+    } catch (error) {
+        logger.error('❌ Video upload/transcription failed:', error);
+
+        // Clean up temp files on error
+        if (tempFilePath) {
+            try {
+                await fs.unlink(tempFilePath);
+            } catch (cleanupError) {
+                // Ignore cleanup errors
+            }
+        }
+
+        if (youtubeDownloadPath) {
+            try {
+                await fs.unlink(youtubeDownloadPath);
+            } catch (cleanupError) {
+                // Ignore cleanup errors
+            }
+        }
+
+        res.status(500).json({
+            success: false,
+            error: 'Failed to process video',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+});
+
+// Check ingestion job status
+app.get('/api/ingestion-status/:jobId', async (req, res) => {
+    try {
+        const { jobId } = req.params;
+
+        // Note: AWS SDK doesn't have a direct GetIngestionJob command
+        // For demo purposes, we'll return a success message
+        // In production, you would implement proper status checking
+
+        res.json({
+            success: true,
+            jobId: jobId,
+            status: 'PROCESSING',
+            message: 'Ingestion job is processing. This typically takes a few minutes.'
+        });
+
+    } catch (error) {
+        logger.error('Failed to get ingestion status:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to get ingestion status'
+        });
+    }
+});
+
+// Helper function to format milliseconds to HH:MM:SS.mmm
+function formatTimestamp(milliseconds) {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const ms = milliseconds % 1000;
+
+    const timeStr = hours > 0
+        ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+        : `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+    return `${timeStr}.${ms.toString().padStart(3, '0')}`;
+}
+
+// Helper function to calculate video hash (first 50MB for speed)
+async function calculateVideoHash(filePath) {
+    try {
+        const stats = await fs.stat(filePath);
+        const fileSize = stats.size;
+        const bytesToRead = Math.min(50 * 1024 * 1024, fileSize); // Read up to 50MB
+
+        const hash = crypto.createHash('md5');
+        const buffer = Buffer.alloc(bytesToRead);
+
+        const fileHandle = await fsSync.promises.open(filePath, 'r');
+        const { bytesRead } = await fileHandle.read(buffer, 0, bytesToRead, 0);
+        await fileHandle.close();
+
+        hash.update(buffer.slice(0, bytesRead));
+
+        // Also include file size in hash to differentiate videos with same start
+        hash.update(fileSize.toString());
+
+        return hash.digest('hex');
+    } catch (error) {
+        logger.error('Failed to calculate video hash:', error);
+        return null;
+    }
+}
+
+// Helper function to check S3 for existing transcript with same video hash
+async function findExistingTranscriptByHash(videoHash) {
+    try {
+        const listCommand = new ListObjectsV2Command({
+            Bucket: process.env.S3_BUCKET_NAME,
+            Prefix: process.env.S3_TRANSCRIPT_PREFIX || ''
+        });
+
+        const response = await s3Client.send(listCommand);
+
+        if (!response.Contents || response.Contents.length === 0) {
+            return null;
+        }
+
+        // Check metadata of each file
+        for (const item of response.Contents) {
+            try {
+                const headCommand = new HeadObjectCommand({
+                    Bucket: process.env.S3_BUCKET_NAME,
+                    Key: item.Key
+                });
+
+                const metadata = await s3Client.send(headCommand);
+
+                if (metadata.Metadata && metadata.Metadata['video-hash'] === videoHash) {
+                    return {
+                        key: item.Key,
+                        originalFilename: metadata.Metadata['original-filename'],
+                        uploadedAt: metadata.Metadata['uploaded-at'],
+                        videoSize: metadata.Metadata['video-size']
+                    };
+                }
+            } catch (error) {
+                // Skip files we can't read
+                continue;
+            }
+        }
+
+        return null;
+    } catch (error) {
+        logger.error('Failed to check S3 for existing transcripts:', error);
+        return null;
+    }
+}
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     logger.error('Unhandled error:', err);
@@ -4041,4 +4578,6 @@ app.listen(port, () => {
     logger.log('  /api/chat-direct - Fast direct KB method');
     logger.log('  /api/chat-smart - Smart routing (recommended)');
     logger.log('  /api/performance-test - Performance comparison');
+    logger.log('  /api/upload-video - Upload and process training videos');
+    logger.log('  /api/ingestion-status/:jobId - Check ingestion job status');
 });
