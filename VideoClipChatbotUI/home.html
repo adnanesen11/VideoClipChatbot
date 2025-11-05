@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclipse - Where AI meets vision to transform every frame into insight.</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="main welcome-page">
+        <div class="sidebar">
+            <div class="menu"><span></span></div>
+            <div class="history">
+                <div class="accordion">
+                    <div class="accordion-title">Recent</div>
+                    <div class="accordion-description">
+                        <ul>
+                            <li><a href="./app.html"><span>What's the first step</span></a></li>
+                            <li><a href="./app.html"><span>Indexing document</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="accordion-title">Tomorrow</div>
+                    <div class="accordion-description">
+                        <ul>
+                            <li><a href="./app.html"><span>What's the first step</span></a></li>
+                            <li><a href="./app.html"><span>Indexing document</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-bottom">
+                <button id="uploadToggleBtn" class="upload-video-btn" title="Add Training Video">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span>Upload</span>
+                </button>
+                <button id="darkModeToggle" class="dark-mode-toggle" title="Toggle Dark Mode">🌙</button>
+                <div class="profile">
+                    <img src="images/profile.svg" alt="Profile" width="54">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Video Upload Section -->
+            <div id="uploadFormModal" class="upload-form-modal" style="display: none;">
+                <div class="upload-form-content">
+                    <div class="upload-header">
+                        <h3>Add Training Video</h3>
+                        <button id="closeUploadModal" class="close-modal-btn">&times;</button>
+                    </div>
+
+                    <div class="upload-tabs">
+                        <button class="upload-tab active" data-tab="youtube">YouTube URL</button>
+                        <button class="upload-tab" data-tab="file">Upload File</button>
+                    </div>
+
+                    <div id="youtubeTab" class="upload-tab-content active">
+                        <input type="text" id="youtubeUrl" placeholder="Paste YouTube URL here..." class="upload-input">
+                        <input type="text" id="videoTitle" placeholder="Video title (optional)" class="upload-input">
+                        <button id="submitYoutubeBtn" class="submit-upload-btn">Process YouTube Video</button>
+                    </div>
+
+                    <div id="fileTab" class="upload-tab-content">
+                        <input type="file" id="videoFile" accept="video/*,audio/*" class="file-input">
+                        <label for="videoFile" class="file-label">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <span id="fileNameDisplay">Choose video or audio file</span>
+                        </label>
+                        <button id="submitFileBtn" class="submit-upload-btn" disabled>Process Uploaded File</button>
+                    </div>
+
+                    <div id="uploadStatus" class="upload-status" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="welcome-container">
+                <h2>Welcome to Eclipse ✨</h2>
+                <p>Where AI meets vision to transform every frame into insight.</p>
+                <div class="welcomeForm">
+                    <div class="form-group">
+                        <input type="text" name="ask" id="welcomeInput" placeholder="Ask a question or describe what you need..." class="form-control">
+                    </div>
+                    <div class="btn-wrapper">
+                        <button type="button" class="btn btn-primary" onclick="goToChat('agent')">🤖 Agent Chat</button>
+                        <button type="button" class="btn btn-secondary" onclick="goToChat('document')">📄 Generate a Document</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        const welcomeInput = document.getElementById('welcomeInput');
+
+        // Handle Enter key press - defaults to Agent Chat
+        if (welcomeInput) {
+            welcomeInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    goToChat('agent');
+                }
+            });
+        }
+
+        function goToChat(mode) {
+            const input = document.getElementById('welcomeInput');
+            const query = input.value.trim();
+
+            if (query) {
+                // Store the query
+                sessionStorage.setItem('initialQuery', query);
+            }
+
+            // Store the mode (agent or document)
+            sessionStorage.setItem('appMode', mode || 'agent');
+
+            // Navigate to app
+            window.location.href = './app.html';
+        }
+    </script>
+</body>
+</html>
