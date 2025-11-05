@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(node test-imports.js:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
